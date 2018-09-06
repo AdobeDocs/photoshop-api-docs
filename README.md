@@ -161,7 +161,7 @@ The file Example.psd is included in this repository if you'd like to experiment 
 
 The `/documentManifest` api can take one or more input PSD's to generate JSON manifest files from. The JSON manifest is the tree representation of all of the layer objects contained in the PSD document. Using Example.psd, with the use case of a document stored in Adobe's Creative Cloud, a typical curl call might look like this:
 
-```
+```shell
 curl -X POST \
   https://image.adobe.io/pie/psdService/documentManifest \
   -H 'Authorization: Bearer eyJ4NXUiOiJjZXJ0X2ZpbGUuY2VyIiwiYWxnIjoiUlMyNTYifQ.eyJpZCI6Ijx5b3VyX2lkPiIsImNsaWVudF9pZCI6Ijx5b3VyX2NsaWVudF9pZD4iLCJ1c2VyX2lkIjoiPHVzZXJJRD5AQWRvYmVJRCIsInR5cGUiOiJhY2Nlc3NfdG9rZW4iLCJhcyI6Zm9vIiwiZmciOiJTV0tYS1hDRVg3Nzc3Nzc3TlhLTk9TSUFJWT09PT09PSIsInNpZCI6ImZvbyIsIm1vaSI6IjEwNTkwMmFlIiwiYyI6Im8xV2Y0UURoZDFBdG1jb3FwdGpqOVE9PSIsImV4cGlyZXNfaW4iOiI4NjQwMDAwMCIsInNjb3BlIjoiPHNjb3BlPiIsImNyZWF0ZWRfYXQiOiIxNTM0ODcyMzU3OTcxIn0=.amuZs0vsE6-scPjPJLEoYVPHJnY6tunspkRyfxC-1BzMAPqH9dnK64J7Ja6owLmB89tm_BTWMgj3iLZerystQBOmm7TTJER7qLzyzk2O1p0l9enulGzeOHqb995rRBkXUCduamWnfCRkFQBYDG7E1riWhzgzbQ0C_Hz8_XdAjNIGuhA9hEZXcqtBG3CTQHNWpdViKfIuSznBujBCSmok4sBPCT-WYlTjsTUyBVvv1kl1oOlKpKBZxUkYaCr6BB_BuoSJUBpePRdQPtTLsG26In5OYX4CO3ZHnBcO3u9csaiPbVTtImSsLOV7_aHDEHUKrSF9vfZU9vOb9ijZe1NqHw' \
@@ -178,7 +178,7 @@ curl -X POST \
 ```
 
 This initiates an asynchronous job and returns a request body containing the href to poll for job status and the JSON manifest.
-```
+```json
 {
     "_links": {
         "self": {
@@ -192,7 +192,7 @@ This initiates an asynchronous job and returns a request body containing the hre
 
 Using the job id returned from the previous call you can poll on the returned `/status` href to get the job status and, upon success, the JSON Manifest
 
-```
+```shell
 curl -X GET \
   https://image.adobe.io/pie/psdService/status/63c6e812-6cb8-43de-8a60-3681a9ec6feb \
   -H 'Authorization: Bearer <auth_token>' \
@@ -204,7 +204,7 @@ curl -X GET \
 
 Once your job completes (and does not report any errors) the status response will contain your document's JSON manifest along with other metadata about the input document. The JSON Manifest is further described in the [api docs](https://git.corp.adobe.com/pages/dice/pie-in-the-sky/#api-Documents-document_manifest_status)
 
-```
+```json
 {
   "jobId":"63c6e812-6cb8-43de-8a60-3681a9ec6feb",
   "outputs":[
@@ -402,7 +402,7 @@ In this example we will be editing a single text layer from Example.psd. We are 
 - LOCK THE LAYER: The layer will be locked
 - GENERATE RENDITION: We are requesting one new fullsize jpeg rendition
 
-```
+```shell
 curl -X POST \
   https://image.adobe.io/pie/psdService/documentOperations \
   -H 'Authorization: Bearer eyJ4NXUiOiJjZXJ0X2ZpbGUuY2VyIiwiYWxnIjoiUlMyNTYifQ.eyJpZCI6Ijx5b3VyX2lkPiIsImNsaWVudF9pZCI6Ijx5b3VyX2NsaWVudF9pZD4iLCJ1c2VyX2lkIjoiPHVzZXJJRD5AQWRvYmVJRCIsInR5cGUiOiJhY2Nlc3NfdG9rZW4iLCJhcyI6Zm9vIiwiZmciOiJTV0tYS1hDRVg3Nzc3Nzc3TlhLTk9TSUFJWT09PT09PSIsInNpZCI6ImZvbyIsIm1vaSI6IjEwNTkwMmFlIiwiYyI6Im8xV2Y0UURoZDFBdG1jb3FwdGpqOVE9PSIsImV4cGlyZXNfaW4iOiI4NjQwMDAwMCIsInNjb3BlIjoiPHNjb3BlPiIsImNyZWF0ZWRfYXQiOiIxNTM0ODcyMzU3OTcxIn0=.amuZs0vsE6-scPjPJLEoYVPHJnY6tunspkRyfxC-1BzMAPqH9dnK64J7Ja6owLmB89tm_BTWMgj3iLZerystQBOmm7TTJER7qLzyzk2O1p0l9enulGzeOHqb995rRBkXUCduamWnfCRkFQBYDG7E1riWhzgzbQ0C_Hz8_XdAjNIGuhA9hEZXcqtBG3CTQHNWpdViKfIuSznBujBCSmok4sBPCT-WYlTjsTUyBVvv1kl1oOlKpKBZxUkYaCr6BB_BuoSJUBpePRdQPtTLsG26In5OYX4CO3ZHnBcO3u9csaiPbVTtImSsLOV7_aHDEHUKrSF9vfZU9vOb9ijZe1NqHw' \
@@ -461,7 +461,7 @@ curl -X POST \
 
 This initiates an asynchronous job and returns a request body containing the href to poll for job status and requested rendition information.
 
-```
+```json
 {
     "_links": {
         "self": {
@@ -475,7 +475,7 @@ This initiates an asynchronous job and returns a request body containing the hre
 
 Using the job id returned from the previous call you can poll on the returned `/status` href to get the status for the edit job and each requested output
 
-```
+```shell
 curl -X GET \
   https://image.adobe.io/pie/psdService/status/8ad955af-e511-4c6f-845b-193c7bbba9b9 \
   -H 'Authorization: Bearer <auth_token>' \
@@ -485,7 +485,7 @@ curl -X GET \
 
 And this will return a request body containing the job status for each requested output and eventually either errors or the hrefs to the requested outputs
 
-```
+```json
 {
   "jobId":"8ad955af-e511-4c6f-845b-193c7bbba9b9",
   "outputs":[
@@ -503,7 +503,6 @@ And this will return a request body containing the job status for each requested
           }
         ]
       }
-    }
     }
   ],
   "_links":{
@@ -525,7 +524,7 @@ This example shows how you can add a new brightnessContrast adjustment layer to 
 - LAYER TYPE IS REQUIRED: The type indicates you want a new layer of type adjustment layer.
 - LAYER ID AND INDEX ARE NOT PRESENT: The layer index and id are not supported for add operations. The index is implied by the objects position in the manifest tree and the ID will be generated by the service and returned to you in subsequent calls to `/documentManifest`
 
-```
+```shell
 curl -X POST \
   https://image.adobe.io/pie/psdService/documentOperations \
   -H 'Authorization: Bearer eyJ4NXUiOiJjZXJ0X2ZpbGUuY2VyIiwiYWxnIjoiUlMyNTYifQ.eyJpZCI6Ijx5b3VyX2lkPiIsImNsaWVudF9pZCI6Ijx5b3VyX2NsaWVudF9pZD4iLCJ1c2VyX2lkIjoiPHVzZXJJRD5AQWRvYmVJRCIsInR5cGUiOiJhY2Nlc3NfdG9rZW4iLCJhcyI6Zm9vIiwiZmciOiJTV0tYS1hDRVg3Nzc3Nzc3TlhLTk9TSUFJWT09PT09PSIsInNpZCI6ImZvbyIsIm1vaSI6IjEwNTkwMmFlIiwiYyI6Im8xV2Y0UURoZDFBdG1jb3FwdGpqOVE9PSIsImV4cGlyZXNfaW4iOiI4NjQwMDAwMCIsInNjb3BlIjoiPHNjb3BlPiIsImNyZWF0ZWRfYXQiOiIxNTM0ODcyMzU3OTcxIn0=.amuZs0vsE6-scPjPJLEoYVPHJnY6tunspkRyfxC-1BzMAPqH9dnK64J7Ja6owLmB89tm_BTWMgj3iLZerystQBOmm7TTJER7qLzyzk2O1p0l9enulGzeOHqb995rRBkXUCduamWnfCRkFQBYDG7E1riWhzgzbQ0C_Hz8_XdAjNIGuhA9hEZXcqtBG3CTQHNWpdViKfIuSznBujBCSmok4sBPCT-WYlTjsTUyBVvv1kl1oOlKpKBZxUkYaCr6BB_BuoSJUBpePRdQPtTLsG26In5OYX4CO3ZHnBcO3u9csaiPbVTtImSsLOV7_aHDEHUKrSF9vfZU9vOb9ijZe1NqHw' \
@@ -592,7 +591,7 @@ In this example we want to replace the image in an existing pixel layer, the Her
 - NEW KEYWORD TO INDICATE AN EDIT: The `operations.edit` key is included to indicate we want to edit this layer
 - NEW KEYWORD TO INDICATE IMAGE REPLACEMENT INFO: The `layers.input` object is included to indicate where the replacement image can be found
 
-```
+```shell
 curl -X POST \
   https://image.adobe.io/pie/psdService/documentOperations \
   -H 'Authorization: Bearer eyJ4NXUiOiJjZXJ0X2ZpbGUuY2VyIiwiYWxnIjoiUlMyNTYifQ.eyJpZCI6Ijx5b3VyX2lkPiIsImNsaWVudF9pZCI6Ijx5b3VyX2NsaWVudF9pZD4iLCJ1c2VyX2lkIjoiPHVzZXJJRD5AQWRvYmVJRCIsInR5cGUiOiJhY2Nlc3NfdG9rZW4iLCJhcyI6Zm9vIiwiZmciOiJTV0tYS1hDRVg3Nzc3Nzc3TlhLTk9TSUFJWT09PT09PSIsInNpZCI6ImZvbyIsIm1vaSI6IjEwNTkwMmFlIiwiYyI6Im8xV2Y0UURoZDFBdG1jb3FwdGpqOVE9PSIsImV4cGlyZXNfaW4iOiI4NjQwMDAwMCIsInNjb3BlIjoiPHNjb3BlPiIsImNyZWF0ZWRfYXQiOiIxNTM0ODcyMzU3OTcxIn0=.amuZs0vsE6-scPjPJLEoYVPHJnY6tunspkRyfxC-1BzMAPqH9dnK64J7Ja6owLmB89tm_BTWMgj3iLZerystQBOmm7TTJER7qLzyzk2O1p0l9enulGzeOHqb995rRBkXUCduamWnfCRkFQBYDG7E1riWhzgzbQ0C_Hz8_XdAjNIGuhA9hEZXcqtBG3CTQHNWpdViKfIuSznBujBCSmok4sBPCT-WYlTjsTUyBVvv1kl1oOlKpKBZxUkYaCr6BB_BuoSJUBpePRdQPtTLsG26In5OYX4CO3ZHnBcO3u9csaiPbVTtImSsLOV7_aHDEHUKrSF9vfZU9vOb9ijZe1NqHw' \
@@ -660,7 +659,7 @@ In this example we are requesting two different outputs from our Example.psd inp
 - Example.png is a new fullsize PNG rendition
 
 
-```
+```shell
 curl -X POST \
   https://image.adobe.io/pie/psdService/renditionCreate \
   -H 'Authorization: Bearer eyJ4NXUiOiJjZXJ0X2ZpbGUuY2VyIiwiYWxnIjoiUlMyNTYifQ.eyJpZCI6Ijx5b3VyX2lkPiIsImNsaWVudF9pZCI6Ijx5b3VyX2NsaWVudF9pZD4iLCJ1c2VyX2lkIjoiPHVzZXJJRD5AQWRvYmVJRCIsInR5cGUiOiJhY2Nlc3NfdG9rZW4iLCJhcyI6Zm9vIiwiZmciOiJTV0tYS1hDRVg3Nzc3Nzc3TlhLTk9TSUFJWT09PT09PSIsInNpZCI6ImZvbyIsIm1vaSI6IjEwNTkwMmFlIiwiYyI6Im8xV2Y0UURoZDFBdG1jb3FwdGpqOVE9PSIsImV4cGlyZXNfaW4iOiI4NjQwMDAwMCIsInNjb3BlIjoiPHNjb3BlPiIsImNyZWF0ZWRfYXQiOiIxNTM0ODcyMzU3OTcxIn0=.amuZs0vsE6-scPjPJLEoYVPHJnY6tunspkRyfxC-1BzMAPqH9dnK64J7Ja6owLmB89tm_BTWMgj3iLZerystQBOmm7TTJER7qLzyzk2O1p0l9enulGzeOHqb995rRBkXUCduamWnfCRkFQBYDG7E1riWhzgzbQ0C_Hz8_XdAjNIGuhA9hEZXcqtBG3CTQHNWpdViKfIuSznBujBCSmok4sBPCT-WYlTjsTUyBVvv1kl1oOlKpKBZxUkYaCr6BB_BuoSJUBpePRdQPtTLsG26In5OYX4CO3ZHnBcO3u9csaiPbVTtImSsLOV7_aHDEHUKrSF9vfZU9vOb9ijZe1NqHw' \
@@ -692,7 +691,7 @@ curl -X POST \
 
 This initiates an asynchronous job and returns a request body containing the href to poll for job status and requested rendition information.
 
-```
+```json
 {
     "_links": {
         "self": {
@@ -706,7 +705,7 @@ This initiates an asynchronous job and returns a request body containing the hre
 
 Using the job id returned from the previous call you can poll on the returned `/status` href to get the status for each requested output
 
-```
+```shell
 curl -X GET \
   https://image.adobe.io/pie/psdService/status/de2415fb-82c6-47fc-b102-04ad651c5ed4 \
   -H 'Authorization: Bearer <auth_token>' \
@@ -716,7 +715,7 @@ curl -X GET \
 
 This will return a request body containing the job status for each requested output
 
-```
+```json
 {
   "jobId":"de2415fb-82c6-47fc-b102-04ad651c5ed4",
   "outputs":[
@@ -729,7 +728,7 @@ This will return a request body containing the job status for each requested out
         "renditions":[
           {
             "href":"files/Example.jpeg",          
-            "width": 512
+            "width": 512,
             "storage":"adobe",
             "type":"image/jpeg",      
           },
@@ -740,7 +739,6 @@ This will return a request body containing the job status for each requested out
           }
         ]
       }
-    }
     }
   ],
   "_links":{
@@ -757,7 +755,7 @@ In this example we are requesting new full size jpeg renditions from an input fo
 
 Note that the `outputs` object is using file tokens, $FileName, to create new files with the same names as the input files found
 
-```
+```shell
 curl -X POST \
   https://image.adobe.io/pie/psdService/renditionCreate \
   -H 'Authorization: Bearer eyJ4NXUiOiJjZXJ0X2ZpbGUuY2VyIiwiYWxnIjoiUlMyNTYifQ.eyJpZCI6Ijx5b3VyX2lkPiIsImNsaWVudF9pZCI6Ijx5b3VyX2NsaWVudF9pZD4iLCJ1c2VyX2lkIjoiPHVzZXJJRD5AQWRvYmVJRCIsInR5cGUiOiJhY2Nlc3NfdG9rZW4iLCJhcyI6Zm9vIiwiZmciOiJTV0tYS1hDRVg3Nzc3Nzc3TlhLTk9TSUFJWT09PT09PSIsInNpZCI6ImZvbyIsIm1vaSI6IjEwNTkwMmFlIiwiYyI6Im8xV2Y0UURoZDFBdG1jb3FwdGpqOVE9PSIsImV4cGlyZXNfaW4iOiI4NjQwMDAwMCIsInNjb3BlIjoiPHNjb3BlPiIsImNyZWF0ZWRfYXQiOiIxNTM0ODcyMzU3OTcxIn0=.amuZs0vsE6-scPjPJLEoYVPHJnY6tunspkRyfxC-1BzMAPqH9dnK64J7Ja6owLmB89tm_BTWMgj3iLZerystQBOmm7TTJER7qLzyzk2O1p0l9enulGzeOHqb995rRBkXUCduamWnfCRkFQBYDG7E1riWhzgzbQ0C_Hz8_XdAjNIGuhA9hEZXcqtBG3CTQHNWpdViKfIuSznBujBCSmok4sBPCT-WYlTjsTUyBVvv1kl1oOlKpKBZxUkYaCr6BB_BuoSJUBpePRdQPtTLsG26In5OYX4CO3ZHnBcO3u9csaiPbVTtImSsLOV7_aHDEHUKrSF9vfZU9vOb9ijZe1NqHw' \
