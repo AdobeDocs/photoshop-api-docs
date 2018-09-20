@@ -1,3 +1,4 @@
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
@@ -5,8 +6,10 @@
 - [Welcome to Photoshop API's!](#welcome-to-photoshop-apis)
 - [Setup](#setup)
   - [Authentication](#authentication)
-    - [Service-to-service clients](#service-to-service-clients)
     - [Individual users](#individual-users)
+    - [Service-to-service clients](#service-to-service-clients)
+      - [Assets stored on Adobe's Creative Cloud](#assets-stored-on-adobes-creative-cloud)
+      - [Assets stored externally to Adobe](#assets-stored-externally-to-adobe)
   - [API Keys](#api-keys)
   - [Retries](#retries)
   - [Rate Limiting](#rate-limiting)
@@ -51,9 +54,44 @@ The access token must never be transmitted as a URI parameter. Doing so would ex
 
 There are two scenarios that require different authentication methods:
 
+### Individual users
+
+Individual users will create their OAuth access token using Adobe IMS endpoints. You will be emailed your Client ID and Client Secret required for the IMS endpoint after you've been accepted to the PreRelease program.  Once you've received your email...
+- Do a quick test:
+	- Browse to [https://ps-prerelease-us-east-1.cloud.adobe.io/](https://ps-prerelease-us-east-1.cloud.adobe.io/)
+	- Add your Client ID and Client Secret sent in email
+	- Enter your Adobe credentials when prompted
+	- Use the access token to try the example calls further down this README
+
+Additional instructions regarding the Adobe IMS endpoints can be found at [Generating Access Tokens](https://www.adobe.io/authentication/auth-methods.html#!adobeio/adobeio-documentation/master/auth/OAuth2.0Endpoints/web-oauth2.0-guide.md#generatingaccesstokens)
+Additional instructions can be found at [Setting up OAuth authentication](https://www.adobe.io/authentication/auth-methods.html#!adobeio/adobeio-documentation/master/auth/OAuth2.0Endpoints/web-oauth2.0-guide.md)
+Complete examples for OAuth endpoints can be found at [OAuth endpoint examples](https://www.adobe.io/authentication/auth-methods.html#!adobeio/adobeio-documentation/master/auth/OAuth2.0Endpoints/web-oauth2.0-guide.md#completeexamplesforoauthendpoints)
+
+
 ### Service-to-service clients
 
-For service-to-service clients you'll need to set up an Adobe I/O Console Integration and create a JSON Web Token (JWT) to use as your access token for Photoshop API's
+For service-to-service clients you'll need to set up an Adobe I/O Console Integration and create a JSON Web Token (JWT) to retrieve your access token for Photoshop API's. It is assumed your organization already has an Adobe IMS Org ID and you have added the required users to it.
+
+The type of integration you need to create depends on where you plan on storing your assets:
+
+#### Assets stored on Adobe's Creative Cloud
+
+- Browse to https://console.adobe.io/integrations
+- Select New Integration
+- Select `Access an API`
+- Select `Creative SDK`
+	- Platform: Web
+	- Default Redirect URI:
+	- Redirect URI pattern:
+- After the Creative SDK integration is created browse to the `Services` tab
+- Add the`Photoshop` service
+- Select `Service Account integration`
+- Select `Create new integration`
+
+To retrieve your access token see additional instructions at [Setting up JWT Authentication](https://www.adobe.io/authentication/auth-methods.html#!adobeio/adobeio-documentation/master/auth/JWTAuthenticationQuickStart.md)
+
+#### Assets stored externally to Adobe
+This applies to assets stored outside of Adobe's Creative Cloud and accessed via preSigned URL's
 
 - Browse to https://console.adobe.io/integrations
 - Select New Integration
@@ -62,22 +100,7 @@ For service-to-service clients you'll need to set up an Adobe I/O Console Integr
 - Select `Service Account integration`
 - Select `Create new integration`
 
-Additional instructions can be found at [Setting up JWT Authentication](https://www.adobe.io/authentication/auth-methods.html#!adobeio/adobeio-documentation/master/auth/JWTAuthenticationQuickStart.md)
-
-### Individual users
-
-Individual users will create their OAuth token using Adobe IMS endpoints.
-
-- Browse to https://console.adobe.io/integrations
-- Select New Integration
-- Select `Access an API`
-- Select `Photoshop`
-- Select `OAuth Integration`
-- Select `Create new integration`
-
-
-Additional instructions can be found at [Setting up OAuth authentication](https://www.adobe.io/authentication/auth-methods.html#!adobeio/adobeio-documentation/master/auth/OAuth2.0Endpoints/web-oauth2.0-guide.md)
-Complete examples for OAuth endpoints can be found at [OAuth endpoint examples](https://www.adobe.io/authentication/auth-methods.html#!adobeio/adobeio-documentation/master/auth/OAuth2.0Endpoints/web-oauth2.0-guide.md#completeexamplesforoauthendpoints)
+To retrieve your access token see additional instructions at [Setting up JWT Authentication](https://www.adobe.io/authentication/auth-methods.html#!adobeio/adobeio-documentation/master/auth/JWTAuthenticationQuickStart.md)
 
 ## API Keys
 
@@ -784,9 +807,6 @@ curl -X POST \
 Currently known issues:
 
 - Multi-part uploads and downloads are not yet supported
-- Making changes to a text layer may result in changes to the font size
-- There is a limit of <TBD> assets contained within an input folder path on Creative Cloud storage
 - Clients can only use assets stored on EITHER Adobe's Creative Cloud or external storage (like AWS S3)
 - The `/documentOperations` endpoint only supports a single PSD input
-- The `/documentOperations` endpoint will not support PSD input files that only contain a single background image and zero layers
 - Error handling is a work in progress. Sometimes you may not see the most helpful of messages
