@@ -1,4 +1,5 @@
 
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
@@ -72,23 +73,10 @@ Complete examples for OAuth endpoints can be found at [OAuth endpoint examples](
 
 For service-to-service clients you'll need to set up an Adobe I/O Console Integration and create a JSON Web Token (JWT) to retrieve your access token for Photoshop API's. It is assumed your organization already has an Adobe IMS Org ID and you have added the required users to it.
 
-The type of integration you need to create depends on where you plan on storing your assets:
 
 #### Assets stored on Adobe's Creative Cloud
 
-- Browse to https://console.adobe.io/integrations
-- Select New Integration
-- Select `Access an API`
-- Select `Creative SDK`
-	- Platform: Web
-	- Default Redirect URI:
-	- Redirect URI pattern:
-- After the Creative SDK integration is created browse to the `Services` tab
-- Add the`Photoshop` service
-- Select `Service Account integration`
-- Select `Create new integration`
-
-To retrieve your access token see additional instructions at [Setting up JWT Authentication](https://www.adobe.io/authentication/auth-methods.html#!adobeio/adobeio-documentation/master/auth/JWTAuthenticationQuickStart.md)
+The Adobe Photoshop API's currently have a limitation that Service clients must store their assets externally to Adobe's Creative Cloud...
 
 #### Assets stored externally to Adobe
 This applies to assets stored outside of Adobe's Creative Cloud and accessed via preSigned URL's
