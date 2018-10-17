@@ -793,9 +793,9 @@ curl -X POST \
 
 # Sample Code
 
-The [samples](samples) folder in this repo contains sample code for authenticating with JWT. And, sample code for calling the Photoshop APIs. 
+The [sample_code](sample_code) folder in this repo contains sample code for authenticating with JWT. And, sample code for calling the Photoshop APIs. 
 
-Note that the samples are covered by the MIT license. 
+Note that the sample code is covered by the MIT license. 
 
 # Release Notes
 
