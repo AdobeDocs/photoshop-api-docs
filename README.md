@@ -37,6 +37,7 @@
       - [Example 1: A single file input](#example-1-a-single-file-input)
     - [Example 2: Poll for status and results](#example-2-poll-for-status-and-results-2)
     - [Example 3: A folder input (multiple files)](#example-3-a-folder-input-multiple-files)
+- [Sample Apps](#sample-apps)
 - [Release Notes](#release-notes)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -789,6 +790,12 @@ curl -X POST \
 }
 '
 ```
+
+# Sample Code
+
+The (samples)[https://github.com/adobe/photoshop-api-docs/tree/samples] folder in this repo contains sample code for authenticating with JWT and OAuth. And, sample code for calling the Photoshop APIs. 
+
+Note that the samples are covered by the MIT license. 
 
 # Release Notes
 
