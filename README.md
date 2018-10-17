@@ -165,13 +165,13 @@ This is a list of currently supported features
 
 # How to use the API's
 
-The file Example.psd is included in this repository if you'd like to experiment with these example calls on your own.
+Several [sample PSD files](sample_files) are included in this repository if you'd like to experiment with these example calls on your own.
 
 ## /documentManifest (Retrieving a PSD manifest)
 
 ### Example 1: Initiate a job to retrieve a PSD's JSON manifest
 
-The `/documentManifest` api can take one or more input PSD's to generate JSON manifest files from. The JSON manifest is the tree representation of all of the layer objects contained in the PSD document. Using Example.psd, with the use case of a document stored in Adobe's Creative Cloud, a typical curl call might look like this:
+The `/documentManifest` api can take one or more input PSD's to generate JSON manifest files from. The JSON manifest is the tree representation of all of the layer objects contained in the PSD document. Using [Example.psd](sample_files/Example.psd), with the use case of a document stored in Adobe's Creative Cloud, a typical curl call might look like this:
 
 ```shell
 curl -X POST \
