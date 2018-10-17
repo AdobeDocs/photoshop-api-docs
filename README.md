@@ -793,7 +793,7 @@ curl -X POST \
 
 # Sample Code
 
-The (samples)[https://github.com/adobe/photoshop-api-docs/tree/samples] folder in this repo contains sample code for authenticating with JWT and OAuth. And, sample code for calling the Photoshop APIs. 
+The [samples](samples) folder in this repo contains sample code for authenticating with JWT. And, sample code for calling the Photoshop APIs. 
 
 Note that the samples are covered by the MIT license. 
 
