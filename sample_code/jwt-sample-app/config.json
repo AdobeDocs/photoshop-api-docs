@@ -1,0 +1,47 @@
+{
+  "@comment":[
+    "Note the identity info given assumes use of Json Web Tokens (JWT).",
+    "Success tokens from Adobe IMS declare their own expiry timeout.",
+    "Storage of secrets in this file are for sample/exaple purposes only and are not valid values",
+    "Follow appropriate practice in production for secrets."
+  ],
+  "@descriptions_identity_fields":{
+    "client_id": "Copy from the Overview tab of your I/O Console Integration",
+    "client_secret": "Copy from the Overview tab of your I/O Console Integration",
+    "private_key_file": "The path to your local .pem or .key file",
+    "audience": "Copy the 'aud' value from the JWT tab of your I/O Console Integration",
+    "claim": "Copy the 'https' key from the JWT tab of your I/O Console Integration",
+    "issuer": "Copy the 'iss' value from the JWT tab of your I/O Console Integration",
+    "subject": "Copy the 'sub' value from the JWT tab of your I/O Console Integration"
+  },
+  "identity":{
+    "type":"jwt",
+    "client_id":"12345678910111213141516171819200",
+    "client_secret":"12121212-abcd-1212-abcd-123456abcdef",
+    "private_key_file":"~/private.key",
+    "audience":"https://ims-na1.adobelogin.com/c/12121212121212121212121212121212",
+    "claim":"https://ims-na1.adobelogin.com/s/ent_default_sdk",
+    "issuer":"<UUID>@AdobeOrg",
+    "subject":"<UUID>@techacct.adobe.com"
+  },
+  "@descriptions_sample_file_fields":{
+    "s3_bucket": "your s3 bucket",
+    "s3_prefix": "S3 path to your sample PSD file",
+    "s3_rendition_prefix": "Desired S3 location for your new rendition",
+    "rendition_type": "Possible values are 'image/jpeg' and 'image/png'",
+    "rendition_width": "Integer value in pixel. e.g. 200",
+    "s3_add_layer_prefix": "Desired S3 location for your file with added layer"
+  },
+  "sample_file":{
+    "s3_bucket":"my-s3-bucket",
+    "s3_prefix":"test/Sunflower.psd",
+    "s3_rendition_prefix":"test/Sunflower-out-200.jpg",
+    "rendition_type":"image/jpeg",
+    "rendition_width":"200",
+    "s3_add_layer_prefix":"test/Sunflower-out-add-layer.jpg"
+  },
+  "services":{
+    "adobeIms":"https://ims-na1.adobelogin.com",
+    "psdService":"https://image.adobe.io/pie/psdService"
+  }
+}
