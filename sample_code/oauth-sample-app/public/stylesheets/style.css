@@ -1,0 +1,25 @@
+* {
+	font-family: sans-serif;
+}
+
+button {
+	display: block;
+    margin: 10px auto;
+}
+
+body {
+	margin: 60px 40px;
+	text-align: center;
+}
+
+.btn-group {
+	margin: 20px auto;	
+	width: 30%;
+}
+
+.title {
+	display: inline-block;
+	padding-bottom: -10px;
+	text-align: center;
+	margin: 20px;
+}

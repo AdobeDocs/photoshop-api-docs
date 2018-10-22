@@ -1,0 +1,23 @@
+{
+  "name": "pie-in-the-sky-oauth-sample-node",
+  "version": "1.0.0",
+  "description": "pie-in-the-sky oauth node example",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./server/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3",
+    "express-session": "^1.15.6",
+    "pug": "^2.0.3",
+    "request": "^2.85.0",
+    "request-promise": "^4.2.2"
+  },
+  "devDependencies": {
+    "standard": "^12.0.1"
+  }
+}

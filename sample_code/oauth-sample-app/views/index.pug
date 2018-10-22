@@ -1,0 +1,14 @@
+doctype
+html
+  head
+    title Adobe Photoshop API OAuth Example
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    header
+      h1 Adobe Photoshop API OAuth App
+    .button-group
+      button(onclick="location.href='/login'") Log In with Adobe
+      button(onclick="location.href='/profile'") Get Profile
+      button(onclick="location.href='/manifest'") Get Manifest
+    .canvas
+      p #{response}
