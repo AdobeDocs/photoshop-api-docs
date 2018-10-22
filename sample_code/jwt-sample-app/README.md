@@ -36,9 +36,9 @@ After setting up the sample, you will have a Node.js app that:
 
 ## Prerequisites
 
-This guide will assume that you have read the [JWT Authentication Quick Start](https://github.com/adobeio/adobeio-documentation/blob/master/auth/JWTAuthenticationQuickStart.md).
+Please be sure to follow the instructions about obtaining your JWT credentials under [Service to Service Clients](https://github.com/adobe/photoshop-api-docs/blob/master/README.md#service-to-service-clients)
 
-You must also have a registered integration on the Adobe I/O Console.
+You will also need an AWS account with access to S3.
 
 ## Configuration
 
@@ -79,7 +79,7 @@ In `config.json`, provide an AWS S3 bucket and prefix for the sample Photoshop f
         "s3_prefix": "<your sample file, e.g., test/Sunflower.psd>",
         "s3_rendition_prefix": "<location for rendition output,e.g., test/Sunflower-out-200.jpg>",
         "rendition_type": "<rendition type, e.g., image/jpeg>",
-        "rendition_width": "<integer value in pixels, e.g., 200>",
+        "rendition_width": <integer value in pixels, e.g., 200>,
         "s3_add_layer_prefix": "<location for add layer output, e.g., test/Sunflower-out-add-layer.jpg>"
     }
 ```
