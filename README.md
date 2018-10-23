@@ -15,6 +15,7 @@
   - [Retries](#retries)
   - [Rate Limiting](#rate-limiting)
 - [General Workflow](#general-workflow)
+  - [Creative Cloud Assets](#creative-cloud-assets)
   - [Fonts](#fonts)
   - [Tracking document changes](#tracking-document-changes)
 - [Supported Features](#supported-features)
@@ -37,7 +38,7 @@
       - [Example 1: A single file input](#example-1-a-single-file-input)
     - [Example 2: Poll for status and results](#example-2-poll-for-status-and-results-2)
     - [Example 3: A folder input (multiple files)](#example-3-a-folder-input-multiple-files)
-- [Sample Apps](#sample-apps)
+- [Sample Code](#sample-code)
 - [Release Notes](#release-notes)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -110,6 +111,10 @@ We have not put a throttle limit on requests to the API at this time.
 
 The typical workflow involves retrieving a PSD document manifest file via `/documentManifest` (a JSON representation of the documents layer tree), followed by one or more calls to `/documentOperations` to optionally edit the PSD and/or create new image renditions. Both endpoints are asynchronous so the response will contain the `/status` endpoint to poll for job status and results
 
+## Creative Cloud Assets
+
+You'll see in the documentation that assets can be stored in your Creative Cloud Library or externally (and therefore retrieved with a presigned GET URL). For Creative Cloud asset your `href` parameter must begin with `/files/` as this is the relative path to your assets used by Creative Cloud. The `/files` path directly corresponds to the root of your local `Creative Cloud Files` folder.
+
 ## Fonts
 
 Font support is a work in progress. The API's all use the postscript name.
@@ -123,7 +128,7 @@ If you are making multiple edits to a PSD during the course of a user session it
 
 # Supported Features
 
-This is a list of currently supported features
+This is a list of initially supported features. Please see the Release Notes in the [Adobe Pre-Release Discussion Forums](https://forums.adobeprerelease.com/photoshopapiservice) for an up-to-date list, including bug fixes
 
 ## Layer level edits
 
@@ -164,6 +169,8 @@ This is a list of currently supported features
 - Create a PEG or PNG rendition of various sizes
 
 # How to use the API's
+
+The steps below will walk you through using several of the api's and should provide sufficient understanding to use any other api's not covered here.
 
 Several [sample PSD files](sample_files) are included in this repository if you'd like to experiment with these example calls on your own.
 
@@ -793,11 +800,13 @@ curl -X POST \
 
 # Sample Code
 
-The [sample_code](sample_code) folder in this repo contains sample code for authenticating with JWT. And, sample code for calling the Photoshop APIs. 
+The [sample_code](sample_code) folder in this repo contains sample code for authenticating with JWT. And, sample code for calling the Photoshop APIs.
 
-Note that the sample code is covered by the MIT license. 
+Note that the sample code is covered by the MIT license.
 
 # Release Notes
+
+Please see the Release Notes in the [Adobe Pre-Release Discussion Forums](https://forums.adobeprerelease.com/photoshopapiservice) for an up-to-date list of new features  and bug fixes.
 
 Currently known issues:
 
