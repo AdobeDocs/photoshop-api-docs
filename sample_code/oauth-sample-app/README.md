@@ -87,7 +87,9 @@ You can get your Adobe API Key and Secret from your registered app page on the [
 
 ### Set your sample file path
 
-Copy a sample file to the root of your "Creative Cloud Files" folder. Put the name of your sample file in `./config.json`.
+Copy a sample PSD file to the root of your "Creative Cloud Files" folder. You can find sample files [here](../../sample_files). Put the name of your sample file in `./config.json`. 
+
+Note that the root of your "Creative Cloud Files" folder maps to the relative url "/files" in Creative Cloud storage.
 
 
 ```json
