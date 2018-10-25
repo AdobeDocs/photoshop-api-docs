@@ -42,13 +42,18 @@ Be sure to follow all instructions in the `readme`.
 
 ## Prerequisites
 
-This guide will assume that you have read the [Adobe OAuth 2.0 Guide for Web](https://github.com/adobeio/adobeio-documentation/blob/master/auth/OAuth2.0Endpoints/web-oauth2.0-guide.md).
+This guide assumes that you have read the [Adobe OAuth 2.0 Guide for Web](https://github.com/adobeio/adobeio-documentation/blob/master/auth/OAuth2.0Endpoints/web-oauth2.0-guide.md).
 
-You must also have [a registered app on the Adobe I/O Console](https://github.com/adobeio/adobeio-documentation/blob/master/auth/OAuth2.0Endpoints/web-oauth2.0-guide.md#register-your-application-and-enable-apis) with the following settings:
+You may have received a `Client ID` (API Key) and `Client Secret` from the Adobe prerelease manager via email. If so, you will those Adobe API credentials. 
+
+You will need to ask the Adobe prerelease manager to set a `Redirect URI Pattern` for your Client ID. For this sample app, the pattern needs to include `https://localhost:8000`. 
+
+Otherwise, you must have [a registered app on the Adobe I/O Console](https://github.com/adobeio/adobeio-documentation/blob/master/auth/OAuth2.0Endpoints/web-oauth2.0-guide.md#register-your-application-and-enable-apis) with the following settings:
 
 1. `Platform`: web
-1. `Default redirect URI`: `https://localhost:8000`
 1. `Redirect URI Pattern`: `https://localhost:8000`
+
+You may also use `Default redirect URI`: `https://localhost:8000`
 
 ## Configuration
 
@@ -63,7 +68,7 @@ $ cd server
 $ openssl req -x509 -newkey rsa:4096 -nodes -out cert.pem -keyout key.pem -days 365
 ```
 
-Make sure that after running this command you have the `cert.pem` and `key.pem` files at the top level of the `.server` directory.
+Make sure that after running this command you have the `cert.pem` and `key.pem` files at the top level of the `./server` directory.
 
 ### Install Node.js packages
 
@@ -82,8 +87,6 @@ Set your Adobe API credentials as environment variables.
 export PS_ADOBE_API_KEY=<YOUR_API_KEY>
 export PS_ADOBE_API_SECRET=<YOUR_API_SECRET>
 ```
-
-You can get your Adobe API Key and Secret from your registered app page on the [Adobe I/O Console](https://github.com/adobeio/adobeio-documentation/blob/master/auth/OAuth2.0Endpoints/web-oauth2.0-guide.md#register-your-application-and-enable-apis).
 
 ### Set your sample file path
 
