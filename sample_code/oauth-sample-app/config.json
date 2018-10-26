@@ -1,0 +1,8 @@
+{
+    "sampleFile": "files/Sunflower.psd",
+    "services": {
+        "adobeImsEndpoint": "https://ims-na1.adobelogin.com",
+        "adobeImsRedirectUri": "https://localhost:8000/callback",
+        "psdService": "https://image.adobe.io/pie/psdService"
+    }
+}
