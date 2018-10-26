@@ -161,6 +161,7 @@ app.get('/manifest', function (req, res) {
       })
       .catch(function (error) {
         console.log('Failed - error making request')
+        console.log(error.message)
         if (error.statusCode === 400) {
           return res.render('index', { 'response': error.message })
         }
