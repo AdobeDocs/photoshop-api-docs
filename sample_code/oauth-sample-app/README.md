@@ -75,7 +75,6 @@ Make sure that after running this command you have the `cert.pem` and `key.pem` 
 The `package.json` file contains a list of dependencies. Run the following command from the top level directory of the app to install these dependencies:
 
 ```
-$ cd ..
 $ npm install
 ```
 
