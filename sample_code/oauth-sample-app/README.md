@@ -44,9 +44,7 @@ Be sure to follow all instructions in the `readme`.
 
 This guide assumes that you have read the [Adobe OAuth 2.0 Guide for Web](https://github.com/adobeio/adobeio-documentation/blob/master/auth/OAuth2.0Endpoints/web-oauth2.0-guide.md).
 
-You may have received a `Client ID` (API Key) and `Client Secret` from the Adobe prerelease manager via email. If so, you will those Adobe API credentials. 
-
-You will need to ask the Adobe prerelease manager to set a `Redirect URI Pattern` for your Client ID. For this sample app, the pattern needs to include `https://localhost:8000`. 
+You may have received a `Client ID` (API Key) and `Client Secret` from the Adobe prerelease manager via email. If so, you will those Adobe API credentials. (For this sample app, there is a Redirect URI Pattern that is set up by the Adobe prerelease manager to include `https://localhost:8000`. It should already be configured if you received your `Client ID` and `Client Secret` via email.)
 
 Otherwise, you must have [a registered app on the Adobe I/O Console](https://github.com/adobeio/adobeio-documentation/blob/master/auth/OAuth2.0Endpoints/web-oauth2.0-guide.md#register-your-application-and-enable-apis) with the following settings:
 
