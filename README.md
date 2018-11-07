@@ -51,7 +51,7 @@ The Adobe Photoshop API's will allow you to make both layer and document level e
 
 ## Authentication
 
-You must pass in an OAuth 2.0 access token with every request. The Photoshop API's does not provide any API methods for authentication or authorization. Access tokens are granted by Adobe's IMS service. The Photo API needs an access token in the scope="system,openid,AdobeID,creative_sdk" and hence it is required that you pass in this parameter to the IMS Login Authorization API.
+You must pass in an OAuth 2.0 access token with every request. The Photoshop API's does not provide any API methods for authentication or authorization. Access tokens are granted by Adobe's IMS service. The Photoshop API needs an access token in the scope="openid,creative_sdk" and hence it is required that you pass in this parameter to the IMS Login Authorization API.
 
 The access token must never be transmitted as a URI parameter. Doing so would expose it to being captured in-the-clear by intermediaries such as proxy server logs. The API does not allow you to send an access token anywhere except the Authorization header field.
 
