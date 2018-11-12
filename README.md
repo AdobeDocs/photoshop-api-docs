@@ -22,6 +22,7 @@
   - [Layer level edits](#layer-level-edits)
   - [Document level edits](#document-level-edits)
   - [Rendering](#rendering)
+- [API Docs](#api-docs)
 - [How to use the API's](#how-to-use-the-apis)
   - [/documentManifest (Retrieving a PSD manifest)](#documentmanifest-retrieving-a-psd-manifest)
     - [Example 1: Initiate a job to retrieve a PSD's JSON manifest](#example-1-initiate-a-job-to-retrieve-a-psds-json-manifest)
@@ -167,6 +168,15 @@ This is a list of initially supported features. Please see the Release Notes in 
 
 - Create a new PSD document
 - Create a PEG or PNG rendition of various sizes
+
+# API Docs
+
+For now the API docs need to be downloaded and viewed locally in a browser.  
+
+- Set up your SSH key for Git connectivity: [https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
+- Clone the Git repo locally: [https://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository](https://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository)  (scroll to the 'Cloning an Existing Repository' section)
+- Open your local file './api_docs/index.html' in a browser
+- Updates to the API's will be announced in the Release Notes and your local API docs can be updated by doing a `git pull`
 
 # How to use the API's
 
