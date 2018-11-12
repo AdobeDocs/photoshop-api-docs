@@ -1,5 +1,6 @@
 
 
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
@@ -67,14 +68,14 @@ Individual users will create their OAuth access token using Adobe IMS endpoints.
 	- Enter your Adobe credentials when prompted
 	- Use the access token to try the example calls further down this README
 
-Additional instructions regarding the Adobe IMS endpoints can be found at [Generating Access Tokens](https://www.adobe.io/authentication/auth-methods.html#!adobeio/adobeio-documentation/master/auth/OAuth2.0Endpoints/web-oauth2.0-guide.md#generatingaccesstokens)
+Additional instructions regarding the Adobe IMS endpoints can be found at [Generating Access Tokens](https://www.adobe.io/authentication/auth-methods.html#!adobeio/adobeio-documentation/master/auth/OAuth2.0Endpoints/web-oauth2.0-guide.md#generatingaccesstokens) and [Adobe IMS endpoints](https://adobe-apiplatform.github.io/umapi-documentation/en/UM_Authentication.html)
 Additional instructions can be found at [Setting up OAuth authentication](https://www.adobe.io/authentication/auth-methods.html#!adobeio/adobeio-documentation/master/auth/OAuth2.0Endpoints/web-oauth2.0-guide.md)
 Complete examples for OAuth endpoints can be found at [OAuth endpoint examples](https://www.adobe.io/authentication/auth-methods.html#!adobeio/adobeio-documentation/master/auth/OAuth2.0Endpoints/web-oauth2.0-guide.md#completeexamplesforoauthendpoints)
 
 
 ### Service-to-service clients
 
-For service-to-service clients you'll need to set up an Adobe I/O Console Integration and create a JSON Web Token (JWT) to retrieve your access token for Photoshop API's. It is assumed your organization already has an Adobe IMS Org ID and you have added the required users to it.
+For service-to-service clients you'll need to set up an [Adobe I/O Console Integration](https://console.adobe.io/integrations/new) and create a JSON Web Token (JWT) to retrieve your access token for Photoshop API's. It is assumed your organization already has an Adobe IMS Org ID and you have added the required users to it.
 
 
 #### Assets stored on Adobe's Creative Cloud
