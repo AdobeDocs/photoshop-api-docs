@@ -1,6 +1,5 @@
 
 
-
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
@@ -16,14 +15,13 @@
   - [Retries](#retries)
   - [Rate Limiting](#rate-limiting)
 - [General Workflow](#general-workflow)
-  - [Creative Cloud Assets](#creative-cloud-assets)
   - [Fonts](#fonts)
   - [Tracking document changes](#tracking-document-changes)
 - [Supported Features](#supported-features)
   - [Layer level edits](#layer-level-edits)
+  - [Artboards](#artboards)
   - [Document level edits](#document-level-edits)
-  - [Rendering](#rendering)
-- [API Docs](#api-docs)
+  - [Rendering / Conversions](#rendering--conversions)
 - [How to use the API's](#how-to-use-the-apis)
   - [/documentManifest (Retrieving a PSD manifest)](#documentmanifest-retrieving-a-psd-manifest)
     - [Example 1: Initiate a job to retrieve a PSD's JSON manifest](#example-1-initiate-a-job-to-retrieve-a-psds-json-manifest)
@@ -40,7 +38,6 @@
       - [Example 1: A single file input](#example-1-a-single-file-input)
     - [Example 2: Poll for status and results](#example-2-poll-for-status-and-results-2)
     - [Example 3: A folder input (multiple files)](#example-3-a-folder-input-multiple-files)
-- [Sample Code](#sample-code)
 - [Release Notes](#release-notes)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -53,7 +50,7 @@ The Adobe Photoshop API's will allow you to make both layer and document level e
 
 ## Authentication
 
-You must pass in an OAuth 2.0 access token with every request. The Photoshop API's does not provide any API methods for authentication or authorization. Access tokens are granted by Adobe's IMS service. The Photoshop API needs an access token in the scope="openid,creative_sdk" and hence it is required that you pass in this parameter to the IMS Login Authorization API.
+You must pass in an OAuth 2.0 access token with every request. The Photoshop API's does not provide any API methods for authentication or authorization. Access tokens are granted by Adobe's IMS service. The Photo API needs an access token in the scope="system,openid,AdobeID,creative_sdk" and hence it is required that you pass in this parameter to the IMS Login Authorization API.
 
 The access token must never be transmitted as a URI parameter. Doing so would expose it to being captured in-the-clear by intermediaries such as proxy server logs. The API does not allow you to send an access token anywhere except the Authorization header field.
 
@@ -68,14 +65,14 @@ Individual users will create their OAuth access token using Adobe IMS endpoints.
 	- Enter your Adobe credentials when prompted
 	- Use the access token to try the example calls further down this README
 
-Additional instructions regarding the Adobe IMS endpoints can be found at [Generating Access Tokens](https://www.adobe.io/authentication/auth-methods.html#!adobeio/adobeio-documentation/master/auth/OAuth2.0Endpoints/web-oauth2.0-guide.md#generatingaccesstokens) and [Adobe IMS endpoints](https://adobe-apiplatform.github.io/umapi-documentation/en/UM_Authentication.html)
+Additional instructions regarding the Adobe IMS endpoints can be found at [Generating Access Tokens](https://www.adobe.io/authentication/auth-methods.html#!adobeio/adobeio-documentation/master/auth/OAuth2.0Endpoints/web-oauth2.0-guide.md#generatingaccesstokens)
 Additional instructions can be found at [Setting up OAuth authentication](https://www.adobe.io/authentication/auth-methods.html#!adobeio/adobeio-documentation/master/auth/OAuth2.0Endpoints/web-oauth2.0-guide.md)
 Complete examples for OAuth endpoints can be found at [OAuth endpoint examples](https://www.adobe.io/authentication/auth-methods.html#!adobeio/adobeio-documentation/master/auth/OAuth2.0Endpoints/web-oauth2.0-guide.md#completeexamplesforoauthendpoints)
 
 
 ### Service-to-service clients
 
-For service-to-service clients you'll need to set up an [Adobe I/O Console Integration](https://console.adobe.io/integrations/new) and create a JSON Web Token (JWT) to retrieve your access token for Photoshop API's. It is assumed your organization already has an Adobe IMS Org ID and you have added the required users to it.
+For service-to-service clients you'll need to set up an Adobe I/O Console Integration and create a JSON Web Token (JWT) to retrieve your access token for Photoshop API's. It is assumed your organization already has an Adobe IMS Org ID and you have added the required users to it.
 
 
 #### Assets stored on Adobe's Creative Cloud
@@ -113,16 +110,18 @@ We have not put a throttle limit on requests to the API at this time.
 
 The typical workflow involves retrieving a PSD document manifest file via `/documentManifest` (a JSON representation of the documents layer tree), followed by one or more calls to `/documentOperations` to optionally edit the PSD and/or create new image renditions. Both endpoints are asynchronous so the response will contain the `/status` endpoint to poll for job status and results
 
-## Creative Cloud Assets
-
-You'll see in the documentation that assets can be stored in your Creative Cloud Library or externally (and therefore retrieved with a presigned GET URL). For Creative Cloud asset your `href` parameter must begin with `/files/` as this is the relative path to your assets used by Creative Cloud. The `/files` path directly corresponds to the root of your local `Creative Cloud Files` folder.
-
 ## Fonts
 
-Font support is a work in progress. The API's all use the postscript name.
+The API's all use Postscript names.
 
-// this endpoint will change to a public page
-[Currently Supported Fonts](SupportedFonts.md)
+The Photoshop API's supports using fonts from two locations:
+- [Currently Installed Fonts](SupportedFonts.md)
+- Fonts the user is authorized to access via Typekit. (Currently only available for OAuth tokens, service token support is forthcoming...)
+
+Any included document fonts which are not in one of the supported fonts section will be substituted with a default system font. This change only occurs when edits are being made to a text layer with an unsupported font. This might lead to inconsistent/undesirable results and can be avoided by using any of our supported fonts.
+
+Font support is a work in progress.
+
 
 ## Tracking document changes
 
@@ -130,15 +129,16 @@ If you are making multiple edits to a PSD during the course of a user session it
 
 # Supported Features
 
-This is a list of initially supported features. Please see the Release Notes in the [Adobe Pre-Release Discussion Forums](https://forums.adobeprerelease.com/photoshopapiservice) for an up-to-date list, including bug fixes
+This is a list of currently supported features
 
 ## Layer level edits
 
 - General layer edits
-  - edit the layer name
-  - toggle the layer locked state
-  - toggle layer visibility
+  - Edit the layer name
+  - Toggle the layer locked state
+  - Toggle layer visibility
   - Move or resize the layer via it's bounds
+  - Delete layers
 - Adjustment layers
   - Add or edit an adjustment layer. The following types of adjustment layers are currently supported:
   - Brightness and Contrast
@@ -146,50 +146,45 @@ This is a list of initially supported features. Please see the Release Notes in 
   - Hue and Saturation
   - Color Balance
 - Image/Pixel layers
-  - Add a new pixel layer
+  - Add a new pixel layer, with optional image
   - Swap the image in an existing pixel layer
 - Shape layers
   - Resize a shape layer via it's bounds
 - Text layers
   - Edit the text
-  - Change the font (see this list for the currently supported fonts)
+  - Change the font (See the `Fonts` section for more info)
   - Edit the font size
   - Edit the text decoration (bold, italic, etc)
   - Edit the text orientation (horizontal/vertical)
   - Edit the paragraph alignment (centered, justified, etc)
   - Edit the font weight
 
+## Artboards
+
+- Show artboard information in the JSON Manifest
+- Create a new artboard from multiple input psd's
 
 ## Document level edits
 
 - Crop a PSD
 - Resize a PSD
 
-## Rendering
+## Rendering / Conversions
 
 - Create a new PSD document
-- Create a PEG or PNG rendition of various sizes
-
-# API Docs
-
-For now the API docs need to be downloaded and viewed locally in a browser.  
-
-- Set up your SSH key for Git connectivity: [https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
-- Clone the Git repo locally: [https://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository](https://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository)  (scroll to the 'Cloning an Existing Repository' section)
-- Open your local file './api_docs/index.html' in a browser
-- Updates to the API's will be announced in the Release Notes and your local API docs can be updated by doing a `git pull`
+- Create a JPEG, TIFF or PNG rendition of various sizes
+- Request thumbnail previews of all renderable layers
+- Convert between any of the supported filetypes (PSD, JPEG, TIFF, PNG)
 
 # How to use the API's
 
-The steps below will walk you through using several of the api's and should provide sufficient understanding to use any other api's not covered here.
-
-Several [sample PSD files](sample_files) are included in this repository if you'd like to experiment with these example calls on your own.
+The file Example.psd is included in this repository if you'd like to experiment with these example calls on your own.
 
 ## /documentManifest (Retrieving a PSD manifest)
 
 ### Example 1: Initiate a job to retrieve a PSD's JSON manifest
 
-The `/documentManifest` api can take one or more input PSD's to generate JSON manifest files from. The JSON manifest is the tree representation of all of the layer objects contained in the PSD document. Using [Example.psd](sample_files/Example.psd), with the use case of a document stored in Adobe's Creative Cloud, a typical curl call might look like this:
+The `/documentManifest` api can take one or more input PSD's to generate JSON manifest files from. The JSON manifest is the tree representation of all of the layer objects contained in the PSD document. Using Example.psd, with the use case of a document stored in Adobe's Creative Cloud, a typical curl call might look like this:
 
 ```shell
 curl -X POST \
@@ -809,15 +804,7 @@ curl -X POST \
 '
 ```
 
-# Sample Code
-
-The [sample_code](sample_code) folder in this repo contains sample code for authenticating with JWT. And, sample code for calling the Photoshop APIs.
-
-Note that the sample code is covered by the MIT license.
-
 # Release Notes
-
-Please see the Release Notes in the [Adobe Pre-Release Discussion Forums](https://forums.adobeprerelease.com/photoshopapiservice) for an up-to-date list of new features  and bug fixes.
 
 Currently known issues:
 
