@@ -44,6 +44,8 @@
 
 # Welcome to Photoshop API's!
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/adobe/photoshop-api-docs.svg?token=5ccf5d19572ea847c6248bf68db18321859909fefed3a99a76f93bb4e74ae4ef&ts=1544188945721)](https://greenkeeper.io/)
+
 The Adobe Photoshop API's will allow you to make both layer and document level edits to Photoshop PSD files.  This page is meant to help you onboard with the service and get you started with some basic usage examples.
 
 # Setup
