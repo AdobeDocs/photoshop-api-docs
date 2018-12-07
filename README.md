@@ -1,5 +1,6 @@
 
 
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
@@ -38,6 +39,7 @@
       - [Example 1: A single file input](#example-1-a-single-file-input)
     - [Example 2: Poll for status and results](#example-2-poll-for-status-and-results-2)
     - [Example 3: A folder input (multiple files)](#example-3-a-folder-input-multiple-files)
+- [Current Limitations](#current-limitations)
 - [Release Notes](#release-notes)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -58,7 +60,7 @@ There are two scenarios that require different authentication methods:
 
 ### Individual users
 
-Individual users will create their OAuth access token using Adobe IMS endpoints. You will be emailed your Client ID and Client Secret required for the IMS endpoint after you've been accepted to the PreRelease program.  Once you've received your email...
+You will be emailed your Client ID and Client Secret required for the IMS endpoint after you've been accepted to the PreRelease program.  Once you've received your email...
 - Do a quick test:
 	- Browse to [https://ps-prerelease-us-east-1.cloud.adobe.io/](https://ps-prerelease-us-east-1.cloud.adobe.io/)
 	- Add your Client ID and Client Secret sent in email
@@ -177,8 +179,6 @@ This is a list of currently supported features
 - Convert between any of the supported filetypes (PSD, JPEG, TIFF, PNG)
 
 # How to use the API's
-
-The file Example.psd is included in this repository if you'd like to experiment with these example calls on your own.
 
 ## /documentManifest (Retrieving a PSD manifest)
 
@@ -524,7 +524,7 @@ And this will return a request body containing the job status for each requested
           {
             "href":"/files/Example.jpeg",
             "storage":"adobe",
-            "type":"vnd.adobe.photoshop",
+            "type":"vnd.adobe.photoshop"
           }
         ]
       }
@@ -700,14 +700,14 @@ curl -X POST \
   "outputs":[
     {
       "href":"files/Example.jpeg",          
-      "width": 512
+      "width": 512,
       "storage":"adobe",
-      "type":"image/jpeg",      
+      "type":"image/jpeg"      
     },
     {
       "href":"files/Example.png",
       "storage":"adobe",
-      "type":"image/png",
+      "type":"image/png"
     }
   ]
 }
@@ -755,12 +755,12 @@ This will return a request body containing the job status for each requested out
             "href":"files/Example.jpeg",          
             "width": 512,
             "storage":"adobe",
-            "type":"image/jpeg",      
+            "type":"image/jpeg"    
           },
           {
             "href":"files/Example.png",
             "storage":"adobe",
-            "type":"image/png",
+            "type":"image/png"
           }
         ]
       }
@@ -804,11 +804,14 @@ curl -X POST \
 '
 ```
 
-# Release Notes
-
-Currently known issues:
-
+# Current Limitations
+There are a few limitations to the api's you should be aware of ahead of time.  
 - Multi-part uploads and downloads are not yet supported
-- Clients can only use assets stored on EITHER Adobe's Creative Cloud or external storage (like AWS S3)
+- Clients can only use assets stored on EITHER Adobe's Creative Cloud or external storage (like AWS S3).  Support for mixing and matching will be added in the future
 - The `/documentOperations` endpoint only supports a single PSD input
 - Error handling is a work in progress. Sometimes you may not see the most helpful of messages
+
+The file Example.psd is included in this repository if you'd like to experiment with these example calls on your own.
+
+# Release Notes
+Please see the [Release Notes](https://forums.adobeprerelease.com/photoshopapiservice/categories/releasenotes) section of the discussion forums
