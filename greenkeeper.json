@@ -1,0 +1,10 @@
+{
+  "groups": {
+    "default": {
+      "packages": [
+        "sample_code/jwt-sample-app/package.json",
+        "sample_code/oauth-sample-app/package.json"
+      ]
+    }
+  }
+}
