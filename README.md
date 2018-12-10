@@ -5,6 +5,7 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
+- [Prerelease Program](#prerelease-program)
 - [Welcome to Photoshop API's!](#welcome-to-photoshop-apis)
 - [Setup](#setup)
   - [Authentication](#authentication)
@@ -43,6 +44,14 @@
 - [Release Notes](#release-notes)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+# Prerelease Program
+
+The Photoshop APIs are made available through the Adobe Prelease program. For the ability to make API calls we invite you to join the program. 
+
+Please be aware of some aspects of the program. For example, you will need to agree to the Adobe Prelease agreement and NDA. The APIs are provided for evaluation purposes. The current APIs are subject to change. You can find more information on the Adobe Prerelease page. 
+
+If you are not currently a member, please sign up at [https://photoshop.adobelanding.com/prerelease-stack/]()
 
 # Welcome to Photoshop API's!
 
