@@ -10,6 +10,8 @@
 - [Setup](#setup)
   - [Authentication](#authentication)
     - [Individual users](#individual-users)
+    - [Adobe Enterprise ETLA customers](#adobe-enterprise-etla-customers)
+      - [OAuth 2.0 Guide](#oauth-20-guide)
     - [Service-to-service clients](#service-to-service-clients)
       - [Assets stored on Adobe's Creative Cloud](#assets-stored-on-adobes-creative-cloud)
       - [Assets stored externally to Adobe](#assets-stored-externally-to-adobe)
@@ -62,22 +64,28 @@ The Adobe Photoshop APIs will allow you to make both layer and document level ed
 
 ## Authentication
 
-You must pass in an OAuth 2.0 access token with every request. The Photoshop APIs does not provide any API methods for authentication or authorization. Access tokens are granted by Adobe's IMS service. The Photo API needs an access token in the scope="system,openid,AdobeID,creative_sdk" and hence it is required that you pass in this parameter to the IMS Login Authorization API.
+You will be emailed your Client ID and Client Secret required for API authentication after you've been accepted to the PreRelease program. 
+
+You must pass in an OAuth 2.0 access token with every request. The Photoshop APIs does not provide any API methods for authentication or authorization. Access tokens are granted by Adobe's IMS service. The Photoshop API needs an access token in the scope="openid,creative_sdk" and hence it is required that you pass in this parameter to the IMS Login Authorization API.
 
 The access token must never be transmitted as a URI parameter. Doing so would expose it to being captured in-the-clear by intermediaries such as proxy server logs. The API does not allow you to send an access token anywhere except the Authorization header field.
 
-There are two scenarios that require different authentication methods:
-
 ### Individual users
 
-You will be emailed your Client ID and Client Secret required for the IMS endpoint after you've been accepted to the PreRelease program.  Once you've received your email...
+Individual users will create their OAuth access token using Adobe IMS endpoints. Once you've received your Client ID and Client Secret by email...
 - Do a quick test:
-	- Browse to [https://ps-prerelease-us-east-1.cloud.adobe.io/](https://ps-prerelease-us-east-1.cloud.adobe.io/)
-	- Add your Client ID and Client Secret sent in email
-	- Enter your Adobe credentials when prompted
-	- Use the access token to try the example calls further down this README
+  - Browse to [https://ps-prerelease-us-east-1.cloud.adobe.io/](https://ps-prerelease-us-east-1.cloud.adobe.io/)
+  - Add your Client ID and Client Secret sent in email
+  - Enter your Adobe credentials when prompted
+  - Use the access token to try the example calls further down this README
 
-Additional instructions regarding the Adobe IMS endpoints can be found at [Generating Access Tokens](https://www.adobe.io/authentication/auth-methods.html#!adobeio/adobeio-documentation/master/auth/OAuth2.0Endpoints/web-oauth2.0-guide.md#generatingaccesstokens)
+### Adobe Enterprise ETLA customers
+
+If your company has an Adobe ETLA agreement you may be able to create your own integration using the instructions below. You may generate a user access token using an OAuth 2.0 workflow, or, a service token. 
+
+#### OAuth 2.0 Guide  
+
+Instructions regarding the Adobe IMS endpoints can be found at [Generating Access Tokens](https://www.adobe.io/authentication/auth-methods.html#!adobeio/adobeio-documentation/master/auth/OAuth2.0Endpoints/web-oauth2.0-guide.md#generatingaccesstokens)
 Additional instructions can be found at [Setting up OAuth authentication](https://www.adobe.io/authentication/auth-methods.html#!adobeio/adobeio-documentation/master/auth/OAuth2.0Endpoints/web-oauth2.0-guide.md)
 Complete examples for OAuth endpoints can be found at [OAuth endpoint examples](https://www.adobe.io/authentication/auth-methods.html#!adobeio/adobeio-documentation/master/auth/OAuth2.0Endpoints/web-oauth2.0-guide.md#completeexamplesforoauthendpoints)
 
