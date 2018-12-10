@@ -40,6 +40,7 @@
       - [Example 1: A single file input](#example-1-a-single-file-input)
     - [Example 2: Poll for status and results](#example-2-poll-for-status-and-results-2)
     - [Example 3: A folder input (multiple files)](#example-3-a-folder-input-multiple-files)
+- [Sample Code](#sample-code)
 - [Current Limitations](#current-limitations)
 - [Release Notes](#release-notes)
 
@@ -812,6 +813,13 @@ curl -X POST \
 }
 '
 ```
+
+# Sample Code
+
+The [sample_code](sample_code) folder in this repo contains sample code for calling the Photoshop APIs. 
+
+Note that the sample code is covered by the MIT license. 
+
 
 # Current Limitations
 There are a few limitations to the APIs you should be aware of ahead of time.  
