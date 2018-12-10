@@ -6,7 +6,7 @@
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
 - [Prerelease Program](#prerelease-program)
-- [Welcome to Photoshop API's!](#welcome-to-photoshop-apis)
+- [Welcome to Photoshop APIs!](#welcome-to-photoshop-apis)
 - [Setup](#setup)
   - [Authentication](#authentication)
     - [Individual users](#individual-users)
@@ -24,7 +24,7 @@
   - [Artboards](#artboards)
   - [Document level edits](#document-level-edits)
   - [Rendering / Conversions](#rendering--conversions)
-- [How to use the API's](#how-to-use-the-apis)
+- [How to use the APIs](#how-to-use-the-apis)
   - [/documentManifest (Retrieving a PSD manifest)](#documentmanifest-retrieving-a-psd-manifest)
     - [Example 1: Initiate a job to retrieve a PSD's JSON manifest](#example-1-initiate-a-job-to-retrieve-a-psds-json-manifest)
     - [Example 2: Poll for status and results](#example-2-poll-for-status-and-results)
@@ -53,15 +53,15 @@ Please be aware of some aspects of the program. For example, you will need to ag
 
 If you are not currently a member, please sign up at [https://photoshop.adobelanding.com/prerelease-stack/]()
 
-# Welcome to Photoshop API's!
+# Welcome to Photoshop APIs!
 
-The Adobe Photoshop API's will allow you to make both layer and document level edits to Photoshop PSD files.  This page is meant to help you onboard with the service and get you started with some basic usage examples.
+The Adobe Photoshop APIs will allow you to make both layer and document level edits to Photoshop PSD files.  This page is meant to help you onboard with the service and get you started with some basic usage examples.
 
 # Setup
 
 ## Authentication
 
-You must pass in an OAuth 2.0 access token with every request. The Photoshop API's does not provide any API methods for authentication or authorization. Access tokens are granted by Adobe's IMS service. The Photo API needs an access token in the scope="system,openid,AdobeID,creative_sdk" and hence it is required that you pass in this parameter to the IMS Login Authorization API.
+You must pass in an OAuth 2.0 access token with every request. The Photoshop APIs does not provide any API methods for authentication or authorization. Access tokens are granted by Adobe's IMS service. The Photo API needs an access token in the scope="system,openid,AdobeID,creative_sdk" and hence it is required that you pass in this parameter to the IMS Login Authorization API.
 
 The access token must never be transmitted as a URI parameter. Doing so would expose it to being captured in-the-clear by intermediaries such as proxy server logs. The API does not allow you to send an access token anywhere except the Authorization header field.
 
@@ -83,12 +83,12 @@ Complete examples for OAuth endpoints can be found at [OAuth endpoint examples](
 
 ### Service-to-service clients
 
-For service-to-service clients you'll need to set up an Adobe I/O Console Integration and create a JSON Web Token (JWT) to retrieve your access token for Photoshop API's. It is assumed your organization already has an Adobe IMS Org ID and you have added the required users to it.
+For service-to-service clients you'll need to set up an Adobe I/O Console Integration and create a JSON Web Token (JWT) to retrieve your access token for Photoshop APIs. It is assumed your organization already has an Adobe IMS Org ID and you have added the required users to it.
 
 
 #### Assets stored on Adobe's Creative Cloud
 
-The Adobe Photoshop API's currently have a limitation that Service clients must store their assets externally to Adobe's Creative Cloud...
+The Adobe Photoshop APIs currently have a limitation that Service clients must store their assets externally to Adobe's Creative Cloud...
 
 #### Assets stored externally to Adobe
 This applies to assets stored outside of Adobe's Creative Cloud and accessed via preSigned URL's
@@ -123,9 +123,9 @@ The typical workflow involves retrieving a PSD document manifest file via `/docu
 
 ## Fonts
 
-The API's all use Postscript names.
+The APIs all use Postscript names.
 
-The Photoshop API's supports using fonts from two locations:
+The Photoshop APIs supports using fonts from two locations:
 - [Currently Installed Fonts](SupportedFonts.md)
 - Fonts the user is authorized to access via Typekit. (Currently only available for OAuth tokens, service token support is forthcoming...)
 
@@ -187,7 +187,7 @@ This is a list of currently supported features
 - Request thumbnail previews of all renderable layers
 - Convert between any of the supported filetypes (PSD, JPEG, TIFF, PNG)
 
-# How to use the API's
+# How to use the APIs
 
 ## /documentManifest (Retrieving a PSD manifest)
 
@@ -814,7 +814,7 @@ curl -X POST \
 ```
 
 # Current Limitations
-There are a few limitations to the api's you should be aware of ahead of time.  
+There are a few limitations to the APIs you should be aware of ahead of time.  
 - Multi-part uploads and downloads are not yet supported
 - Clients can only use assets stored on EITHER Adobe's Creative Cloud or external storage (like AWS S3).  Support for mixing and matching will be added in the future
 - The `/documentOperations` endpoint only supports a single PSD input
