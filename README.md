@@ -51,9 +51,9 @@
 
 # Prerelease Program
 
-The Photoshop APIs are made available through the Adobe Prelease program. For the ability to make API calls we invite you to join the program.
+The Photoshop APIs are made available through the Adobe Prelease program. For the ability to make API calls we invite you to join the program. 
 
-Please be aware of some aspects of the program. For example, you will need to agree to the Adobe Prelease agreement and NDA. The APIs are provided for evaluation purposes. The current APIs are subject to change. You can find more information on the Adobe Prerelease page.
+Please be aware of some aspects of the program. For example, you will need to agree to the Adobe Prelease agreement and NDA. The APIs are provided for evaluation purposes. The current APIs are subject to change. You can find more information on the Adobe Prerelease page. 
 
 If you are not currently a member, please sign up at [https://photoshop.adobelanding.com/prerelease-stack/](https://photoshop.adobelanding.com/prerelease-stack/)
 
@@ -65,7 +65,7 @@ The Adobe Photoshop APIs will allow you to make both layer and document level ed
 
 ## Authentication
 
-You will be emailed your Client ID and Client Secret required for API authentication after you've been accepted to the PreRelease program.
+You will be emailed your Client ID and Client Secret required for API authentication after you've been accepted to the PreRelease program. 
 
 You must pass in an OAuth 2.0 access token with every request. The Photoshop APIs does not provide any API methods for authentication or authorization. Access tokens are granted by Adobe's IMS service. The Photoshop API needs an access token in the scope="openid,creative_sdk" and hence it is required that you pass in this parameter to the IMS Login Authorization API.
 
@@ -82,7 +82,7 @@ Individual users will create their OAuth access token using Adobe IMS endpoints.
 
 ### Adobe Enterprise ETLA customers
 
-If your company has an Adobe ETLA agreement you may be able to create your own integration using the instructions below. You may generate a user access token using an OAuth 2.0 workflow, or, a service token.
+If your company has an Adobe ETLA agreement you may be able to create your own integration using the instructions below. You may generate a user access token using an OAuth 2.0 workflow, or, a service token. 
 
 #### OAuth 2.0 Guide  
 
@@ -133,7 +133,7 @@ The typical workflow involves retrieving a PSD document manifest file via `/docu
 
 ## Input and Output file locations
 
-For the time being clients can only use assets stored on EITHER Adobe's Creative Cloud OR external storage (like AWS S3).  Support for mixing and matching will be added in the future
+For the time being clients can only use assets stored on EITHER Adobe's Creative Cloud OR external storage (like AWS S3 or Azure Blog Storage).  Support for mixing and matching will be added in the future
 
 ## Fonts
 
@@ -829,9 +829,9 @@ curl -X POST \
 
 # Sample Code
 
-The [sample_code](sample_code) folder in this repo contains sample code for calling the Photoshop APIs.
+The [sample_code](sample_code) folder in this repo contains sample code for calling the Photoshop APIs. 
 
-Note that the sample code is covered by the MIT license.
+Note that the sample code is covered by the MIT license. 
 
 
 # Current Limitations
