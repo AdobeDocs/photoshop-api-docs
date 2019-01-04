@@ -1,6 +1,7 @@
 
 
 
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
@@ -60,6 +61,8 @@ If you are not currently a member, please sign up at [https://photoshop.adobelan
 # Welcome to Photoshop APIs!
 
 The Adobe Photoshop APIs will allow you to make both layer and document level edits to Photoshop PSD files.  This page is meant to help you onboard with the service and get you started with some basic usage examples.
+
+The API documentation is published at https://adobedocs.github.io/photoshop-api-docs/
 
 # Setup
 
@@ -202,6 +205,8 @@ This is a list of currently supported features
 - Convert between any of the supported filetypes (PSD, JPEG, TIFF, PNG)
 
 # How to use the APIs
+
+The API's are documented at https://adobedocs.github.io/photoshop-api-docs/ 
 
 ## /documentManifest (Retrieving a PSD manifest)
 
