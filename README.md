@@ -19,6 +19,7 @@
   - [Retries](#retries)
   - [Rate Limiting](#rate-limiting)
 - [General Workflow](#general-workflow)
+  - [Input and Output file locations](#input-and-output-file-locations)
   - [Fonts](#fonts)
   - [Tracking document changes](#tracking-document-changes)
 - [Supported Features](#supported-features)
@@ -129,6 +130,10 @@ We have not put a throttle limit on requests to the API at this time.
 # General Workflow
 
 The typical workflow involves retrieving a PSD document manifest file via `/documentManifest` (a JSON representation of the documents layer tree), followed by one or more calls to `/documentOperations` to optionally edit the PSD and/or create new image renditions. Both endpoints are asynchronous so the response will contain the `/status` endpoint to poll for job status and results
+
+## Input and Output file locations
+
+For the time being clients can only use assets stored on EITHER Adobe's Creative Cloud OR external storage (like AWS S3 or Azure Blog Storage).  Support for mixing and matching will be added in the future
 
 ## Fonts
 
