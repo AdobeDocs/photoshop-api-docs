@@ -2,6 +2,7 @@
 
 
 
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
@@ -121,6 +122,7 @@ Also known as the `client_id`. You must additionally pass in your Adobe API key 
 
 ## Retries
 
+- The service will retry status codes of 429, 502, 503, 504 three times.
 - You should only retry requests that have a 5xx response code. A 5xx error response indicates there was a problem processing the request on the server.
 - You should implement an exponential back-off retry strategy with 3 retry attempts.
 - You should not retry requests for any other response code.
@@ -664,22 +666,22 @@ curl -X POST \
           "edit":true                                   // <--- NEW KEYWORD TO INDICATE AN ADDITION
         },
         "input":{                                       // <--- NEW KEYWORD TO INDICATE IMAGE REPLACEMENT INFO
-          "href":"/files/newHeroImage.jpeg",
+          "href":"/files/newBackgroundImage.jpeg",
           "storage":"adobe"
         },
         "attributes":{
           "bounds":{
-            "height":515,
-            "left":-385,
-            "top":-21,
-            "width":929
+            "height":405,
+            "left":0,
+            "top":237,
+            "width":300
           }
         },
-        "id":750,
-        "index":1,
+        "id":751,
+        "index":2,
         "locked":false,
-        "name":"HeroImage",
-        "type":"smartObject",
+        "name":"BackgroundGradient",
+        "type":"layer",
         "visible":true
       }
     ]
