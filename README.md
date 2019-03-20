@@ -148,7 +148,9 @@ The Photoshop APIs supports using fonts from two locations:
 - [Currently Installed Fonts](SupportedFonts.md)
 - Fonts the user is authorized to access via Typekit. (Currently only available for OAuth tokens, service token support is forthcoming...)
 
-Any included document fonts which are not in one of the supported fonts section will be substituted with a default system font. This change only occurs when edits are being made to a text layer with an unsupported font. This might lead to inconsistent/undesirable results and can be avoided by using any of our supported fonts.
+Fonts the user is authorized to access via [Typekit](https://fonts.adobe.com/fonts). (Currently only available for OAuth tokens, service token support is forthcoming...)
+
+If your font is not included in either of these locations you must include an href to the font in your request. See the api docs for more information.
 
 Font support is a work in progress.
 
@@ -159,7 +161,7 @@ If you are making multiple edits to a PSD during the course of a user session it
 
 # Supported Features
 
-This is a list of currently supported features
+This is a partial list of currently supported features.  Please also see the [Release Notes](https://forums.adobeprerelease.com/photoshopapiservice/categories/releasenotes) for a list of added features
 
 ## Layer level edits
 
