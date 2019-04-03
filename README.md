@@ -3,6 +3,7 @@
 
 
 
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
@@ -35,7 +36,7 @@
     - [Example 2: Poll for status and results](#example-2-poll-for-status-and-results)
     - [Example 3: The returned manifest](#example-3-the-returned-manifest)
   - [/documentOperations (Making PSD edits and renders)](#documentoperations-making-psd-edits-and-renders)
-    - [The operations object](#the-operations-object)
+    - [The add, edit and delete objects](#the-add-edit-and-delete-objects)
     - [Example 1: Making a simple edit (to a text layer)](#example-1-making-a-simple-edit-to-a-text-layer)
     - [Example 2: Poll for status and results](#example-2-poll-for-status-and-results-1)
     - [Example 3: Adding a new adjustment layer](#example-3-adding-a-new-adjustment-layer)
@@ -53,9 +54,9 @@
 
 # Prerelease Program
 
-The Photoshop APIs are made available through the Adobe Prelease program. For the ability to make API calls we invite you to join the program. 
+The Photoshop APIs are made available through the Adobe Prelease program. For the ability to make API calls we invite you to join the program.
 
-Please be aware of some aspects of the program. For example, you will need to agree to the Adobe Prelease agreement and NDA. The APIs are provided for evaluation purposes. The current APIs are subject to change. You can find more information on the Adobe Prerelease page. 
+Please be aware of some aspects of the program. For example, you will need to agree to the Adobe Prelease agreement and NDA. The APIs are provided for evaluation purposes. The current APIs are subject to change. You can find more information on the Adobe Prerelease page.
 
 If you are not currently a member, please sign up at [https://photoshop.adobelanding.com/prerelease-stack/](https://photoshop.adobelanding.com/prerelease-stack/)
 
@@ -69,7 +70,7 @@ The API documentation is published at https://adobedocs.github.io/photoshop-api-
 
 ## Authentication
 
-You will be emailed your Client ID and Client Secret required for API authentication after you've been accepted to the PreRelease program. 
+You will be emailed your Client ID and Client Secret required for API authentication after you've been accepted to the PreRelease program.
 
 You must pass in an OAuth 2.0 access token with every request. The Photoshop APIs does not provide any API methods for authentication or authorization. Access tokens are granted by Adobe's IMS service. The Photoshop API needs an access token in the scope="openid,creative_sdk" and hence it is required that you pass in this parameter to the IMS Login Authorization API.
 
@@ -86,7 +87,7 @@ Individual users will create their OAuth access token using Adobe IMS endpoints.
 
 ### Adobe Enterprise ETLA customers
 
-If your company has an Adobe ETLA agreement you may be able to create your own integration using the instructions below. You may generate a user access token using an OAuth 2.0 workflow, or, a service token. 
+If your company has an Adobe ETLA agreement you may be able to create your own integration using the instructions below. You may generate a user access token using an OAuth 2.0 workflow, or, a service token.
 
 #### OAuth 2.0 Guide  
 
@@ -146,7 +147,9 @@ The APIs all use Postscript names.
 
 The Photoshop APIs supports using fonts from two locations:
 - [Currently Installed Fonts](SupportedFonts.md)
-- Fonts the user is authorized to access via Typekit. (Currently only available for OAuth tokens, service token support is forthcoming...)
+- Fonts the user is authorized to access via [Typekit](https://fonts.adobe.com/fonts). (Currently only available for OAuth tokens, service token support is forthcoming...)
+
+If your font is not included in either of these locations you must include an href to the font in your request. See the api docs for more information.
 
 Fonts the user is authorized to access via [Typekit](https://fonts.adobe.com/fonts). (Currently only available for OAuth tokens, service token support is forthcoming...)
 
@@ -210,7 +213,7 @@ This is a partial list of currently supported features.  Please also see the [Re
 
 # How to use the APIs
 
-The API's are documented at https://adobedocs.github.io/photoshop-api-docs/ 
+The API's are documented at https://adobedocs.github.io/photoshop-api-docs/
 
 ## /documentManifest (Retrieving a PSD manifest)
 
@@ -439,19 +442,19 @@ Once your job completes (and does not report any errors) the status response wil
 
 ## /documentOperations (Making PSD edits and renders)
 
-Once you have your PSD file's JSON manifest you can use it to make layer and/or document level edits to your PSD and then generate new renditions with the changes. Depending on the type of changes desired you will pass in either all or a subset of the JSON manifest to `/documentOperations` as represented in the request body's `options.layers` argument.
+Once you have your PSD file's JSON manifest you can use it to make layer and/or document level edits to your PSD and then generate new renditions with the changes. You can pass in either all or a subset of the JSON manifest to `/documentOperations` as represented in the request body's `options.layers` argument. In other words you can choose to pass `options.layers` as a flat array of only the layers that you wish to act upon and can, if desired, leave out the rest.
 
-The layer id is used by the service to identify the correct layer to edit in your PSD. All operations except for adding a new layer require the layer ID to be present in the layer object. You can choose to pass `options.layers` as a flat array of only the layer objects to be edited or the entire JSON manifest tree.
+The layer id or layer name are used by the service to identify the correct layer to operation upon in your PSD; Note that adding a new layer does not require the ID to be included, the service will generate a new layer id for you.
 
-### The operations object
+### The add, edit and delete objects
 
-The `operations` object is how you communicate that you'd like action taken on that particular layer object. All other layers passed into the API will be ignored.
+The `add`, `edit`, `move` and `delete` blocks are how you communicate that you'd like action taken on that particular layer object. Any layer block passed into the API that is missing the one of these attributes will be ignored.
 
 ### Example 1: Making a simple edit (to a text layer)
 
 In this example we will be editing a single text layer from Example.psd. We are only including a single layer object in the `options.layers` array. We will be editing layer id 412 from the `/documentManfest` examples above and making the following requests:
 
-- NEW KEYWORD TO INDICATE AN EDIT: The `operations.edit` key is included in layer id 412
+- NEW KEYWORD TO INDICATE AN EDIT: The `edit` key is included in layer id 412
 - CHANGE LAYER POSITION: The layer's top and left will be set to 0,0
 - CHANGE FONT SIZE: The font size will be reduced from 36 to 24 pixels
 - CHANGE TEXT CONTENT: The text string will be changed to "Inspire your customers’ creativity."
@@ -475,9 +478,7 @@ curl -X POST \
   "options":{
     "layers":[
       {
-        "operations":{                                      // <--- NEW KEYWORD TO INDICATE AN EDIT
-          "edit":true
-        },
+        "edit":{},                                    // <--- NEW KEYWORD TO INDICATE AN EDIT
         "attributes":{
           "bounds":{
             "height":136,
@@ -573,11 +574,9 @@ And this will return a request body containing the job status for each requested
 
 ### Example 3: Adding a new adjustment layer
 
-Any API call that includes adding layers requires the entire JSON manifest to be passed in (details below) as the entire document tree is needed to indicate where new layers are to be inserted.
-
 This example shows how you can add a new brightnessContrast adjustment layer to the top of your PSD.  Things to note:
 
-- NEW KEYWORD TO INDICATE AN ADDITION: The `operations.add` key is included in the new layer object at the beginning of the `options.layers` array. This indicates exactly where you want the new layer placed in the overall Manifest tree.  Moving this layer object elsewhere in the tree would indicate a different desired location.
+- NEW KEYWORD TO INDICATE AN ADDITION: The `add` key is included, along with `insertAbove` in the new layer object to indicate exactly where you want the new layer placed in the overall Manifest tree.  
 - LAYER TYPE IS REQUIRED: The type indicates you want a new layer of type adjustment layer.
 - LAYER ID AND INDEX ARE NOT PRESENT: The layer index and id are not supported for add operations. The index is implied by the objects position in the manifest tree and the ID will be generated by the service and returned to you in subsequent calls to `/documentManifest`
 
@@ -596,9 +595,9 @@ curl -X POST \
   ],
   "options":{
     "layers":[
-      {                                        // <--- THE DESIRED NEW LAYER IS PLACED AT THE TOP OF THE LAYER TREE
-        "operation":{                          //      INDICATING WHERE IN THE DOCUMENT WE WANT THE LAYER PLACED
-          "add":true                           // <--- NEW KEYWORD TO INDICATE AN ADDITION
+      {                                        
+        "add":{                          	    // <--- NEW KEYWORD TO INDICATE AN ADDITION
+          "insertAbove":549	                    // <--- INDICATES THE LAYER SHOULD BE CREATED ABOVE ID 549
         },
         "attributes":{
           "brightnessContrast":{
@@ -608,25 +607,6 @@ curl -X POST \
         },
         "name":"NewBrightnessContrast",
         "type":"adjustmentLayer"              // <--- LAYER TYPE IS REQUIRED
-      },
-      {
-        "attributes":{
-          "bounds":{
-            "height":64,
-            "left":12,
-            "top":1,
-            "width":39
-          }
-        },
-        "id":549,
-        "index":8,
-        "locked":false,
-        "name":"CompanyLogo",
-        "type":"smartObject",
-        "visible":true
-      },
-      {
-        // THE REMAINDER OF THE JSON MANIFEST WOULD BE INCLUDED HERE....
       }
     ]
   },
@@ -645,7 +625,7 @@ curl -X POST \
 
 In this example we want to replace the image in an existing pixel layer, the Hero Image layer in Example.psd. We are requesting the following:
 
-- NEW KEYWORD TO INDICATE AN EDIT: The `operations.edit` key is included to indicate we want to edit this layer
+- NEW KEYWORD TO INDICATE AN EDIT: The `edit` key is included to indicate we want to edit this layer
 - NEW KEYWORD TO INDICATE IMAGE REPLACEMENT INFO: The `layers.input` object is included to indicate where the replacement image can be found
 
 ```shell
@@ -664,9 +644,7 @@ curl -X POST \
   "options":{
     "layers":[
       {
-        "operations":{
-          "edit":true                                   // <--- NEW KEYWORD TO INDICATE AN ADDITION
-        },
+        "edit":{},										// <--- NEW KEYWORD TO INDICATE AN ADDITION
         "input":{                                       // <--- NEW KEYWORD TO INDICATE IMAGE REPLACEMENT INFO
           "href":"/files/newBackgroundImage.jpeg",
           "storage":"adobe"
@@ -838,9 +816,9 @@ curl -X POST \
 
 # Sample Code
 
-The [sample_code](sample_code) folder in this repo contains sample code for calling the Photoshop APIs. 
+The [sample_code](sample_code) folder in this repo contains sample code for calling the Photoshop APIs.
 
-Note that the sample code is covered by the MIT license. 
+Note that the sample code is covered by the MIT license.
 
 
 # Current Limitations
