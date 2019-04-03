@@ -294,35 +294,28 @@ async function main () {
   writeStatus(`5. Get documentManifest with url ${removeSignature(presignedGetUrl)}`)
   const manifestResult = await getDocumentManifest(token, presignedGetUrl)
   const layers = manifestResult.outputs[0].layers;
-  writeStatus(`  layers ${layers}`)
+  writeStatus(`  layers ${JSON.stringify(layers)}`)
 
   writeStatus(`6. Obtain S3 presigned PUT url for rendition: ${bucket}/${config.sample_file.s3_rendition_prefix}`)
-  const presignedPutUrl = await obtainS3PresignedPutUrl(config.sample_file.s3_prefix, config.sample_file.s3_rendition_prefix)
+  const presignedPutUrl = await obtainS3PresignedPutUrl(bucket, config.sample_file.s3_rendition_prefix)
 
-  writeStatus(
-    `7. Create rendition with url ${
-      presignedGetUrl.split("?")[0]
-    } and write to ${presignedPutUrl.split("?")[0]}`
-  );
+  writeStatus( `7. Create rendition with url ${ removeSignature(presignedGetUrl) } and write to ${removeSignature(presignedPutUrl)}`)
   const renditionResult = await getDocumentRendition(token, presignedGetUrl, presignedPutUrl,
     config.sample_file.rendition_type, config.sample_file.rendition_width)
-  writeStatus(`  rendition: ${renditionResult.outputs[0]._links.renditions[0].href.split("?")[0]}`)
+  writeStatus(`  rendition: ${removeSignature(renditionResult.outputs[0]._links.renditions[0].href)}`)
 
   writeStatus(`8. Obtain S3 presigned PUT url for add layer: ${bucket}/${config.sample_file.s3_add_layer_prefix}`)
-  const presignedPutUrlForAddLayer = await obtainS3PresignedPutUrl(
-    config.sample_file.s3_prefix,
-    config.sample_file.s3_add_layer_prefix
-  )
+  const presignedPutUrlForAddLayer = await obtainS3PresignedPutUrl(bucket, config.sample_file.s3_add_layer_prefix)
 
   writeStatus(
     `9. Add layer to document at url ${
-      presignedGetUrl.split("?")[0]
-    } and write to ${presignedPutUrlForAddLayer.split("?")[0]}`
+    removeSignature(presignedGetUrl)
+    } and write to ${removeSignature(presignedPutUrlForAddLayer)}`
   )
-  const addLayerResult = await addLayerToDocument( token, presignedGetUrl, presignedPutUrlForAddLayer, layers)
+  const addLayerResult = await addLayerToDocument(token, presignedGetUrl, presignedPutUrlForAddLayer, layers)
   writeStatus(
     `  addLayerResult: ${
-      addLayerResult.outputs[0]._links.renditions[0].href.split("?")[0]
+      addLayerResult.outputs[0]._links.renditions[0].href
     }`
   )
   writeStatus('10. DONE SUCCESS')
