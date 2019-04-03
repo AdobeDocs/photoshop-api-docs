@@ -1,6 +1,6 @@
 {
   "name": "pie-in-the-sky-jwt-sample-node",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "pie-in-the-sky jwt node example",
   "main": "index.js",
   "scripts": {
@@ -10,7 +10,6 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "async": "^2.6.1",
     "aws-sdk": "^2.329.0",
     "jsonwebtoken": "~5.4",
     "request": "^2.34.0",

@@ -31,7 +31,7 @@ After setting up the sample, you will have a Node.js app that:
 
 ## Technology Used
 
-1. Node.js and the `npm` package manager
+1. Node.js 10 or higher and the `npm` package manager
 1. OpenSSL CLI
 
 ## Prerequisites
