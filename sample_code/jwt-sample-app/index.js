@@ -132,42 +132,40 @@ function getDocumentRendition(token, presignedGetUrl, presignedPutUrl, rendition
   Call the Photoshop API to add a layer to the sample file, and,
   write the new file back to S3
 */
-async function addLayerToDocument(token, presignedGetUrl, addLayerPutUrl, layers) {
+async function addLayerToDocument(token, presignedGetUrl, addLayerPutUrl) {
   /* Add an adjustment layer as first element in layers */
-  let modifiedLayers = layers.slice()
-  modifiedLayers.unshift(
-    {
-      operations: {
-        add: true
-      },
-      attributes: {
-        brightnessContrast: {
-          brightness: 25,
-          contrast: -40
-        }
-      },
-      name: 'NewBrightnessContrast',
-      type: 'adjustmentLayer'
-    }
-  )
+  const layerToAdd = {
+    add: {
+      insertTop: true
+    },
+    attributes: {
+      brightnessContrast: {
+        brightness: 25,
+        contrast: -40
+      }
+    },
+    name: 'NewBrightnessContrast',
+    type: 'adjustmentLayer'
+  }
+
   const body = {
     inputs: [
       {
         href: presignedGetUrl,
-        storage: 'external'
+        storage: "external"
       }
     ],
     options: {
-      layers: modifiedLayers
+      layers: [layerToAdd]
     },
     outputs: [
       {
         href: addLayerPutUrl,
-        storage: 'external',
-        type: 'vnd.adobe.photoshop'
+        storage: "external",
+        type: "vnd.adobe.photoshop"
       }
     ]
-  }
+  };
   return callPsdService(token, documentOperationsUrl, body)
 }
 
@@ -302,7 +300,7 @@ async function main () {
   writeStatus( `7. Create rendition with url ${ removeSignature(presignedGetUrl) } and write to ${removeSignature(presignedPutUrl)}`)
   const renditionResult = await getDocumentRendition(token, presignedGetUrl, presignedPutUrl,
     config.sample_file.rendition_type, config.sample_file.rendition_width)
-  writeStatus(`  rendition: ${removeSignature(renditionResult.outputs[0]._links.renditions[0].href)}`)
+  writeStatus(`  rendition: ${renditionResult.outputs[0]._links.renditions[0].href}`)
 
   writeStatus(`8. Obtain S3 presigned PUT url for add layer: ${bucket}/${config.sample_file.s3_add_layer_prefix}`)
   const presignedPutUrlForAddLayer = await obtainS3PresignedPutUrl(bucket, config.sample_file.s3_add_layer_prefix)
@@ -312,7 +310,7 @@ async function main () {
     removeSignature(presignedGetUrl)
     } and write to ${removeSignature(presignedPutUrlForAddLayer)}`
   )
-  const addLayerResult = await addLayerToDocument(token, presignedGetUrl, presignedPutUrlForAddLayer, layers)
+  const addLayerResult = await addLayerToDocument(token, presignedGetUrl, presignedPutUrlForAddLayer)
   writeStatus(
     `  addLayerResult: ${
       addLayerResult.outputs[0]._links.renditions[0].href
