@@ -38,7 +38,7 @@
     "s3_rendition_prefix":"test/Sunflower-out-200.jpg",
     "rendition_type":"image/jpeg",
     "rendition_width":"200",
-    "s3_add_layer_prefix":"test/Sunflower-out-add-layer.jpg"
+    "s3_add_layer_prefix":"test/Sunflower-out-add-layer.psd"
   },
   "services":{
     "adobeIms":"https://ims-na1.adobelogin.com",
