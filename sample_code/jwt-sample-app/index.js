@@ -10,10 +10,10 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
+const auth = require('@adobe/jwt-auth')
 const AWS = require('aws-sdk')
 const config = require('./config.json')
 const fs = require('fs')
-const jwt = require('jsonwebtoken')
 const request = require('request-promise')
 const util = require("util")
 
@@ -21,7 +21,6 @@ const util = require("util")
 /* eslint no-console: 0 */
 
 /* Declare service endpoints */
-const adobeImsEndpoint = config.services.adobeIms
 const documentManifestUrl = `${config.services.psdService}/documentManifest`
 const renditionCreateUrl = `${config.services.psdService}/renditionCreate`
 const documentOperationsUrl = `${config.services.psdService}/documentOperations`
@@ -33,39 +32,27 @@ const S3 = new AWS.S3({ apiVersion: '2006-03-01', signatureVersion: 'v4' })
 const statusRetryMillis = 200
 const statusRetries = 20
 
-/* Given the settings in the config file, create a JWT */
-async function generateJWT () {
+/* Given the settings in the config file, create a config for @adobe/jwt-auth */
+async function buildJWTConfig () {
   var keyFileName = config.identity.private_key_file
   const readFile = util.promisify(fs.readFile)
   const data = await readFile(keyFileName)
   let privateKey = data.toString()
-  let claims = {}
-  claims[config.identity.claim] = true
-  return jwt.sign(claims, privateKey, {
-    algorithm: 'RS256',
-    issuer: config.identity.issuer,
-    subject: config.identity.subject,
-    audience: config.identity.audience,
-    expiresIn: 60 * 60 * 24 // 24 hours in seconds
-  })
-}
 
-/* Use the JWT to reguest a service access token from Adobe IMS */
-async function requestServiceToken (jwt) {
-  const options = {
-    method: 'POST',
-    url: `${adobeImsEndpoint}/ims/exchange/jwt/`,
-    headers: {
-      'Cache-Control': 'no-cache',
-      'Content-Type': 'multipart/form-data'
-    },
-    formData: {
-      client_id: config.identity.client_id,
-      client_secret: config.identity.client_secret,
-      jwt_token: jwt
-    }
+  // get last element of claim to use as metaScope
+  const claim = config.identity.claim
+  const metaScope = claim.substr(claim.lastIndexOf('/')+ 1)
+
+  return {
+    clientId: config.identity.client_id,
+    clientSecret: config.identity.client_secret,
+    technicalAccountId: config.identity.subject,
+    orgId: config.identity.issuer,
+    metaScopes: [
+      metaScope
+    ],
+    privateKey
   }
-  return request(options)
 }
 
 /* Use the AWS SDK to generate a presigned GET url for our sample file in S3 */
@@ -278,12 +265,12 @@ function removeSignature(presignedUrl) {
 /* Main logic is here, using async waterfall */
 async function main () {
   writeStatus('1. START')
-  writeStatus('2. Generate JWT')
-  const jwt = await generateJWT()
+  writeStatus('2. Build config for JWT')
+  const jwt_config = await buildJWTConfig()
 
   writeStatus('3. Request service token')
-  const serviceTokenResponse = await requestServiceToken(jwt)
-  const token = JSON.parse(serviceTokenResponse).access_token
+  const authInfo = await auth(jwt_config)
+  const token = authInfo.access_token
 
   const bucket = config.sample_file.s3_bucket
   writeStatus(`4. Obtain S3 presigned GET url for sample file: ${bucket}/${config.sample_file.s3_prefix}`)
