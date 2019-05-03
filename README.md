@@ -24,6 +24,7 @@
 - [General Workflow](#general-workflow)
   - [Input and Output file locations](#input-and-output-file-locations)
   - [Fonts](#fonts)
+  - [SmartObject](#smartobject)
   - [Tracking document changes](#tracking-document-changes)
 - [Supported Features](#supported-features)
   - [Layer level edits](#layer-level-edits)
@@ -156,6 +157,11 @@ Fonts the user is authorized to access via [Typekit](https://fonts.adobe.com/fon
 If your font is not included in either of these locations you must include an href to the font in your request. See the api docs for more information.
 
 Font support is a work in progress.
+
+## SmartObject
+
+The Photoshop APIs support creation of a SmartObject layer with Embedded Smart Object and Edit of the content of that Smart Object .
+When you edit and save changes to the smart object content, the edits appear in all linked instances of that Smart Object in the Photoshop document. Please see the api docs for more information .
 
 
 ## Tracking document changes
