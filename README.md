@@ -160,9 +160,13 @@ Font support is a work in progress.
 
 ## SmartObject
 
-The Photoshop APIs support creation of a SmartObject layer with Embedded Smart Object and Edit of the content of that Smart Object .
-When you edit and save changes to the smart object content, the edits appear in all linked instances of that Smart Object in the Photoshop document. Please see the api docs for more information .
+The Photoshop APIs currently support creating and editing of Embedded Smart Objects. Support for Linked Smart Objects is forthcoming.
 
+- In order to update an embedded smart object that is referenced by multiple layers you only need to update one of those layers, the effect will be reflected in all layers referencing the same smart object.
+
+Please see the api docs for more information.
+
+Smart Object support is a work in progress. 
 
 ## Tracking document changes
 
