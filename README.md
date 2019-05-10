@@ -24,7 +24,6 @@
 - [General Workflow](#general-workflow)
   - [Input and Output file locations](#input-and-output-file-locations)
   - [Fonts](#fonts)
-  - [SmartObject](#smartobject)
   - [Tracking document changes](#tracking-document-changes)
 - [Supported Features](#supported-features)
   - [Layer level edits](#layer-level-edits)
@@ -37,7 +36,7 @@
     - [Example 2: Poll for status and results](#example-2-poll-for-status-and-results)
     - [Example 3: The returned manifest](#example-3-the-returned-manifest)
   - [/documentOperations (Making PSD edits and renders)](#documentoperations-making-psd-edits-and-renders)
-    - [The add, edit and delete objects](#the-add-edit-and-delete-objects)
+    - [The operations object](#the-operations-object)
     - [Example 1: Making a simple edit (to a text layer)](#example-1-making-a-simple-edit-to-a-text-layer)
     - [Example 2: Poll for status and results](#example-2-poll-for-status-and-results-1)
     - [Example 3: Adding a new adjustment layer](#example-3-adding-a-new-adjustment-layer)
@@ -158,15 +157,6 @@ If your font is not included in either of these locations you must include an hr
 
 Font support is a work in progress.
 
-## SmartObject
-
-The Photoshop APIs currently support creating and editing of Embedded Smart Objects. Support for Linked Smart Objects is forthcoming.
-
-- In order to update an embedded smart object that is referenced by multiple layers you only need to update one of those layers, the effect will be reflected in all layers referencing the same smart object.
-
-Please see the api docs for more information.
-
-Smart Object support is a work in progress. 
 
 ## Tracking document changes
 
@@ -285,13 +275,11 @@ Once your job completes (and does not report any errors) the status response wil
       "modified":"2018-08-24T23:07:37.688Z",
       "layers":[
         {
-          "attributes":{
-            "bounds":{
-              "height":64,
-              "left":12,
-              "top":1,
-              "width":39
-            }
+          "bounds":{
+            "height":64,
+            "left":12,
+            "top":1,
+            "width":39
           },
           "id":549,
           "index":8,
@@ -301,33 +289,33 @@ Once your job completes (and does not report any errors) the status response wil
           "visible":true
         },
         {
-          "attributes":{
-            "bounds":{
-              "height":153,
-              "left":31,
-              "top":334,
-              "width":197
-            }
+          "bounds":{
+            "height":153,
+            "left":31,
+            "top":334,
+            "width":197
           },
           "children":[
             {
-              "attributes":{
-                "bounds":{
-                  "height":136,
-                  "left":29,
-                  "top":326,
-                  "width":252
-                },
-                "paragraphStyle":{   
-                  "alignment":"left"
-                },
-                "textStyle":{
+              "bounds":{
+                "height":136,
+                "left":29,
+                "top":326,
+                "width":252
+              },
+              "text": {
+                "content":"Reset your customers’ expectations.",
+                "paragraphStyles":[
+                  {   
+                    "alignment":"left"
+                  }
+                ],
+                "characterStyles":[{
                   "fontAvailable":true,
                   "fontName":"AdobeClean-Bold",
                   "fontSize":36,
                   "orientation":"horizontal",
-                  "text":"Reset your customers’ expectations."
-                }
+                }]               
               },
               "id":412,
               "index":6,
@@ -337,23 +325,23 @@ Once your job completes (and does not report any errors) the status response wil
               "visible":true
             },
             {
-              "attributes":{
-                "bounds":{
-                  "height":67,
-                  "left":30,
-                  "top":452,
-                  "width":230
-                },
-                "paragraphStyle":{
+              "bounds":{
+                "height":67,
+                "left":30,
+                "top":452,
+                "width":230
+              },
+              "text":{
+                "content":"Get our retail experience article and infographic.",
+                "paragraphStyles":[{
                   "alignment":"left"
-                },
-                "textStyle":{
+                }],
+                "characterStyles":[{
                   "fontAvailable":true,
                   "fontName":"AdobeClean-Regular",
                   "fontSize":15,
                   "orientation":"horizontal",
-                  "text":"Get our retail experience article and infographic."
-                }
+                }]
               },
               "id":676,
               "index":5,
@@ -371,13 +359,11 @@ Once your job completes (and does not report any errors) the status response wil
           "visible":true
         },
         {
-          "attributes":{
-            "bounds":{
-              "height":34,
-              "left":31,
-              "top":508,
-              "width":99
-            }
+          "bounds":{
+            "height":34,
+            "left":31,
+            "top":508,
+            "width":99
           },
           "id":762,
           "index":3,
@@ -387,13 +373,11 @@ Once your job completes (and does not report any errors) the status response wil
           "visible":true
         },
         {
-          "attributes":{
-            "bounds":{
-              "height":405,
-              "left":0,
-              "top":237,
-              "width":300
-            }
+          "bounds":{
+            "height":405,
+            "left":0,
+            "top":237,
+            "width":300
           },
           "id":751,
           "index":2,
@@ -403,13 +387,11 @@ Once your job completes (and does not report any errors) the status response wil
           "visible":true
         },
         {
-          "attributes":{
-            "bounds":{
-              "height":515,
-              "left":-385,
-              "top":-21,
-              "width":929
-            }
+          "bounds":{
+            "height":515,
+            "left":-385,
+            "top":-21,
+            "width":929
           },
           "id":750,
           "index":1,
@@ -419,13 +401,11 @@ Once your job completes (and does not report any errors) the status response wil
           "visible":true
         },
         {
-          "attributes":{
-            "bounds":{
-              "height":600,
-              "left":0,
-              "top":0,
-              "width":300
-            }
+          "bounds":{
+            "height":600,
+            "left":0,
+            "top":0,
+            "width":300
           },
           "id":557,
           "index":0,
@@ -489,23 +469,23 @@ curl -X POST \
     "layers":[
       {
         "edit":{},                                    // <--- NEW KEYWORD TO INDICATE AN EDIT
-        "attributes":{
-          "bounds":{
-            "height":136,
-            "left":0,                                       // <--- CHANGE LAYER POSITION
-            "top":0,  
-            "width":252
-          },
-          "paragraphStyle":{
+        "bounds":{
+          "height":136,
+          "left":0,                                       // <--- CHANGE LAYER POSITION
+          "top":0,  
+          "width":252
+        },
+        "text":{
+          "content":"Inspire your customers’ creativity.",    // <--- CHANGE TEXT CONTENT
+          "paragraphStyles":[{
             "alignment":"left"
-          },
-          "textStyle":{
+          }],
+          "characterStyles":[{
             "fontAvailable":true,
             "fontName":"AdobeClean-Bold",
             "fontSize":24,                                  // <--- CHANGE FONT SIZE
             "orientation":"horizontal",
-            "text":"Inspire your customers’ creativity."    // <--- CHANGE TEXT CONTENT
-          }
+          }]
         },
         "id":412,
         "index":6,
@@ -609,7 +589,7 @@ curl -X POST \
         "add":{                          	    // <--- NEW KEYWORD TO INDICATE AN ADDITION
           "insertAbove":549	                    // <--- INDICATES THE LAYER SHOULD BE CREATED ABOVE ID 549
         },
-        "attributes":{
+        "adjustments":{
           "brightnessContrast":{
             "brightness":25,
             "contrast":-40
@@ -659,13 +639,11 @@ curl -X POST \
           "href":"/files/newBackgroundImage.jpeg",
           "storage":"adobe"
         },
-        "attributes":{
-          "bounds":{
-            "height":405,
-            "left":0,
-            "top":237,
-            "width":300
-          }
+        "bounds":{
+          "height":405,
+          "left":0,
+          "top":237,
+          "width":300
         },
         "id":751,
         "index":2,
