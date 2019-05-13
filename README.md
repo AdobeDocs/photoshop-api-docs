@@ -24,6 +24,7 @@
 - [General Workflow](#general-workflow)
   - [Input and Output file locations](#input-and-output-file-locations)
   - [Fonts](#fonts)
+  - [SmartObject](#smartobject)
   - [Tracking document changes](#tracking-document-changes)
 - [Supported Features](#supported-features)
   - [Layer level edits](#layer-level-edits)
@@ -157,6 +158,15 @@ If your font is not included in either of these locations you must include an hr
 
 Font support is a work in progress.
 
+## SmartObject
+
+The Photoshop APIs currently support creating and editing of Embedded Smart Objects. Support for Linked Smart Objects is forthcoming.
+
+- In order to update an embedded smart object that is referenced by multiple layers you only need to update one of those layers, the effect will be reflected in all layers referencing the same smart object.
+
+Please see the api docs for more information.
+
+Smart Object support is a work in progress.
 
 ## Tracking document changes
 
