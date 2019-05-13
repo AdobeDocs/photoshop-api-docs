@@ -125,7 +125,7 @@ async function addLayerToDocument(token, presignedGetUrl, addLayerPutUrl) {
     add: {
       insertTop: true
     },
-    attributes: {
+    adjustments: {
       brightnessContrast: {
         brightness: 25,
         contrast: -40
