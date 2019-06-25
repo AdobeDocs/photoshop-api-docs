@@ -4,6 +4,8 @@
 
 
 
+
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
@@ -31,13 +33,14 @@
   - [Artboards](#artboards)
   - [Document level edits](#document-level-edits)
   - [Rendering / Conversions](#rendering--conversions)
+    - [Compatibility with Photoshop versions](#compatibility-with-photoshop-versions)
 - [How to use the APIs](#how-to-use-the-apis)
   - [/documentManifest (Retrieving a PSD manifest)](#documentmanifest-retrieving-a-psd-manifest)
     - [Example 1: Initiate a job to retrieve a PSD's JSON manifest](#example-1-initiate-a-job-to-retrieve-a-psds-json-manifest)
     - [Example 2: Poll for status and results](#example-2-poll-for-status-and-results)
     - [Example 3: The returned manifest](#example-3-the-returned-manifest)
   - [/documentOperations (Making PSD edits and renders)](#documentoperations-making-psd-edits-and-renders)
-    - [The operations object](#the-operations-object)
+    - [The add, edit and delete objects](#the-add-edit-and-delete-objects)
     - [Example 1: Making a simple edit (to a text layer)](#example-1-making-a-simple-edit-to-a-text-layer)
     - [Example 2: Poll for status and results](#example-2-poll-for-status-and-results-1)
     - [Example 3: Adding a new adjustment layer](#example-3-adding-a-new-adjustment-layer)
@@ -92,9 +95,10 @@ If your company has an Adobe ETLA agreement you may be able to create your own i
 
 #### OAuth 2.0 Guide  
 
-Instructions regarding the Adobe IMS endpoints can be found at [Generating Access Tokens](https://www.adobe.io/authentication/auth-methods.html#!adobeio/adobeio-documentation/master/auth/OAuth2.0Endpoints/web-oauth2.0-guide.md#generatingaccesstokens)
-Additional instructions can be found at [Setting up OAuth authentication](https://www.adobe.io/authentication/auth-methods.html#!adobeio/adobeio-documentation/master/auth/OAuth2.0Endpoints/web-oauth2.0-guide.md)
-Complete examples for OAuth endpoints can be found at [OAuth endpoint examples](https://www.adobe.io/authentication/auth-methods.html#!adobeio/adobeio-documentation/master/auth/OAuth2.0Endpoints/web-oauth2.0-guide.md#completeexamplesforoauthendpoints)
+ - Instructions regarding the Adobe IMS endpoints can be found at [Generating Access Tokens](https://www.adobe.io/authentication/auth-methods.html#!AdobeDocs/adobeio-auth/master/OAuth/OAuth.md#authentication)
+ - Additional instructions can be found at [Setting up OAuth authentication](https://www.adobe.io/authentication/auth-methods.html#!AdobeDocs/adobeio-auth/master/OAuth/OAuth.md)
+ - An OAuth playground can be found [here]([https://www.adobe.io/authentication/auth-methods.html#!AdobeDocs/adobeio-auth/master/Resources/Tools/ToolsOverview.md](https://www.adobe.io/authentication/auth-methods.html#!AdobeDocs/adobeio-auth/master/Resources/Tools/ToolsOverview.md))
+ - Complete examples for OAuth endpoints can be found at [OAuth endpoint examples]([https://www.adobe.io/authentication/auth-methods.html#!AdobeDocs/adobeio-auth/master/OAuth/samples/samples.md](https://www.adobe.io/authentication/auth-methods.html#!AdobeDocs/adobeio-auth/master/OAuth/samples/samples.md))
 
 
 ### Service-to-service clients
@@ -149,6 +153,10 @@ The APIs all use Postscript names.
 The Photoshop APIs supports using fonts from two locations:
 - [Currently Installed Fonts](SupportedFonts.md)
 - Fonts the user is authorized to access via [Typekit](https://fonts.adobe.com/fonts). (Currently only available for OAuth tokens, service token support is forthcoming...)
+
+If your font is not included in either of these locations you must include an href to the font in your request. See the api docs for more information.
+
+Fonts the user is authorized to access via [Typekit](https://fonts.adobe.com/fonts). (Currently only available for OAuth tokens, service token support is forthcoming...)
 
 If your font is not included in either of these locations you must include an href to the font in your request. See the api docs for more information.
 
@@ -216,6 +224,12 @@ This is a partial list of currently supported features.  Please also see the [Re
 - Create a JPEG, TIFF or PNG rendition of various sizes
 - Request thumbnail previews of all renderable layers
 - Convert between any of the supported filetypes (PSD, JPEG, TIFF, PNG)
+
+### Compatibility with Photoshop versions
+
+1. The API’s will open any PSD created with Photoshop 1.0 through the current release and this will always be true.
+2.  When saving as PSD, the API’s will create PSD’s compatible with the current shipping Photoshop.
+3.  In regards to “maximize compatibility” referenced in [https://helpx.adobe.com/photoshop/using/file-formats.html#maximize_compatibility_for_psd_and_psb_files](https://helpx.adobe.com/photoshop/using/file-formats.html#maximize_compatibility_for_psd_and_psb_files)  the API's default to “yes”
 
 # How to use the APIs
 
