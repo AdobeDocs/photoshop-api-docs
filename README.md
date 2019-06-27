@@ -607,7 +607,9 @@ curl -X POST \
     "layers":[
       {                                        
         "add":{                          	    // <--- NEW KEYWORD TO INDICATE AN ADDITION
-          "insertAbove":549	                    // <--- INDICATES THE LAYER SHOULD BE CREATED ABOVE ID 549
+          "insertAbove": {
+            "id": 549
+          }	                    // <--- INDICATES THE LAYER SHOULD BE CREATED ABOVE ID 549
         },
         "adjustments":{
           "brightnessContrast":{
