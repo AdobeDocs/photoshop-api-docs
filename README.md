@@ -156,10 +156,6 @@ The Photoshop APIs supports using fonts from two locations:
 
 If your font is not included in either of these locations you must include an href to the font in your request. See the api docs for more information.
 
-Fonts the user is authorized to access via [Typekit](https://fonts.adobe.com/fonts). (Currently only available for OAuth tokens, service token support is forthcoming...)
-
-If your font is not included in either of these locations you must include an href to the font in your request. See the api docs for more information.
-
 Font support is a work in progress.
 
 ## SmartObject
