@@ -17,7 +17,7 @@
 
 # Photoshop API Supported Fonts
 
-This is a list of all of the currently supported Postscript fonts for Photoshop API's. Support for Typekit integration and custom fonts is coming soon...
+This is a list of all of the currently supported Postscript fonts for Photoshop API's.
 
 ## Adobe Clean
 
