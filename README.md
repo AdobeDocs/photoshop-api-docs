@@ -720,11 +720,11 @@ curl -X POST \
       {
         "edit":{},     // <--- NEW KEYWORD TO INDICATE AN EDIT(REPLACEMENT)
         "input":{                                       
-          "href":"/files/heroImage.jpeg",  // <--- NEW KEYWORD TO INDICATE SMART OBJECT REPLACEMENT INFO
+          "href":"/files/heroImage.png",  // <--- NEW KEYWORD TO INDICATE SMART OBJECT REPLACEMENT INFO
           "storage":"adobe"
         },
         "smartObject" : {                // <--- NEW KEYWORD TO INDICATE SMART OBJECT RELATED INFO
-        	"type" : "image/jpeg",
+        	"type" : "image/png",
         	"linked" : false
         },
         "attributes":{
