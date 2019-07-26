@@ -46,6 +46,7 @@
     - [Example 3: Adding a new adjustment layer](#example-3-adding-a-new-adjustment-layer)
     - [Example 4: Editing the image in a pixel layer](#example-4-editing-the-image-in-a-pixel-layer)
     - [Example 5: Creating new Renditions](#example-5-creating-new-renditions)
+    - [Example 6: Swapping the image in a smart object layer](#example-6-swapping-smartobject)
   - [/renditionCreate (Generating New Renditions)](#renditioncreate-generating-new-renditions)
       - [Example 1: A single file input](#example-1-a-single-file-input)
     - [Example 2: Poll for status and results](#example-2-poll-for-status-and-results-2)
@@ -74,23 +75,28 @@ The API documentation is published at https://adobedocs.github.io/photoshop-api-
 
 ## Authentication
 
-You will be emailed your Client ID and Client Secret required for API authentication after you've been accepted to the PreRelease program.
-
-You must pass in an OAuth 2.0 access token with every request. The Photoshop APIs does not provide any API methods for authentication or authorization. Access tokens are granted by Adobe's IMS service. The Photoshop API needs an access token in the scope="openid,creative_sdk" and hence it is required that you pass in this parameter to the IMS Login Authorization API.
-
-The access token must never be transmitted as a URI parameter. Doing so would expose it to being captured in-the-clear by intermediaries such as proxy server logs. The API does not allow you to send an access token anywhere except the Authorization header field.
+We have two kinds of authorizations.
+1. OAuth 2.0 access token for individual user access
+2. JSON Web Token (JWT) for service integration for Adobe Enterprise ETLA customers only
 
 ### Individual users
-
-Individual users will create their OAuth access token using Adobe IMS endpoints. Once you've received your Client ID and Client Secret by email...
+You will use the 1st authorization flow here.
+You will be emailed your Client ID and Client Secret required for API authentication after you've been accepted to the PreRelease program.
+You will create the OAuth access token using Adobe IMS endpoints.
+Once you've received your Client ID and Client Secret by email...
 - Do a quick test:
   - Browse to [https://ps-prerelease-us-east-1.cloud.adobe.io/](https://ps-prerelease-us-east-1.cloud.adobe.io/)
   - Add your Client ID and Client Secret sent in email
   - Enter your Adobe credentials when prompted
   - Use the access token to try the example calls further down this README
 
-### Adobe Enterprise ETLA customers
+You must pass in an OAuth 2.0 access token with every request.The Photoshop APIs does not provide any API methods for authentication or authorization. Access tokens are granted by Adobe's IMS service. The Photoshop API needs an access token in the scope="openid,creative_sdk" and hence it is required that you pass in this parameter to the IMS Login Authorization API.
 
+The access token must never be transmitted as a URI parameter. Doing so would expose it to being captured in-the-clear by intermediaries such as proxy server logs. The API does not allow you to send an access token anywhere except the Authorization header field.
+
+
+### Adobe Enterprise ETLA customers
+You may use 1st authorization flow or the 2nd depending on your integration.
 If your company has an Adobe ETLA agreement you may be able to create your own integration using the instructions below. You may generate a user access token using an OAuth 2.0 workflow, or, a service token.
 
 #### OAuth 2.0 Guide  
@@ -253,7 +259,7 @@ curl -X POST \
 }'
 ```
 
-This initiates an asynchronous job and returns a request body containing the href to poll for job status and the JSON manifest.
+This initiates an asynchronous job and returns a response containing the href to poll for job status and the JSON manifest.
 ```json
 {
     "_links": {
@@ -687,6 +693,68 @@ curl -X POST \
 ### Example 5: Creating new Renditions
 
 See the `/renditionCreate` examples below as the format for the `outputs` object in the request body is identical
+
+### Example 6: Swapping the image in a smart object layer
+
+In this example we want to swap the smart object in an existing embedded smart object layer, the Hero Image layer in Example.psd. We are requesting the following:
+
+- NEW KEYWORD TO INDICATE AN EDIT: The `edit` key is included to indicate we want to edit this layer
+- NEW KEYWORD TO INDICATE IMAGE REPLACEMENT INFO: The `layers.input` object is included to indicate where the replacement image can be found
+- NEW KEYWORD TO INDICATE SMART OBJECT RELATED INFO: The `layers.smartObject` object is included to indicate specific information related to this image as SO
+
+```shell
+curl -X POST \
+  https://image.adobe.io/pie/psdService/documentOperations \
+  -H 'Authorization: Bearer eyJ4NXUiOiJjZXJ0X2ZpbGUuY2VyIiwiYWxnIjoiUlMyNTYifQ.eyJpZCI6Ijx5b3VyX2lkPiIsImNsaWVudF9pZCI6Ijx5b3VyX2NsaWVudF9pZD4iLCJ1c2VyX2lkIjoiPHVzZXJJRD5AQWRvYmVJRCIsInR5cGUiOiJhY2Nlc3NfdG9rZW4iLCJhcyI6Zm9vIiwiZmciOiJTV0tYS1hDRVg3Nzc3Nzc3TlhLTk9TSUFJWT09PT09PSIsInNpZCI6ImZvbyIsIm1vaSI6IjEwNTkwMmFlIiwiYyI6Im8xV2Y0UURoZDFBdG1jb3FwdGpqOVE9PSIsImV4cGlyZXNfaW4iOiI4NjQwMDAwMCIsInNjb3BlIjoiPHNjb3BlPiIsImNyZWF0ZWRfYXQiOiIxNTM0ODcyMzU3OTcxIn0=.amuZs0vsE6-scPjPJLEoYVPHJnY6tunspkRyfxC-1BzMAPqH9dnK64J7Ja6owLmB89tm_BTWMgj3iLZerystQBOmm7TTJER7qLzyzk2O1p0l9enulGzeOHqb995rRBkXUCduamWnfCRkFQBYDG7E1riWhzgzbQ0C_Hz8_XdAjNIGuhA9hEZXcqtBG3CTQHNWpdViKfIuSznBujBCSmok4sBPCT-WYlTjsTUyBVvv1kl1oOlKpKBZxUkYaCr6BB_BuoSJUBpePRdQPtTLsG26In5OYX4CO3ZHnBcO3u9csaiPbVTtImSsLOV7_aHDEHUKrSF9vfZU9vOb9ijZe1NqHw' \
+  -H 'Content-Type: application/json' \
+  -H 'x-api-key: <YOUR_API_KEY>' \
+  -d '{
+  "inputs":[
+    {
+      "href":"files/Example.psd",
+      "storage":"adobe"
+    }
+  ],
+  "options":{
+    "layers":[
+      {
+        "edit":{},     // <--- NEW KEYWORD TO INDICATE AN EDIT(REPLACEMENT)
+        "input":{                                       
+          "href":"/files/heroImage.png",  // <--- NEW KEYWORD TO INDICATE SMART OBJECT REPLACEMENT INFO
+          "storage":"adobe"
+        },
+        "smartObject" : {                // <--- NEW KEYWORD TO INDICATE SMART OBJECT RELATED INFO
+        	"type" : "image/png",
+        	"linked" : false
+        },
+        "attributes":{
+          "bounds":{
+            "height":515,
+            "left":-385,
+            "top":-21,
+            "width":929
+          }
+        },
+        "id":750,
+        "index":1,
+        "locked":false,
+        "name":"HeroImage",
+        "type":"smartObject",
+        "visible":true
+      }
+    ]
+  },
+  "outputs":[
+    {
+      "href":"files/Example_Out.psd",
+      "storage":"adobe",
+      "type":"vnd.adobe.photoshop",
+      "overwrite":true
+    }
+  ]
+}
+'
+```
 
 ## /renditionCreate (Generating New Renditions)
 
