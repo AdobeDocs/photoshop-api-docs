@@ -3,12 +3,6 @@
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
 - [Photoshop API Supported Fonts](#photoshop-api-supported-fonts)
-  - [Adobe Clean](#adobe-clean)
-  - [Adobe Clean Han](#adobe-clean-han)
-    - [Japanese](#japanese)
-    - [Korean](#korean)
-    - [Simplified Chinese](#simplified-chinese)
-    - [Traditional Chinese](#traditional-chinese)
   - [True Type](#true-type)
   - [Open Type](#open-type)
   - [Web Open Font Format (WOFF)](#web-open-font-format-woff)
@@ -17,48 +11,8 @@
 
 # Photoshop API Supported Fonts
 
-This is a list of all of the currently supported Postscript fonts for Photoshop API's.
+This is a list of all of the currently supported Postscript fonts for Photoshop API's. Additionally the user can use any fonts they are authorized to access via Typekit. (Currently only available for OAuth tokens, service token support is forthcoming...)
 
-## Adobe Clean
-
-|                       	|                         	|                        	|                        	|
-|-----------------------	|-------------------------	|------------------------	|------------------------	|
-| ﻿AdobeClean-Black      	| AdobeClean-BoldSemiCn   	| AdobeClean-ExtraBoldIt 	| AdobeClean-Regular     	|
-| AdobeClean-BlackIt    	| AdobeClean-BoldSemiCnIt 	| AdobeClean-It          	| AdobeClean-SemiCn      	|
-| AdobeClean-Bold       	| AdobeClean-Cond         	| AdobeClean-Light       	| AdobeClean-SemiCnIt    	|
-| AdobeClean-BoldCond   	| AdobeClean-CondIt       	| AdobeClean-LightIt     	| AdobeClean-SemiLight   	|
-| AdobeClean-BoldCondIt 	| AdobeClean-ExtraBold    	| AdobeClean-Medium      	| AdobeClean-SemiLightIt 	|
-| AdobeClean-BoldIt     	|                         	|                        	|                        	|
-
-## Adobe Clean Han
-
-### Japanese
-
-|                       	|                         	|                        	|                        	|
-|-----------------------	|-------------------------	|------------------------	|------------------------	|
-| ﻿AdobeCleanHan-Black 	| AdobeCleanHan-ExtraBold  	| AdobeCleanHan-Light  	| AdobeCleanHan-Regular 	|
-| AdobeCleanHan-Bold  	| AdobeCleanHan-ExtraLight 	| AdobeCleanHan-Normal 	|                       	|
-
-### Korean
-
-|                       	|                         	|                        	|                        	|
-|-----------------------	|-------------------------	|------------------------	|------------------------	|
-| ﻿AdobeCleanHanK-Black 	| AdobeCleanHanK-ExtraBold  	| AdobeCleanHanK-Light  	| AdobeCleanHanK-Regular 	|
-| AdobeCleanHanK-Bold  	| AdobeCleanHanK-ExtraLight 	| AdobeCleanHanK-Normal 	|                       	|
-
-### Simplified Chinese
-
-|                       	|                         	|                        	|                        	|
-|-----------------------	|-------------------------	|------------------------	|------------------------	|
-| ﻿AdobeCleanHanSC-Black 	| AdobeCleanHanSC-ExtraBold  	| AdobeCleanHanSC-Light  	| AdobeCleanHanSC-Regular 	|
-| AdobeCleanHanSC-Bold  	| AdobeCleanHanSC-ExtraLight 	| AdobeCleanHanSC-Normal 	|                       	|
-
-### Traditional Chinese
-
-|                       	|                         	|                        	|                        	|
-|-----------------------	|-------------------------	|------------------------	|------------------------	|
-| ﻿AdobeCleanHanTC-Black 	| AdobeCleanHanTC-ExtraBold  	| AdobeCleanHanTC-Light  	| AdobeCleanHanTC-Regular 	|
-| AdobeCleanHanTC-Bold  	| AdobeCleanHanTC-ExtraLight 	| AdobeCleanHanTC-Normal 	|                       	|
 
 ## True Type
 |                       	|                         	|                        	|                        	|
