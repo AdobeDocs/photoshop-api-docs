@@ -1,18 +1,11 @@
 
-
-
-
-
-
-
-
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
 - [Prerelease Program](#prerelease-program)
 - [Welcome to Photoshop APIs!](#welcome-to-photoshop-apis)
-- [Setup](#setup)
+- [General Setup and Onboarding](#general-setup-and-onboarding)
   - [Authentication](#authentication)
     - [Individual users](#individual-users)
     - [Adobe Enterprise ETLA customers](#adobe-enterprise-etla-customers)
@@ -23,37 +16,39 @@
   - [API Keys](#api-keys)
   - [Retries](#retries)
   - [Rate Limiting](#rate-limiting)
-- [General Workflow](#general-workflow)
-  - [Input and Output file locations](#input-and-output-file-locations)
-  - [Fonts](#fonts)
-  - [SmartObject](#smartobject)
-  - [Tracking document changes](#tracking-document-changes)
-- [Supported Features](#supported-features)
-  - [Layer level edits](#layer-level-edits)
-  - [Artboards](#artboards)
-  - [Document level edits](#document-level-edits)
-  - [Rendering / Conversions](#rendering--conversions)
-    - [Compatibility with Photoshop versions](#compatibility-with-photoshop-versions)
-- [How to use the APIs](#how-to-use-the-apis)
-  - [/documentManifest (Retrieving a PSD manifest)](#documentmanifest-retrieving-a-psd-manifest)
-    - [Example 1: Initiate a job to retrieve a PSD's JSON manifest](#example-1-initiate-a-job-to-retrieve-a-psds-json-manifest)
-    - [Example 2: Poll for status and results](#example-2-poll-for-status-and-results)
-    - [Example 3: The returned manifest](#example-3-the-returned-manifest)
-  - [/documentOperations (Making PSD edits and renders)](#documentoperations-making-psd-edits-and-renders)
-    - [The add, edit and delete objects](#the-add-edit-and-delete-objects)
-    - [Example 1: Making a simple edit (to a text layer)](#example-1-making-a-simple-edit-to-a-text-layer)
-    - [Example 2: Poll for status and results](#example-2-poll-for-status-and-results-1)
-    - [Example 3: Adding a new adjustment layer](#example-3-adding-a-new-adjustment-layer)
-    - [Example 4: Editing the image in a pixel layer](#example-4-editing-the-image-in-a-pixel-layer)
-    - [Example 5: Creating new Renditions](#example-5-creating-new-renditions)
-    - [Example 6: Swapping the image in a smart object layer](#example-6-swapping-smartobject)
-  - [/renditionCreate (Generating New Renditions)](#renditioncreate-generating-new-renditions)
-      - [Example 1: A single file input](#example-1-a-single-file-input)
-    - [Example 2: Poll for status and results](#example-2-poll-for-status-and-results-2)
-    - [Example 3: A folder input (multiple files)](#example-3-a-folder-input-multiple-files)
-- [Sample Code](#sample-code)
-- [Current Limitations](#current-limitations)
-- [Release Notes](#release-notes)
+- [Photoshop](#photoshop)
+  - [General Workflow](#general-workflow)
+    - [Input and Output file locations](#input-and-output-file-locations)
+    - [Fonts](#fonts)
+    - [SmartObject](#smartobject)
+    - [Tracking document changes](#tracking-document-changes)
+  - [Supported Features](#supported-features)
+    - [Layer level edits](#layer-level-edits)
+    - [Artboards](#artboards)
+    - [Document level edits](#document-level-edits)
+    - [Rendering / Conversions](#rendering--conversions)
+      - [Compatibility with Photoshop versions](#compatibility-with-photoshop-versions)
+  - [How to use the APIs](#how-to-use-the-apis)
+    - [/documentManifest (Retrieving a PSD manifest)](#documentmanifest-retrieving-a-psd-manifest)
+      - [Example 1: Initiate a job to retrieve a PSD's JSON manifest](#example-1-initiate-a-job-to-retrieve-a-psds-json-manifest)
+      - [Example 2: Poll for status and results](#example-2-poll-for-status-and-results)
+      - [Example 3: The returned manifest](#example-3-the-returned-manifest)
+    - [/documentOperations (Making PSD edits and renders)](#documentoperations-making-psd-edits-and-renders)
+      - [The add, edit and delete objects](#the-add-edit-and-delete-objects)
+      - [Example 1: Making a simple edit (to a text layer)](#example-1-making-a-simple-edit-to-a-text-layer)
+      - [Example 2: Poll for status and results](#example-2-poll-for-status-and-results-1)
+      - [Example 3: Adding a new adjustment layer](#example-3-adding-a-new-adjustment-layer)
+      - [Example 4: Editing the image in a pixel layer](#example-4-editing-the-image-in-a-pixel-layer)
+      - [Example 5: Creating new Renditions](#example-5-creating-new-renditions)
+      - [Example 6: Swapping the image in a smart object layer](#example-6-swapping-the-image-in-a-smart-object-layer)
+    - [/renditionCreate (Generating New Renditions)](#renditioncreate-generating-new-renditions)
+        - [Example 1: A single file input](#example-1-a-single-file-input)
+      - [Example 2: Poll for status and results](#example-2-poll-for-status-and-results-2)
+      - [Example 3: A folder input (multiple files)](#example-3-a-folder-input-multiple-files)
+  - [Sample Code](#sample-code)
+  - [Current Limitations](#current-limitations)
+  - [Release Notes](#release-notes)
+- [ImageCutout](#imagecutout)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -71,7 +66,7 @@ The Adobe Photoshop APIs will allow you to make both layer and document level ed
 
 The API documentation is published at https://adobedocs.github.io/photoshop-api-docs/
 
-# Setup
+# General Setup and Onboarding
 
 ## Authentication
 
@@ -143,16 +138,17 @@ Also known as the `client_id`. You must additionally pass in your Adobe API key 
 
 We have not put a throttle limit on requests to the API at this time.
 
+# Photoshop
 
-# General Workflow
+## General Workflow
 
 The typical workflow involves retrieving a PSD document manifest file via `/documentManifest` (a JSON representation of the documents layer tree), followed by one or more calls to `/documentOperations` to optionally edit the PSD and/or create new image renditions. Both endpoints are asynchronous so the response will contain the `/status` endpoint to poll for job status and results
 
-## Input and Output file locations
+### Input and Output file locations
 
 For the time being clients can only use assets stored on EITHER Adobe's Creative Cloud OR external storage (like AWS S3 or Azure Blog Storage).  Support for mixing and matching will be added in the future
 
-## Fonts
+### Fonts
 
 The APIs all use Postscript names.
 
@@ -164,7 +160,7 @@ If your font is not included in either of these locations you must include an hr
 
 Font support is a work in progress.
 
-## SmartObject
+### SmartObject
 
 The Photoshop APIs currently support creating and editing of Embedded Smart Objects. Support for Linked Smart Objects is forthcoming.
 
@@ -174,15 +170,15 @@ Please see the api docs for more information.
 
 Smart Object support is a work in progress.
 
-## Tracking document changes
+### Tracking document changes
 
 If you are making multiple edits to a PSD during the course of a user session it is your decision on how you want to track and store changes from one version of a PSD to another. Some clients will choose to refresh the document's JSON manifest by calling `/documentManifest` again after each call to `/documentOperations`. Other clients may choose to cache the changes locally and then make one final call to `/documentOperations` with the original PSD and the accumulated changes requested by the user.
 
-# Supported Features
+## Supported Features
 
 This is a partial list of currently supported features.  Please also see the [Release Notes](https://forums.adobeprerelease.com/photoshopapiservice/categories/releasenotes) for a list of added features
 
-## Layer level edits
+### Layer level edits
 
 - General layer edits
   - Edit the layer name
@@ -210,36 +206,36 @@ This is a partial list of currently supported features.  Please also see the [Re
   - Edit the paragraph alignment (centered, justified, etc)
   - Edit the font weight
 
-## Artboards
+### Artboards
 
 - Show artboard information in the JSON Manifest
 - Create a new artboard from multiple input psd's
 
-## Document level edits
+### Document level edits
 
 - Crop a PSD
 - Resize a PSD
 
-## Rendering / Conversions
+### Rendering / Conversions
 
 - Create a new PSD document
 - Create a JPEG, TIFF or PNG rendition of various sizes
 - Request thumbnail previews of all renderable layers
 - Convert between any of the supported filetypes (PSD, JPEG, TIFF, PNG)
 
-### Compatibility with Photoshop versions
+#### Compatibility with Photoshop versions
 
 1. The API’s will open any PSD created with Photoshop 1.0 through the current release and this will always be true.
 2.  When saving as PSD, the API’s will create PSD’s compatible with the current shipping Photoshop.
 3.  In regards to “maximize compatibility” referenced in [https://helpx.adobe.com/photoshop/using/file-formats.html#maximize_compatibility_for_psd_and_psb_files](https://helpx.adobe.com/photoshop/using/file-formats.html#maximize_compatibility_for_psd_and_psb_files)  the API's default to “yes”
 
-# How to use the APIs
+## How to use the APIs
 
 The API's are documented at https://adobedocs.github.io/photoshop-api-docs/
 
-## /documentManifest (Retrieving a PSD manifest)
+### /documentManifest (Retrieving a PSD manifest)
 
-### Example 1: Initiate a job to retrieve a PSD's JSON manifest
+#### Example 1: Initiate a job to retrieve a PSD's JSON manifest
 
 The `/documentManifest` api can take one or more input PSD's to generate JSON manifest files from. The JSON manifest is the tree representation of all of the layer objects contained in the PSD document. Using Example.psd, with the use case of a document stored in Adobe's Creative Cloud, a typical curl call might look like this:
 
@@ -270,7 +266,7 @@ This initiates an asynchronous job and returns a response containing the href to
 }
 ```
 
-### Example 2: Poll for status and results
+#### Example 2: Poll for status and results
 
 Using the job id returned from the previous call you can poll on the returned `/status` href to get the job status and, upon success, the JSON Manifest
 
@@ -282,7 +278,7 @@ curl -X GET \
   -H 'x-api-key: <YOUR_API_KEY>'
 ```
 
-### Example 3: The returned manifest
+#### Example 3: The returned manifest
 
 Once your job completes (and does not report any errors) the status response will contain your document's JSON manifest along with other metadata about the input document. The JSON Manifest is further described in the [api docs](https://git.corp.adobe.com/pages/dice/pie-in-the-sky/#api-Documents-document_manifest_status)
 
@@ -452,17 +448,17 @@ Once your job completes (and does not report any errors) the status response wil
 }
 ```
 
-## /documentOperations (Making PSD edits and renders)
+### /documentOperations (Making PSD edits and renders)
 
 Once you have your PSD file's JSON manifest you can use it to make layer and/or document level edits to your PSD and then generate new renditions with the changes. You can pass in either all or a subset of the JSON manifest to `/documentOperations` as represented in the request body's `options.layers` argument. In other words you can choose to pass `options.layers` as a flat array of only the layers that you wish to act upon and can, if desired, leave out the rest.
 
 The layer id or layer name are used by the service to identify the correct layer to operation upon in your PSD; Note that adding a new layer does not require the ID to be included, the service will generate a new layer id for you.
 
-### The add, edit and delete objects
+#### The add, edit and delete objects
 
 The `add`, `edit`, `move` and `delete` blocks are how you communicate that you'd like action taken on that particular layer object. Any layer block passed into the API that is missing the one of these attributes will be ignored.
 
-### Example 1: Making a simple edit (to a text layer)
+#### Example 1: Making a simple edit (to a text layer)
 
 In this example we will be editing a single text layer from Example.psd. We are only including a single layer object in the `options.layers` array. We will be editing layer id 412 from the `/documentManfest` examples above and making the following requests:
 
@@ -541,7 +537,7 @@ This initiates an asynchronous job and returns a request body containing the hre
 }
 ```
 
-### Example 2: Poll for status and results
+#### Example 2: Poll for status and results
 
 Using the job id returned from the previous call you can poll on the returned `/status` href to get the status for the edit job and each requested output
 
@@ -584,7 +580,7 @@ And this will return a request body containing the job status for each requested
 ```
 
 
-### Example 3: Adding a new adjustment layer
+#### Example 3: Adding a new adjustment layer
 
 This example shows how you can add a new brightnessContrast adjustment layer to the top of your PSD.  Things to note:
 
@@ -635,7 +631,7 @@ curl -X POST \
 ```
 
 
-### Example 4: Editing the image in a pixel layer
+#### Example 4: Editing the image in a pixel layer
 
 In this example we want to replace the image in an existing pixel layer, the Hero Image layer in Example.psd. We are requesting the following:
 
@@ -690,11 +686,11 @@ curl -X POST \
 '
 ```
 
-### Example 5: Creating new Renditions
+#### Example 5: Creating new Renditions
 
 See the `/renditionCreate` examples below as the format for the `outputs` object in the request body is identical
 
-### Example 6: Swapping the image in a smart object layer
+#### Example 6: Swapping the image in a smart object layer
 
 In this example we want to swap the smart object in an existing embedded smart object layer, the Hero Image layer in Example.psd. We are requesting the following:
 
@@ -756,11 +752,11 @@ curl -X POST \
 '
 ```
 
-## /renditionCreate (Generating New Renditions)
+### /renditionCreate (Generating New Renditions)
 
 The `/renditionsCreate` endpoint can take a number of input PSD files and generate new image renditions or a new PSD
 
-#### Example 1: A single file input
+##### Example 1: A single file input
 
 In this example we are requesting two different outputs from our Example.psd input:
 
@@ -810,7 +806,7 @@ This initiates an asynchronous job and returns a request body containing the hre
 }
 ```
 
-### Example 2: Poll for status and results
+#### Example 2: Poll for status and results
 
 Using the job id returned from the previous call you can poll on the returned `/status` href to get the status for each requested output
 
@@ -858,7 +854,7 @@ This will return a request body containing the job status for each requested out
 }
 ```
 
-### Example 3: A folder input (multiple files)
+#### Example 3: A folder input (multiple files)
 
 In this example we are requesting new full size jpeg renditions from an input folder containing multiple PSD documents.
 
@@ -888,14 +884,14 @@ curl -X POST \
 '
 ```
 
-# Sample Code
+## Sample Code
 
 The [sample_code](sample_code) folder in this repo contains sample code for calling the Photoshop APIs.
 
 Note that the sample code is covered by the MIT license.
 
 
-# Current Limitations
+## Current Limitations
 There are a few limitations to the APIs you should be aware of ahead of time.  
 - Multi-part uploads and downloads are not yet supported
 - Clients can only use assets stored on EITHER Adobe's Creative Cloud or external storage (like AWS S3).  Support for mixing and matching will be added in the future
@@ -904,5 +900,17 @@ There are a few limitations to the APIs you should be aware of ahead of time.
 
 The file Example.psd is included in this repository if you'd like to experiment with these example calls on your own.
 
-# Release Notes
+## Release Notes
 Please see the [Release Notes](https://forums.adobeprerelease.com/photoshopapiservice/categories/releasenotes) section of the discussion forums
+
+# ImageCutout
+
+Image Cutout Service is based on Photoshop technology and [Adobe Sensei](https://www.adobe.com/sensei.html) technology. You can call this service to execute the task of identifying and “cutting out” the most salient object in a digital image. It returns a mask of the most salient object in an image.
+
+## General Workflow
+
+The typical workflow involves making a synchronous API call to the POST endpoint https://sensei-ew1.adobe.io/services/v1/predict for which the response will contain a link to the created mask file.
+
+## How to use the API's
+
+The API's are documented at [https://adobedocs.github.io/photoshop-api-docs/#api-Sensei-ImageCutout](https://adobedocs.github.io/photoshop-api-docs/#api-Sensei-ImageCutout)
