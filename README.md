@@ -19,7 +19,7 @@
 - [Photoshop](#photoshop)
   - [General Workflow](#general-workflow)
     - [Input and Output file locations](#input-and-output-file-locations)
-    - [Text Layer](#textLayer)
+    - [Text layers](#textLayers)
       - [Fonts](#fonts)
     - [SmartObject](#smartobject)
     - [Tracking document changes](#tracking-document-changes)
@@ -149,16 +149,16 @@ The typical workflow involves retrieving a PSD document manifest file via `/docu
 
 For the time being clients can only use assets stored on EITHER Adobe's Creative Cloud OR external storage (like AWS S3 or Azure Blog Storage).  Support for mixing and matching will be added in the future
 
-### Text Layer
+### Text layers
 
 The Photoshop APIs currently support creating and editing of Text Layer with different fonts, character styles and paragraph styles.
 
 Please see the api docs for more information.
 
-[title](https://git.corp.adobe.com/pages/dice/pie-in-the-sky/#api-Photoshop-document_operations "API Docs")
+[API Documentation](https://git.corp.adobe.com/pages/dice/pie-in-the-sky/#api-Photoshop-document_operations "API Docs")
 
 We also have an example of making a simple text layer edit
-https://github.com/AdobeDocs/photoshop-api-docs#example-1-making-a-simple-edit-to-a-text-layer
+[Text layer Example Code](https://github.com/AdobeDocs/photoshop-api-docs#example-1-making-a-simple-edit-to-a-text-layer)
 
 #### Fonts
 
@@ -179,10 +179,11 @@ The Photoshop APIs currently support creating and editing of Embedded Smart Obje
 - In order to update an embedded smart object that is referenced by multiple layers you only need to update one of those layers, the effect will be reflected in all layers referencing the same smart object.
 
 Please see the api docs for more information.
-https://git.corp.adobe.com/pages/dice/pie-in-the-sky/#api-Photoshop-document_operations
+
+[API Documentation](https://git.corp.adobe.com/pages/dice/pie-in-the-sky/#api-Photoshop-document_operations "API Docs")
 
 Please find a JSON example of replacing a Smart Object within a layer.
-https://github.com/AdobeDocs/photoshop-api-docs#example-6-swapping-the-image-in-a-smart-object-layer
+[Smart Object Example Code](https://github.com/AdobeDocs/photoshop-api-docs#example-6-swapping-the-image-in-a-smart-object-layer)
 
 Smart Object support is a work in progress.
 
