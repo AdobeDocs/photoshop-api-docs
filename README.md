@@ -938,11 +938,11 @@ The API's are documented at [https://adobedocs.github.io/photoshop-api-docs/#api
 
 # Lightroom APIs
 
-The Adobe Lightroom APIs allow you to make Lightroom like automated edits to JPG image files.
+The Adobe Lightroom APIs allow you to make Lightroom-like automated edits to image files.
 
 ## General Workflow
 
-The typical workflow involves making a synchronous API call (specifying the hrefs to the input and the output assets) to the POST endpoint https://image.adobe.io/lrService/ for which the response will contain a link to an asynchronous job thats created. Making a synchronous GET API call to this link will return the status of the job.
+The typical workflow involves making an API POST call to the endpoint https://image.adobe.io/lrService/ for which the response will contain a link to check the status of the asynchronous job. Making a GET call to this link will return the status of the job and, eventually, the links to your generated output.
 
 ## How to use the API's
 
