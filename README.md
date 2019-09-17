@@ -68,11 +68,12 @@ If you are not currently a member, please sign up at [https://photoshop.adobelan
 The Adobe Photoshop APIs will allow you to make both layer and document level edits to Photoshop PSD files.  This page is meant to help you onboard with the service and get you started with some basic usage examples.
 
 The API documentation is published at 
-[Photoshop API Documentation]https://adobedocs.github.io/photoshop-api-docs/
 
-[Lightroom API Documentation]https://github.com/AdobeDocs/lightroom-api-docs
+[Photoshop API Documentation](https://adobedocs.github.io/photoshop-api-docs/)
 
-[Image Cutout API Documentation]https://adobedocs.github.io/photoshop-api-docs/#api-Sensei-ImageCutout
+[Lightroom API Documentation](https://github.com/AdobeDocs/lightroom-api-docs)
+
+[Image Cutout API Documentation](https://adobedocs.github.io/photoshop-api-docs/#api-Sensei-ImageCutout)
 
 # General Setup and Onboarding
 
