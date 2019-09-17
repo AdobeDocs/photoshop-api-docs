@@ -161,9 +161,7 @@ For the time being clients can only use assets stored on EITHER Adobe's Creative
 
 The Photoshop APIs currently support creating and editing of Text Layer with different fonts, character styles and paragraph styles.
 
-The API's are documented at
-
-[API Documentation](https://adobedocs.github.io/photoshop-api-docs/#api-Photoshop-document_operations)
+The API's are documented [here](https://adobedocs.github.io/photoshop-api-docs/#api-Photoshop-document_operations)
 
 We also have an example of making a simple text layer edit.
 
@@ -187,9 +185,7 @@ The Photoshop APIs currently support creating and editing of Embedded Smart Obje
 
 - In order to update an embedded smart object that is referenced by multiple layers you only need to update one of those layers, the effect will be reflected in all layers referencing the same smart object.
 
-The API's are documented at
-
-[API Documentation](https://adobedocs.github.io/photoshop-api-docs/#api-Photoshop-document_operations)
+The API's are documented [here](https://adobedocs.github.io/photoshop-api-docs/#api-Photoshop-document_operations)
 
 We also have an example of replacing a Smart Object within a layer.
 
