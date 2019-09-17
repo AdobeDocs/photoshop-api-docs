@@ -161,7 +161,7 @@ For the time being clients can only use assets stored on EITHER Adobe's Creative
 
 The Photoshop APIs currently support creating and editing of Text Layer with different fonts, character styles and paragraph styles.
 
-Please see the api docs for more information.
+The API's are documented at
 
 [API Documentation](https://adobedocs.github.io/photoshop-api-docs/#api-Photoshop-document_operations)
 
@@ -187,11 +187,11 @@ The Photoshop APIs currently support creating and editing of Embedded Smart Obje
 
 - In order to update an embedded smart object that is referenced by multiple layers you only need to update one of those layers, the effect will be reflected in all layers referencing the same smart object.
 
-Please see the api docs for more information.
+The API's are documented at
 
 [API Documentation](https://adobedocs.github.io/photoshop-api-docs/#api-Photoshop-document_operations)
 
-Please find a JSON example of replacing a Smart Object within a layer.
+We also have an example of replacing a Smart Object within a layer.
 
 [Smart Object Example Code](https://github.com/AdobeDocs/photoshop-api-docs#example-6-swapping-the-image-in-a-smart-object-layer)
 
@@ -724,7 +724,7 @@ In this example we want to swap the smart object in an existing embedded smart o
 - The `layers.input` object is included to indicate where the replacement image can be found
 - The `layers.smartObject` object is included to indicate specific information related to this image as SO
 
-All the files used in the example are available in `sample_files`. You can download the files and put it in your CC account or any storage(AWS,Azure or Dropbox).
+All the files used in the example are available in [sample_files](https://github.com/AdobeDocs/photoshop-api-docs/tree/master/sample_files). You can download the files and put it in your CC account or any storage(AWS,Azure or Dropbox).
 
 ```shell
 curl -X POST \
