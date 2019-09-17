@@ -1,4 +1,5 @@
 
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
@@ -49,6 +50,7 @@
   - [Current Limitations](#current-limitations)
   - [Release Notes](#release-notes)
 - [ImageCutout](#imagecutout)
+- [Lightroom APIs](#lightroom-apis)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -914,3 +916,15 @@ The typical workflow involves making a synchronous API call to the POST endpoint
 ## How to use the API's
 
 The API's are documented at [https://adobedocs.github.io/photoshop-api-docs/#api-Sensei-ImageCutout](https://adobedocs.github.io/photoshop-api-docs/#api-Sensei-ImageCutout)
+
+# Lightroom APIs
+
+The Adobe Lightroom APIs allow you to make Lightroom like automated edits to JPG image files.
+
+## General Workflow
+
+The typical workflow involves making a synchronous API call (specifying the hrefs to the input and the output assets) to the POST endpoint https://image.adobe.io/lrService/ for which the response will contain a link to an asynchronous job thats created. Making a synchronous GET API call to this link will return the status of the job.
+
+## How to use the API's
+
+The API's are documented at [https://adobedocs.github.io/lightroom-api-docs](https://adobedocs.github.io/lightroom-api-docs/)
