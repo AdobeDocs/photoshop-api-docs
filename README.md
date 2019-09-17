@@ -155,9 +155,10 @@ The Photoshop APIs currently support creating and editing of Text Layer with dif
 
 Please see the api docs for more information.
 
-[API Documentation](https://git.corp.adobe.com/pages/dice/pie-in-the-sky/#api-Photoshop-document_operations "API Docs")
+[API Documentation](https://adobedocs.github.io/photoshop-api-docs/#api-Photoshop-document_operations)
 
 We also have an example of making a simple text layer edit.
+
 [Text layer Example Code](https://github.com/AdobeDocs/photoshop-api-docs#example-1-making-a-simple-edit-to-a-text-layer)
 
 #### Fonts
@@ -180,9 +181,10 @@ The Photoshop APIs currently support creating and editing of Embedded Smart Obje
 
 Please see the api docs for more information.
 
-[API Documentation](https://git.corp.adobe.com/pages/dice/pie-in-the-sky/#api-Photoshop-document_operations "API Docs")
+[API Documentation](https://adobedocs.github.io/photoshop-api-docs/#api-Photoshop-document_operations)
 
 Please find a JSON example of replacing a Smart Object within a layer.
+
 [Smart Object Example Code](https://github.com/AdobeDocs/photoshop-api-docs#example-6-swapping-the-image-in-a-smart-object-layer)
 
 Smart Object support is a work in progress.
