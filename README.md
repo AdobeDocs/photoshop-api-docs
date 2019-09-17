@@ -155,7 +155,7 @@ The Photoshop APIs currently support creating and editing of Text Layer with dif
 
 Please see the api docs for more information.
 
-[API Documentation link](#https://adobedocs.github.io/photoshop-api-docs/#api-Photoshop-document_operations)
+[title](https://git.corp.adobe.com/pages/dice/pie-in-the-sky/#api-Photoshop-document_operations "API Docs")
 
 We also have an example of making a simple text layer edit
 https://github.com/AdobeDocs/photoshop-api-docs#example-1-making-a-simple-edit-to-a-text-layer
