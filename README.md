@@ -946,4 +946,4 @@ The typical workflow involves making a synchronous API call (specifying the href
 
 ## How to use the API's
 
-The API's are documented at [https://adobedocs.github.io/lightroom-api-docs](https://adobedocs.github.io/lightroom-api-docs/)
+The API's are documented at [https://github.com/AdobeDocs/lightroom-api-docs](https://github.com/AdobeDocs/lightroom-api-docs/)
