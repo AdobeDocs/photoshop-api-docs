@@ -19,7 +19,7 @@
 - [Photoshop](#photoshop)
   - [General Workflow](#general-workflow)
     - [Input and Output file locations](#input-and-output-file-locations)
-    - [Text layers](#textLayers)
+    - [Text layers](#text-layers)
       - [Fonts](#fonts)
     - [SmartObject](#smartobject)
     - [Tracking document changes](#tracking-document-changes)
