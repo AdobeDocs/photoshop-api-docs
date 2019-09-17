@@ -157,7 +157,7 @@ Please see the api docs for more information.
 
 [API Documentation](https://git.corp.adobe.com/pages/dice/pie-in-the-sky/#api-Photoshop-document_operations "API Docs")
 
-We also have an example of making a simple text layer edit
+We also have an example of making a simple text layer edit.
 [Text layer Example Code](https://github.com/AdobeDocs/photoshop-api-docs#example-1-making-a-simple-edit-to-a-text-layer)
 
 #### Fonts
