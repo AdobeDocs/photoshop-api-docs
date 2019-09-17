@@ -154,7 +154,8 @@ For the time being clients can only use assets stored on EITHER Adobe's Creative
 The Photoshop APIs currently support creating and editing of Text Layer with different fonts, character styles and paragraph styles.
 
 Please see the api docs for more information.
-[API Documentation](#https://adobedocs.github.io/photoshop-api-docs/#api-Photoshop-document_operations)
+
+[API Documentation link](#https://adobedocs.github.io/photoshop-api-docs/#api-Photoshop-document_operations)
 
 We also have an example of making a simple text layer edit
 https://github.com/AdobeDocs/photoshop-api-docs#example-1-making-a-simple-edit-to-a-text-layer
