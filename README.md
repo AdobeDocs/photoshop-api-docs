@@ -49,7 +49,7 @@
       - [Example 3: A folder input (multiple files)](#example-3-a-folder-input-multiple-files)
     - [/smartObject (Replacing smartobject)](#smartobject-replacing-smartobject)
       - [Example 1: Replacing a SmartObject](#example-1-replacing-a-smartobject)
-      - [Example 2: Creating a SmartObject](#example-2-adding-a-smartobject)
+      - [Example 2: Creating a SmartObject](#example-2-creating-a-smartobject)
   - [Sample Code](#sample-code)
   - [Current Limitations](#current-limitations)
   - [Release Notes](#release-notes)
