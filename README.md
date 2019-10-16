@@ -48,8 +48,8 @@
       - [Example 2: Poll for status and results](#example-2-poll-for-status-and-results-2)
       - [Example 3: A folder input (multiple files)](#example-3-a-folder-input-multiple-files)
     - [/smartObject (Replacing smartobject)](#smartobject-replacing-smartobject)
-      - [Example 1: Replacing SmartObject](#example-1-replacing-smartobject)
-      - [Example 2: Adding a SmartObject](#example-2-adding-smartobject)
+      - [Example 1: Replacing a SmartObject](#example-1-replacing-a-smartobject)
+      - [Example 2: Creating a SmartObject](#example-2-adding-a-smartobject)
   - [Sample Code](#sample-code)
   - [Current Limitations](#current-limitations)
   - [Release Notes](#release-notes)
@@ -914,7 +914,7 @@ curl -X POST \
 The `/smartObject` endpoint can take an input PSD file with an embedded smartobject and can replace with another smartobject.
 This API is a simple API developed to ease the smartObject replacement workflow for an user.
 
-##### Example 1: Replacing SmartObject
+##### Example 1: Replacing a SmartObject
 This example shows how you can replace an embedded smart object
 
 ``` shell
@@ -948,7 +948,7 @@ https: //image.adobe.io/pie/psdService/smartObject \
 
 ```
 
-##### Example 2: Creating SmartObject
+##### Example 2: Creating a SmartObject
 This example shows how you can create an embedded smart object
 
 ``` shell
