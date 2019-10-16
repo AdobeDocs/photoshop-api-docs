@@ -44,9 +44,12 @@
       - [Example 5: Creating new Renditions](#example-5-creating-new-renditions)
       - [Example 6: Swapping the image in a smart object layer](#example-6-swapping-the-image-in-a-smart-object-layer)
     - [/renditionCreate (Generating New Renditions)](#renditioncreate-generating-new-renditions)
-        - [Example 1: A single file input](#example-1-a-single-file-input)
+      - [Example 1: A single file input](#example-1-a-single-file-input)
       - [Example 2: Poll for status and results](#example-2-poll-for-status-and-results-2)
       - [Example 3: A folder input (multiple files)](#example-3-a-folder-input-multiple-files)
+    - [/smartObject (Replacing smartobject)](#smartobject-replacing-smartobject)
+      - [Example 1: Replacing a SmartObject](#example-1-replacing-a-smartobject)
+      - [Example 2: Creating a SmartObject](#example-2-creating-a-smartobject)
   - [Sample Code](#sample-code)
   - [Current Limitations](#current-limitations)
   - [Release Notes](#release-notes)
@@ -67,7 +70,7 @@ If you are not currently a member, please sign up at [https://photoshop.adobelan
 
 The Adobe Photoshop APIs will allow you to make both layer and document level edits to Photoshop PSD files.  This page is meant to help you onboard with the service and get you started with some basic usage examples.
 
-The API documentation is published at 
+The API documentation is published at
 
 [Photoshop API Documentation](https://adobedocs.github.io/photoshop-api-docs/)
 
@@ -906,7 +909,81 @@ curl -X POST \
 }
 '
 ```
+### /smartObject (Replacing smartobject)
 
+The `/smartObject` endpoint can take an input PSD file with an embedded smartobject and can replace with another smartobject.
+This API is a simple API developed to ease the smartObject replacement workflow for an user.
+
+##### Example 1: Replacing a SmartObject
+This example shows how you can replace an embedded smart object
+
+``` shell
+curl - H "Authorization: Bearer $token" \
+- H "x-api-key: $api_key" \
+- X POST \
+https: //image.adobe.io/pie/psdService/smartObject \
+- d '{
+  "inputs": [
+  {
+    "href": "files/SOCreate.psd",
+    "storage": "adobe"
+  }],
+  "options": {
+    "layers": [{
+      "name": "New",
+      "input": {
+        "href": "files/jt-guitar.jpeg",
+        "storage": "adobe"
+      }
+     }
+    ]
+  },
+  "outputs": [
+  {
+    "storage": "adobe",
+    "href": "files/SOedit.psd",
+    "type": "vnd.adobe.photoshop"
+  }
+  ]}'
+
+```
+
+##### Example 2: Creating a SmartObject
+This example shows how you can create an embedded smart object
+
+``` shell
+curl - H "Authorization: Bearer $token" \
+- H "x-api-key: $api_key" \
+- X POST \
+https: //image.adobe.io/pie/psdService/smartObject
+- d '{
+  "inputs": [
+  {
+    "href": "files/SO.psd",
+    "storage": "adobe"
+  }],
+  "options": {
+    "layers": [{
+      "name": "New",
+      "add": {
+        "insertTop": true
+      },
+      "input": {
+        "href": "files/jt-drums.jpeg",
+        "storage": "adobe"
+       }
+      }
+    ]
+  },
+  "outputs": [
+  {
+    "storage": "adobe",
+    "href": "files/SOCreate.psd",
+    "type": "vnd.adobe.photoshop"
+  }
+]}'
+
+```
 ## Sample Code
 
 The [sample_code](sample_code) folder in this repo contains sample code for calling the Photoshop APIs.
