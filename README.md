@@ -945,44 +945,45 @@ https: //image.adobe.io/pie/psdService/smartObject \
     "type": "vnd.adobe.photoshop"
   }
   ]}'
-  ```
 
-  ##### Example 2: Creating SmartObject
-  This example shows how you can create an embedded smart object
+```
 
-  ``` shell
-  curl - H "Authorization: Bearer $token" \
-  - H "x-api-key: $api_key" \
-  - X POST \
-  https: //image.adobe.io/pie/psdService/smartObject
-  - d '{
-    "inputs": [
-    {
-      "href": "files/SO.psd",
-      "storage": "adobe"
-    }],
-    "options": {
-      "layers": [{
-        "name": "New",
-        "add": {
-					"insertTop": true
-				},
-        "input": {
-          "href": "files/jt-drums.jpeg",
-          "storage": "adobe"
-        }
+##### Example 2: Creating SmartObject
+This example shows how you can create an embedded smart object
+
+``` shell
+curl - H "Authorization: Bearer $token" \
+- H "x-api-key: $api_key" \
+- X POST \
+https: //image.adobe.io/pie/psdService/smartObject
+- d '{
+  "inputs": [
+  {
+    "href": "files/SO.psd",
+    "storage": "adobe"
+  }],
+  "options": {
+    "layers": [{
+      "name": "New",
+      "add": {
+        "insertTop": true
+      },
+      "input": {
+        "href": "files/jt-drums.jpeg",
+        "storage": "adobe"
        }
-      ]
-    },
-    "outputs": [
-    {
-      "storage": "adobe",
-      "href": "files/SOCreate.psd",
-      "type": "vnd.adobe.photoshop"
-    }
-    ]}'
-    ```
+      }
+    ]
+  },
+  "outputs": [
+  {
+    "storage": "adobe",
+    "href": "files/SOCreate.psd",
+    "type": "vnd.adobe.photoshop"
+  }
+]}'
 
+```
 ## Sample Code
 
 The [sample_code](sample_code) folder in this repo contains sample code for calling the Photoshop APIs.
