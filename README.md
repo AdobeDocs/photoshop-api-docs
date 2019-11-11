@@ -1,5 +1,4 @@
 
-
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
@@ -20,8 +19,7 @@
 - [Photoshop](#photoshop)
   - [General Workflow](#general-workflow)
     - [Input and Output file locations](#input-and-output-file-locations)
-    - [Text layers](#text-layers)
-      - [Fonts](#fonts)
+    - [Fonts](#fonts)
     - [SmartObject](#smartobject)
     - [Tracking document changes](#tracking-document-changes)
   - [Supported Features](#supported-features)
@@ -44,17 +42,15 @@
       - [Example 5: Creating new Renditions](#example-5-creating-new-renditions)
       - [Example 6: Swapping the image in a smart object layer](#example-6-swapping-the-image-in-a-smart-object-layer)
     - [/renditionCreate (Generating New Renditions)](#renditioncreate-generating-new-renditions)
-      - [Example 1: A single file input](#example-1-a-single-file-input)
+        - [Example 1: A single file input](#example-1-a-single-file-input)
       - [Example 2: Poll for status and results](#example-2-poll-for-status-and-results-2)
       - [Example 3: A folder input (multiple files)](#example-3-a-folder-input-multiple-files)
-    - [/smartObject (Replacing smartobject)](#smartobject-replacing-smartobject)
-      - [Example 1: Replacing a SmartObject](#example-1-replacing-a-smartobject)
-      - [Example 2: Creating a SmartObject](#example-2-creating-a-smartobject)
   - [Sample Code](#sample-code)
   - [Current Limitations](#current-limitations)
   - [Release Notes](#release-notes)
 - [ImageCutout](#imagecutout)
-- [Lightroom APIs](#lightroom-apis)
+  - [General Workflow](#general-workflow-1)
+  - [How to use the API's](#how-to-use-the-apis)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -70,13 +66,7 @@ If you are not currently a member, please sign up at [https://photoshop.adobelan
 
 The Adobe Photoshop APIs will allow you to make both layer and document level edits to Photoshop PSD files.  This page is meant to help you onboard with the service and get you started with some basic usage examples.
 
-The API documentation is published at
-
-[Photoshop API Documentation](https://adobedocs.github.io/photoshop-api-docs/)
-
-[Lightroom API Documentation](https://adobedocs.github.io/lightroom-api-docs/)
-
-[Image Cutout API Documentation](https://adobedocs.github.io/photoshop-api-docs/#api-Sensei-ImageCutout)
+The API documentation is published at https://adobedocs.github.io/photoshop-api-docs/
 
 # General Setup and Onboarding
 
@@ -158,19 +148,9 @@ The typical workflow involves retrieving a PSD document manifest file via `/docu
 
 ### Input and Output file locations
 
-For the time being clients can only use assets stored on EITHER Adobe's Creative Cloud OR external storage (like AWS S3 or Azure Blog Storage).  Support for mixing and matching will be added in the future
+For the time being clients can use assets stored on Adobe's Creative Cloud, AWS S3, Azure and Dropbox. 
 
-### Text layers
-
-The Photoshop APIs currently support creating and editing of Text Layer with different fonts, character styles and paragraph styles.
-
-The API's are documented [here](https://adobedocs.github.io/photoshop-api-docs/#api-Photoshop-document_operations)
-
-We also have an example of making a simple text layer edit.
-
-[Text layer Example Code](https://github.com/AdobeDocs/photoshop-api-docs#example-1-making-a-simple-edit-to-a-text-layer)
-
-#### Fonts
+### Fonts
 
 The APIs all use Postscript names.
 
@@ -188,11 +168,7 @@ The Photoshop APIs currently support creating and editing of Embedded Smart Obje
 
 - In order to update an embedded smart object that is referenced by multiple layers you only need to update one of those layers, the effect will be reflected in all layers referencing the same smart object.
 
-The API's are documented [here](https://adobedocs.github.io/photoshop-api-docs/#api-Photoshop-document_operations)
-
-We also have an example of replacing a Smart Object within a layer.
-
-[Smart Object Example Code](https://github.com/AdobeDocs/photoshop-api-docs#example-6-swapping-the-image-in-a-smart-object-layer)
+Please see the api docs for more information.
 
 Smart Object support is a work in progress.
 
@@ -499,8 +475,9 @@ In this example we will be editing a single text layer from Example.psd. We are 
 ```shell
 curl -X POST \
   https://image.adobe.io/pie/psdService/documentOperations \
-  -H "Authorization: Bearer $token"  \
-  -H "x-api-key: $apiKey" \
+  -H 'Authorization: Bearer eyJ4NXUiOiJjZXJ0X2ZpbGUuY2VyIiwiYWxnIjoiUlMyNTYifQ.eyJpZCI6Ijx5b3VyX2lkPiIsImNsaWVudF9pZCI6Ijx5b3VyX2NsaWVudF9pZD4iLCJ1c2VyX2lkIjoiPHVzZXJJRD5AQWRvYmVJRCIsInR5cGUiOiJhY2Nlc3NfdG9rZW4iLCJhcyI6Zm9vIiwiZmciOiJTV0tYS1hDRVg3Nzc3Nzc3TlhLTk9TSUFJWT09PT09PSIsInNpZCI6ImZvbyIsIm1vaSI6IjEwNTkwMmFlIiwiYyI6Im8xV2Y0UURoZDFBdG1jb3FwdGpqOVE9PSIsImV4cGlyZXNfaW4iOiI4NjQwMDAwMCIsInNjb3BlIjoiPHNjb3BlPiIsImNyZWF0ZWRfYXQiOiIxNTM0ODcyMzU3OTcxIn0=.amuZs0vsE6-scPjPJLEoYVPHJnY6tunspkRyfxC-1BzMAPqH9dnK64J7Ja6owLmB89tm_BTWMgj3iLZerystQBOmm7TTJER7qLzyzk2O1p0l9enulGzeOHqb995rRBkXUCduamWnfCRkFQBYDG7E1riWhzgzbQ0C_Hz8_XdAjNIGuhA9hEZXcqtBG3CTQHNWpdViKfIuSznBujBCSmok4sBPCT-WYlTjsTUyBVvv1kl1oOlKpKBZxUkYaCr6BB_BuoSJUBpePRdQPtTLsG26In5OYX4CO3ZHnBcO3u9csaiPbVTtImSsLOV7_aHDEHUKrSF9vfZU9vOb9ijZe1NqHw' \
+  -H 'Content-Type: application/json' \
+  -H 'x-api-key: <YOUR_API_KEY>' \
   -d '{
   "inputs":[
     {
@@ -719,17 +696,16 @@ See the `/renditionCreate` examples below as the format for the `outputs` object
 
 In this example we want to swap the smart object in an existing embedded smart object layer, the Hero Image layer in Example.psd. We are requesting the following:
 
-- The `edit` key is included to indicate we want to edit this layer
-- The `layers.input` object is included to indicate where the replacement image can be found
-- The `layers.smartObject` object is included to indicate specific information related to this image as SO
-
-All the files used in the example are available in [sample_files](https://github.com/AdobeDocs/photoshop-api-docs/tree/master/sample_files). You can download the files and put it in your CC account or any storage(AWS,Azure or Dropbox).
+- NEW KEYWORD TO INDICATE AN EDIT: The `edit` key is included to indicate we want to edit this layer
+- NEW KEYWORD TO INDICATE IMAGE REPLACEMENT INFO: The `layers.input` object is included to indicate where the replacement image can be found
+- NEW KEYWORD TO INDICATE SMART OBJECT RELATED INFO: The `layers.smartObject` object is included to indicate specific information related to this image as SO
 
 ```shell
 curl -X POST \
   https://image.adobe.io/pie/psdService/documentOperations \
-  -H "Authorization: Bearer $token"  \
-  -H "x-api-key: $apiKey" \
+  -H 'Authorization: Bearer eyJ4NXUiOiJjZXJ0X2ZpbGUuY2VyIiwiYWxnIjoiUlMyNTYifQ.eyJpZCI6Ijx5b3VyX2lkPiIsImNsaWVudF9pZCI6Ijx5b3VyX2NsaWVudF9pZD4iLCJ1c2VyX2lkIjoiPHVzZXJJRD5AQWRvYmVJRCIsInR5cGUiOiJhY2Nlc3NfdG9rZW4iLCJhcyI6Zm9vIiwiZmciOiJTV0tYS1hDRVg3Nzc3Nzc3TlhLTk9TSUFJWT09PT09PSIsInNpZCI6ImZvbyIsIm1vaSI6IjEwNTkwMmFlIiwiYyI6Im8xV2Y0UURoZDFBdG1jb3FwdGpqOVE9PSIsImV4cGlyZXNfaW4iOiI4NjQwMDAwMCIsInNjb3BlIjoiPHNjb3BlPiIsImNyZWF0ZWRfYXQiOiIxNTM0ODcyMzU3OTcxIn0=.amuZs0vsE6-scPjPJLEoYVPHJnY6tunspkRyfxC-1BzMAPqH9dnK64J7Ja6owLmB89tm_BTWMgj3iLZerystQBOmm7TTJER7qLzyzk2O1p0l9enulGzeOHqb995rRBkXUCduamWnfCRkFQBYDG7E1riWhzgzbQ0C_Hz8_XdAjNIGuhA9hEZXcqtBG3CTQHNWpdViKfIuSznBujBCSmok4sBPCT-WYlTjsTUyBVvv1kl1oOlKpKBZxUkYaCr6BB_BuoSJUBpePRdQPtTLsG26In5OYX4CO3ZHnBcO3u9csaiPbVTtImSsLOV7_aHDEHUKrSF9vfZU9vOb9ijZe1NqHw' \
+  -H 'Content-Type: application/json' \
+  -H 'x-api-key: <YOUR_API_KEY>' \
   -d '{
   "inputs":[
     {
@@ -740,12 +716,12 @@ curl -X POST \
   "options":{
     "layers":[
       {
-        "edit":{},     
+        "edit":{},     // <--- NEW KEYWORD TO INDICATE AN EDIT(REPLACEMENT)
         "input":{                                       
-          "href":"files/heroImage.png",  
+          "href":"/files/heroImage.png",  // <--- NEW KEYWORD TO INDICATE SMART OBJECT REPLACEMENT INFO
           "storage":"adobe"
         },
-        "smartObject" : {                
+        "smartObject" : {                // <--- NEW KEYWORD TO INDICATE SMART OBJECT RELATED INFO
         	"type" : "image/png",
         	"linked" : false
         },
@@ -909,81 +885,7 @@ curl -X POST \
 }
 '
 ```
-### /smartObject (Replacing smartobject)
 
-The `/smartObject` endpoint can take an input PSD file with an embedded smartobject and can replace with another smartobject.
-This API is a simple API developed to ease the smartObject replacement workflow for an user.
-
-##### Example 1: Replacing a SmartObject
-This example shows how you can replace an embedded smart object
-
-``` shell
-curl - H "Authorization: Bearer $token" \
-- H "x-api-key: $api_key" \
-- X POST \
-https: //image.adobe.io/pie/psdService/smartObject \
-- d '{
-  "inputs": [
-  {
-    "href": "files/SOCreate.psd",
-    "storage": "adobe"
-  }],
-  "options": {
-    "layers": [{
-      "name": "New",
-      "input": {
-        "href": "files/jt-guitar.jpeg",
-        "storage": "adobe"
-      }
-     }
-    ]
-  },
-  "outputs": [
-  {
-    "storage": "adobe",
-    "href": "files/SOedit.psd",
-    "type": "vnd.adobe.photoshop"
-  }
-  ]}'
-
-```
-
-##### Example 2: Creating a SmartObject
-This example shows how you can create an embedded smart object
-
-``` shell
-curl - H "Authorization: Bearer $token" \
-- H "x-api-key: $api_key" \
-- X POST \
-https: //image.adobe.io/pie/psdService/smartObject
-- d '{
-  "inputs": [
-  {
-    "href": "files/SO.psd",
-    "storage": "adobe"
-  }],
-  "options": {
-    "layers": [{
-      "name": "New",
-      "add": {
-        "insertTop": true
-      },
-      "input": {
-        "href": "files/jt-drums.jpeg",
-        "storage": "adobe"
-       }
-      }
-    ]
-  },
-  "outputs": [
-  {
-    "storage": "adobe",
-    "href": "files/SOCreate.psd",
-    "type": "vnd.adobe.photoshop"
-  }
-]}'
-
-```
 ## Sample Code
 
 The [sample_code](sample_code) folder in this repo contains sample code for calling the Photoshop APIs.
@@ -994,7 +896,7 @@ Note that the sample code is covered by the MIT license.
 ## Current Limitations
 There are a few limitations to the APIs you should be aware of ahead of time.  
 - Multi-part uploads and downloads are not yet supported
-- Clients can only use assets stored on EITHER Adobe's Creative Cloud or external storage (like AWS S3).  Support for mixing and matching will be added in the future
+- Clients can use assets stored on Adobe's Creative Cloud and external storage (like AWS S3).
 - The `/documentOperations` endpoint only supports a single PSD input
 - Error handling is a work in progress. Sometimes you may not see the most helpful of messages
 
@@ -1014,15 +916,3 @@ The typical workflow involves making a synchronous API call to the POST endpoint
 ## How to use the API's
 
 The API's are documented at [https://adobedocs.github.io/photoshop-api-docs/#api-Sensei-ImageCutout](https://adobedocs.github.io/photoshop-api-docs/#api-Sensei-ImageCutout)
-
-# Lightroom APIs
-
-The Adobe Lightroom APIs allow you to make Lightroom-like automated edits to image files.
-
-## General Workflow
-
-The typical workflow involves making an API POST call to the endpoint https://image.adobe.io/lrService/ for which the response will contain a link to check the status of the asynchronous job. Making a GET call to this link will return the status of the job and, eventually, the links to your generated output.
-
-## How to use the API's
-
-The API's are documented at [https://github.com/AdobeDocs/lightroom-api-docs](https://github.com/AdobeDocs/lightroom-api-docs/)
