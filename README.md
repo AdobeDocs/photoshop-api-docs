@@ -158,7 +158,7 @@ The typical workflow involves retrieving a PSD document manifest file via `/docu
 
 ### Input and Output file locations
 
-For the time being clients can only use assets stored on EITHER Adobe's Creative Cloud OR external storage (like AWS S3 or Azure Blog Storage).  Support for mixing and matching will be added in the future
+For the time being clients can use assets stored on Adobe's Creative Cloud, AWS S3, Azure and Dropbox.
 
 ### Text layers
 
@@ -268,7 +268,7 @@ The `/documentManifest` api can take one or more input PSD's to generate JSON ma
 ```shell
 curl -X POST \
   https://image.adobe.io/pie/psdService/documentManifest \
-  -H 'Authorization: Bearer eyJ4NXUiOiJjZXJ0X2ZpbGUuY2VyIiwiYWxnIjoiUlMyNTYifQ.eyJpZCI6Ijx5b3VyX2lkPiIsImNsaWVudF9pZCI6Ijx5b3VyX2NsaWVudF9pZD4iLCJ1c2VyX2lkIjoiPHVzZXJJRD5AQWRvYmVJRCIsInR5cGUiOiJhY2Nlc3NfdG9rZW4iLCJhcyI6Zm9vIiwiZmciOiJTV0tYS1hDRVg3Nzc3Nzc3TlhLTk9TSUFJWT09PT09PSIsInNpZCI6ImZvbyIsIm1vaSI6IjEwNTkwMmFlIiwiYyI6Im8xV2Y0UURoZDFBdG1jb3FwdGpqOVE9PSIsImV4cGlyZXNfaW4iOiI4NjQwMDAwMCIsInNjb3BlIjoiPHNjb3BlPiIsImNyZWF0ZWRfYXQiOiIxNTM0ODcyMzU3OTcxIn0=.amuZs0vsE6-scPjPJLEoYVPHJnY6tunspkRyfxC-1BzMAPqH9dnK64J7Ja6owLmB89tm_BTWMgj3iLZerystQBOmm7TTJER7qLzyzk2O1p0l9enulGzeOHqb995rRBkXUCduamWnfCRkFQBYDG7E1riWhzgzbQ0C_Hz8_XdAjNIGuhA9hEZXcqtBG3CTQHNWpdViKfIuSznBujBCSmok4sBPCT-WYlTjsTUyBVvv1kl1oOlKpKBZxUkYaCr6BB_BuoSJUBpePRdQPtTLsG26In5OYX4CO3ZHnBcO3u9csaiPbVTtImSsLOV7_aHDEHUKrSF9vfZU9vOb9ijZe1NqHw' \
+  -H 'Authorization: Bearer <auth_token>' \
   -H 'Content-Type: application/json' \
   -H 'x-api-key: <YOUR_API_KEY>' \
   -d '{
@@ -616,7 +616,7 @@ This example shows how you can add a new brightnessContrast adjustment layer to 
 ```shell
 curl -X POST \
   https://image.adobe.io/pie/psdService/documentOperations \
-  -H 'Authorization: Bearer eyJ4NXUiOiJjZXJ0X2ZpbGUuY2VyIiwiYWxnIjoiUlMyNTYifQ.eyJpZCI6Ijx5b3VyX2lkPiIsImNsaWVudF9pZCI6Ijx5b3VyX2NsaWVudF9pZD4iLCJ1c2VyX2lkIjoiPHVzZXJJRD5AQWRvYmVJRCIsInR5cGUiOiJhY2Nlc3NfdG9rZW4iLCJhcyI6Zm9vIiwiZmciOiJTV0tYS1hDRVg3Nzc3Nzc3TlhLTk9TSUFJWT09PT09PSIsInNpZCI6ImZvbyIsIm1vaSI6IjEwNTkwMmFlIiwiYyI6Im8xV2Y0UURoZDFBdG1jb3FwdGpqOVE9PSIsImV4cGlyZXNfaW4iOiI4NjQwMDAwMCIsInNjb3BlIjoiPHNjb3BlPiIsImNyZWF0ZWRfYXQiOiIxNTM0ODcyMzU3OTcxIn0=.amuZs0vsE6-scPjPJLEoYVPHJnY6tunspkRyfxC-1BzMAPqH9dnK64J7Ja6owLmB89tm_BTWMgj3iLZerystQBOmm7TTJER7qLzyzk2O1p0l9enulGzeOHqb995rRBkXUCduamWnfCRkFQBYDG7E1riWhzgzbQ0C_Hz8_XdAjNIGuhA9hEZXcqtBG3CTQHNWpdViKfIuSznBujBCSmok4sBPCT-WYlTjsTUyBVvv1kl1oOlKpKBZxUkYaCr6BB_BuoSJUBpePRdQPtTLsG26In5OYX4CO3ZHnBcO3u9csaiPbVTtImSsLOV7_aHDEHUKrSF9vfZU9vOb9ijZe1NqHw' \
+  -H 'Authorization: Bearer <auth_token>' \
   -H 'Content-Type: application/json' \
   -H 'x-api-key: <YOUR_API_KEY>' \
   -d '{
@@ -666,7 +666,7 @@ In this example we want to replace the image in an existing pixel layer, the Her
 ```shell
 curl -X POST \
   https://image.adobe.io/pie/psdService/documentOperations \
-  -H 'Authorization: Bearer eyJ4NXUiOiJjZXJ0X2ZpbGUuY2VyIiwiYWxnIjoiUlMyNTYifQ.eyJpZCI6Ijx5b3VyX2lkPiIsImNsaWVudF9pZCI6Ijx5b3VyX2NsaWVudF9pZD4iLCJ1c2VyX2lkIjoiPHVzZXJJRD5AQWRvYmVJRCIsInR5cGUiOiJhY2Nlc3NfdG9rZW4iLCJhcyI6Zm9vIiwiZmciOiJTV0tYS1hDRVg3Nzc3Nzc3TlhLTk9TSUFJWT09PT09PSIsInNpZCI6ImZvbyIsIm1vaSI6IjEwNTkwMmFlIiwiYyI6Im8xV2Y0UURoZDFBdG1jb3FwdGpqOVE9PSIsImV4cGlyZXNfaW4iOiI4NjQwMDAwMCIsInNjb3BlIjoiPHNjb3BlPiIsImNyZWF0ZWRfYXQiOiIxNTM0ODcyMzU3OTcxIn0=.amuZs0vsE6-scPjPJLEoYVPHJnY6tunspkRyfxC-1BzMAPqH9dnK64J7Ja6owLmB89tm_BTWMgj3iLZerystQBOmm7TTJER7qLzyzk2O1p0l9enulGzeOHqb995rRBkXUCduamWnfCRkFQBYDG7E1riWhzgzbQ0C_Hz8_XdAjNIGuhA9hEZXcqtBG3CTQHNWpdViKfIuSznBujBCSmok4sBPCT-WYlTjsTUyBVvv1kl1oOlKpKBZxUkYaCr6BB_BuoSJUBpePRdQPtTLsG26In5OYX4CO3ZHnBcO3u9csaiPbVTtImSsLOV7_aHDEHUKrSF9vfZU9vOb9ijZe1NqHw' \
+  -H 'Authorization: Bearer <auth_token>' \
   -H 'Content-Type: application/json' \
   -H 'x-api-key: <YOUR_API_KEY>' \
   -d '{
@@ -723,7 +723,7 @@ In this example we want to swap the smart object in an existing embedded smart o
 - The `layers.input` object is included to indicate where the replacement image can be found
 - The `layers.smartObject` object is included to indicate specific information related to this image as SO
 
-All the files used in the example are available in [sample_files](https://github.com/AdobeDocs/photoshop-api-docs/tree/master/sample_files). You can download the files and put it in your CC account or any storage(AWS,Azure or Dropbox).
+All the files used in the example are available in [sample_files](https://github.com/AdobeDocs/photoshop-api-docs/tree/master/sample_files). You can download the files and put it in your CC account or any storage(AWS, Azure or Dropbox).
 
 ```shell
 curl -X POST \
@@ -793,7 +793,7 @@ In this example we are requesting two different outputs from our Example.psd inp
 ```shell
 curl -X POST \
   https://image.adobe.io/pie/psdService/renditionCreate \
-  -H 'Authorization: Bearer eyJ4NXUiOiJjZXJ0X2ZpbGUuY2VyIiwiYWxnIjoiUlMyNTYifQ.eyJpZCI6Ijx5b3VyX2lkPiIsImNsaWVudF9pZCI6Ijx5b3VyX2NsaWVudF9pZD4iLCJ1c2VyX2lkIjoiPHVzZXJJRD5AQWRvYmVJRCIsInR5cGUiOiJhY2Nlc3NfdG9rZW4iLCJhcyI6Zm9vIiwiZmciOiJTV0tYS1hDRVg3Nzc3Nzc3TlhLTk9TSUFJWT09PT09PSIsInNpZCI6ImZvbyIsIm1vaSI6IjEwNTkwMmFlIiwiYyI6Im8xV2Y0UURoZDFBdG1jb3FwdGpqOVE9PSIsImV4cGlyZXNfaW4iOiI4NjQwMDAwMCIsInNjb3BlIjoiPHNjb3BlPiIsImNyZWF0ZWRfYXQiOiIxNTM0ODcyMzU3OTcxIn0=.amuZs0vsE6-scPjPJLEoYVPHJnY6tunspkRyfxC-1BzMAPqH9dnK64J7Ja6owLmB89tm_BTWMgj3iLZerystQBOmm7TTJER7qLzyzk2O1p0l9enulGzeOHqb995rRBkXUCduamWnfCRkFQBYDG7E1riWhzgzbQ0C_Hz8_XdAjNIGuhA9hEZXcqtBG3CTQHNWpdViKfIuSznBujBCSmok4sBPCT-WYlTjsTUyBVvv1kl1oOlKpKBZxUkYaCr6BB_BuoSJUBpePRdQPtTLsG26In5OYX4CO3ZHnBcO3u9csaiPbVTtImSsLOV7_aHDEHUKrSF9vfZU9vOb9ijZe1NqHw' \
+  -H 'Authorization: Bearer <auth_token>' \
   -H 'Content-Type: application/json' \
   -H 'x-api-key: <YOUR_API_KEY>' \
   -d '{
@@ -889,7 +889,7 @@ Note that the `outputs` object is using file tokens, $FileName, to create new fi
 ```shell
 curl -X POST \
   https://image.adobe.io/pie/psdService/renditionCreate \
-  -H 'Authorization: Bearer eyJ4NXUiOiJjZXJ0X2ZpbGUuY2VyIiwiYWxnIjoiUlMyNTYifQ.eyJpZCI6Ijx5b3VyX2lkPiIsImNsaWVudF9pZCI6Ijx5b3VyX2NsaWVudF9pZD4iLCJ1c2VyX2lkIjoiPHVzZXJJRD5AQWRvYmVJRCIsInR5cGUiOiJhY2Nlc3NfdG9rZW4iLCJhcyI6Zm9vIiwiZmciOiJTV0tYS1hDRVg3Nzc3Nzc3TlhLTk9TSUFJWT09PT09PSIsInNpZCI6ImZvbyIsIm1vaSI6IjEwNTkwMmFlIiwiYyI6Im8xV2Y0UURoZDFBdG1jb3FwdGpqOVE9PSIsImV4cGlyZXNfaW4iOiI4NjQwMDAwMCIsInNjb3BlIjoiPHNjb3BlPiIsImNyZWF0ZWRfYXQiOiIxNTM0ODcyMzU3OTcxIn0=.amuZs0vsE6-scPjPJLEoYVPHJnY6tunspkRyfxC-1BzMAPqH9dnK64J7Ja6owLmB89tm_BTWMgj3iLZerystQBOmm7TTJER7qLzyzk2O1p0l9enulGzeOHqb995rRBkXUCduamWnfCRkFQBYDG7E1riWhzgzbQ0C_Hz8_XdAjNIGuhA9hEZXcqtBG3CTQHNWpdViKfIuSznBujBCSmok4sBPCT-WYlTjsTUyBVvv1kl1oOlKpKBZxUkYaCr6BB_BuoSJUBpePRdQPtTLsG26In5OYX4CO3ZHnBcO3u9csaiPbVTtImSsLOV7_aHDEHUKrSF9vfZU9vOb9ijZe1NqHw' \
+  -H 'Authorization: Bearer <auth_token>' \
   -H 'Content-Type: application/json' \
   -H 'x-api-key: <YOUR_API_KEY>' \
   -d '{
@@ -994,7 +994,7 @@ Note that the sample code is covered by the MIT license.
 ## Current Limitations
 There are a few limitations to the APIs you should be aware of ahead of time.  
 - Multi-part uploads and downloads are not yet supported
-- Clients can only use assets stored on EITHER Adobe's Creative Cloud or external storage (like AWS S3).  Support for mixing and matching will be added in the future
+- For the time being clients can use assets stored on Adobe's Creative Cloud, AWS S3, Azure and Dropbox.
 - The `/documentOperations` endpoint only supports a single PSD input
 - Error handling is a work in progress. Sometimes you may not see the most helpful of messages
 
