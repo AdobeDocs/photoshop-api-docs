@@ -156,9 +156,13 @@ We have not put a throttle limit on requests to the API at this time.
 
 The typical workflow involves retrieving a PSD document manifest file via `/documentManifest` (a JSON representation of the documents layer tree), followed by one or more calls to `/documentOperations` to optionally edit the PSD and/or create new image renditions. Both endpoints are asynchronous so the response will contain the `/status` endpoint to poll for job status and results
 
-### Input and Output file locations
+### Input and Output file storage
 
-For the time being clients can use assets stored on Adobe's Creative Cloud, AWS S3, Azure and Dropbox.
+Clients can use assets stored on one of the following storage types:
+1. Adobe: by referencing the path to the files on Creative Cloud
+2. External: (like AWS S3) by using a presigned GET/PUT URL
+3. Azure: By generating a SAS (Shared Access Signature) for upload/download
+4. Dropbox: Generate temporary upload/download links using https://dropbox.github.io/dropbox-api-v2-explorer/
 
 ### Text layers
 
@@ -994,7 +998,6 @@ Note that the sample code is covered by the MIT license.
 ## Current Limitations
 There are a few limitations to the APIs you should be aware of ahead of time.  
 - Multi-part uploads and downloads are not yet supported
-- For the time being clients can use assets stored on Adobe's Creative Cloud, AWS S3, Azure and Dropbox.
 - The `/documentOperations` endpoint only supports a single PSD input
 - Error handling is a work in progress. Sometimes you may not see the most helpful of messages
 
