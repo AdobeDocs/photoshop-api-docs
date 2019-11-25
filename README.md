@@ -1016,7 +1016,7 @@ Image Cutout Service is based on Photoshop technology and [Adobe Sensei](https:/
 
 ## General Workflow
 
-The typical workflow involves making a synchronous API call to the POST endpoint https://sensei-ew1.adobe.io/services/v1/predict for which the response will contain a link to the created mask file.
+The typical workflow involves making a synchronous API call to the POST endpoint https://sensei.adobe.io/services/v1/predict for which the response will contain a link to the created mask file.
 
 ## How to use the API's
 
