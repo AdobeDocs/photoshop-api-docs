@@ -12,11 +12,11 @@
     - [Tracking document changes](#tracking-document-changes)
   - [Supported Features In Production](#supported-features-in-production)
     - [Layer level edits](#layer-level-edits)
-    - [Document level edits](#document-level-edits)
     - [Rendering / Conversions](#rendering--conversions)
       - [Compatibility with Photoshop versions](#compatibility-with-photoshop-versions)
   - [Supported Features In Pre-Release](#supported-features-in-pre-release)
-    - [Layer level edits ](#layer-level-edits )
+    - [Layer level of edits ](#layer-level-of-edits )
+    - [Document level edits](#document-level-edits)
     - [Artboards](#artboards)
   - [How to use the APIs](#how-to-use-the-apis)
     - [/documentManifest (Retrieving a PSD manifest)](#documentmanifest-retrieving-a-psd-manifest)
@@ -32,10 +32,10 @@
         - [Example 2: Creating a SmartObject](#example-2-creating-a-smartobject)
     - [/documentOperations (Making PSD edits and renders) (Some features are supported in Pre-Release)](#documentoperations-making-psd-edits-and-renders-some-features-are-supported-in-pre-release)
         - [The add, edit and delete objects](#the-add-edit-and-delete-objects)
-        - [Example 1: Making a simple edit (to a text layer)](#example-1-making-a-simple-edit-to-a-text-layer)
+        - [Example 1: Making a simple edit (to a text layer) (Supported in Pre-Release)](#example-1-making-a-simple-edit-to-a-text-layer-supported-in-pre-release)
         - [Example 2: Poll for status and results](#example-2-poll-for-status-and-results-1)
-        - [Example 3: Adding a new adjustment layer](#example-3-adding-a-new-adjustment-layer)
-        - [Example 4: Editing the image in a pixel layer](#example-4-editing-the-image-in-a-pixel-layer)
+        - [Example 3: Adding a new adjustment layer (Supported in Pre-Release)](#example-3-adding-a-new-adjustment-layer-supported-in-pre-release)
+        - [Example 4: Editing the image in a pixel layer (Supported in Pre-Release)](#example-4-editing-the-image-in-a-pixel-layer-supported-in-pre-release)
         - [Example 5: Creating new Renditions](#example-5-creating-new-renditions)
         - [Example 6: Swapping the image in a smart object layer](#example-6-swapping-the-image-in-a-smart-object-layer)
   - [Sample Code](#sample-code)
@@ -68,6 +68,8 @@ Clients can use assets stored on one of the following storage types:
 The Photoshop APIs currently support creating and editing of Embedded Smart Objects. Support for Linked Smart Objects is forthcoming.
 
 - In order to update an embedded smart object that is referenced by multiple layers you only need to update one of those layers, the effect will be reflected in all layers referencing the same smart object.
+
+- The replaced smart object takes the bounds of the new image by default. If your document contains transparent pixels (e.g some .png) , you may not get consistent bounds.
 
 The API's are documented [here](https://adobedocs.github.io/photoshop-api-docs/#api-Photoshop-document_operations)
 
@@ -113,11 +115,6 @@ If you are making multiple edits to a PSD during the course of a user session it
   - Toggle the layer locked state
   - Toggle layer visibility
 
-### Document level edits
-
-  - Crop a PSD
-  - Resize a PSD
-
 ### Rendering / Conversions
 
   - Create a new PSD document
@@ -157,6 +154,11 @@ This is a partial list of currently supported features.  Please also see the [Re
   - Edit the text orientation (horizontal/vertical)
   - Edit the paragraph alignment (centered, justified, etc)
   - Edit the font weight
+
+### Document level edits
+
+    - Crop a PSD
+    - Resize a PSD  
 
 ### Artboards
 
