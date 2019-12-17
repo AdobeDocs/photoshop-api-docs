@@ -16,7 +16,7 @@
     - [Rendering / Conversions](#rendering--conversions)
       - [Compatibility with Photoshop versions](#compatibility-with-photoshop-versions)
   - [Supported Features In Pre-Release](#supported-features-in-pre-release)
-    - [Layer level edits](#layer-level-edits)
+    - [Layer level edits ](#layer-level-edits )
     - [Artboards](#artboards)
   - [How to use the APIs](#how-to-use-the-apis)
     - [/documentManifest (Retrieving a PSD manifest)](#documentmanifest-retrieving-a-psd-manifest)
@@ -30,7 +30,7 @@
     - [/smartObject (Replacing smartobject)](#smartobject-replacing-smartobject)
         - [Example 1: Replacing a SmartObject](#example-1-replacing-a-smartobject)
         - [Example 2: Creating a SmartObject](#example-2-creating-a-smartobject)
-    - [/documentOperations (Making PSD edits and renders) (Supported in Pre-Release)](#documentoperations-making-psd-edits-and-renders-supported-in-pre-release)
+    - [/documentOperations (Making PSD edits and renders) (Some features are supported in Pre-Release)](#documentoperations-making-psd-edits-and-renders-some-features-are-supported-in-pre-release)
         - [The add, edit and delete objects](#the-add-edit-and-delete-objects)
         - [Example 1: Making a simple edit (to a text layer)](#example-1-making-a-simple-edit-to-a-text-layer)
         - [Example 2: Poll for status and results](#example-2-poll-for-status-and-results-1)
@@ -112,8 +112,6 @@ If you are making multiple edits to a PSD during the course of a user session it
   - Edit the layer name
   - Toggle the layer locked state
   - Toggle layer visibility
-  - Move or resize the layer via it's bounds
-  - Delete layers
 
 ### Document level edits
 
@@ -126,9 +124,9 @@ If you are making multiple edits to a PSD during the course of a user session it
   - Create a JPEG, TIFF or PNG rendition of various sizes
   - Request thumbnail previews of all renderable layers
   - Convert between any of the supported filetypes (PSD, JPEG, TIFF, PNG)
-  
+
 #### Compatibility with Photoshop versions
-  
+
   1. The API’s will open any PSD created with Photoshop 1.0 through the current release and this will always be true.
   2.  When saving as PSD, the API’s will create PSD’s compatible with the current shipping Photoshop.
   3.  In regards to “maximize compatibility” referenced in [https://helpx.adobe.com/photoshop/using/file-formats.html#maximize_compatibility_for_psd_and_psb_files](https://helpx.adobe.com/photoshop/using/file-formats.html#maximize_compatibility_for_psd_and_psb_files)  the API's default to “yes”
@@ -138,6 +136,8 @@ If you are making multiple edits to a PSD during the course of a user session it
 This is a partial list of currently supported features.  Please also see the [Release Notes](https://forums.adobeprerelease.com/photoshopapiservice/categories/releasenotes) for a list of added features
 
 ### Layer level edits
+- Move or resize the layer via it's bounds
+- Delete layers
 - Adjustment layers
   - Add or edit an adjustment layer. The following types of adjustment layers are currently supported:
   - Brightness and Contrast
@@ -383,310 +383,6 @@ Once your job completes (and does not report any errors) the status response wil
 }
 ```
 
-### /documentOperations (Making PSD edits and renders)[Supported in Pre-Release]
-
-Once you have your PSD file's JSON manifest you can use it to make layer and/or document level edits to your PSD and then generate new renditions with the changes. You can pass in either all or a subset of the JSON manifest to `/documentOperations` as represented in the request body's `options.layers` argument. In other words you can choose to pass `options.layers` as a flat array of only the layers that you wish to act upon and can, if desired, leave out the rest.
-
-The layer id or layer name are used by the service to identify the correct layer to operation upon in your PSD; Note that adding a new layer does not require the ID to be included, the service will generate a new layer id for you.
-
-#### The add, edit and delete objects
-
-The `add`, `edit`, `move` and `delete` blocks are how you communicate that you'd like action taken on that particular layer object. Any layer block passed into the API that is missing the one of these attributes will be ignored.
-
-#### Example 1: Making a simple edit (to a text layer)
-
-In this example we will be editing a single text layer from Example.psd. We are only including a single layer object in the `options.layers` array. We will be editing layer id 412 from the `/documentManfest` examples above and making the following requests:
-
-- NEW KEYWORD TO INDICATE AN EDIT: The `edit` key is included in layer id 412
-- CHANGE LAYER POSITION: The layer's top and left will be set to 0,0
-- CHANGE FONT SIZE: The font size will be reduced from 36 to 24 pixels
-- CHANGE TEXT CONTENT: The text string will be changed to "Inspire your customers’ creativity."
-- CHANGE LAYER NAME: The layer name will be changed to "Inspire your customers’ creativity."
-- LOCK THE LAYER: The layer will be locked
-- GENERATE RENDITION: We are requesting one new fullsize jpeg rendition
-
-```shell
-curl -X POST \
-  https://image.adobe.io/pie/psdService/documentOperations \
-  -H "Authorization: Bearer $token"  \
-  -H "x-api-key: $apiKey" \
-  -d '{
-  "inputs":[
-    {
-      "href":"files/Example.psd",
-      "storage":"adobe"
-    }
-  ],
-  "options":{
-    "layers":[
-      {
-        "edit":{},                                    // <--- NEW KEYWORD TO INDICATE AN EDIT
-        "bounds":{
-          "height":136,
-          "left":0,                                       // <--- CHANGE LAYER POSITION
-          "top":0,  
-          "width":252
-        },
-        "text":{
-          "content":"Inspire your customers’ creativity.",    // <--- CHANGE TEXT CONTENT
-          "paragraphStyles":[{
-            "alignment":"left"
-          }],
-          "characterStyles":[{
-            "fontAvailable":true,
-            "fontName":"AdobeClean-Bold",
-            "fontSize":24,                                  // <--- CHANGE FONT SIZE
-            "orientation":"horizontal",
-          }]
-        },
-        "id":412,
-        "index":6,
-        "locked":true,                                      // <--- LOCK THE LAYER
-        "name":"Inspire your customers’ creativity.",       // <--- CHANGE LAYER NAME
-        "type":"textLayer",
-        "visible":true
-      }
-    ]
-  },
-  "outputs":[
-    {
-      "href":"files/Example.jpeg",                           // <--- GENERATE RENDITION
-      "storage":"adobe",  
-      "width":0,
-      "type":"image/jpeg"
-    }
-  ]
-}'
-```
-
-This initiates an asynchronous job and returns a request body containing the href to poll for job status and requested rendition information.
-
-```json
-{
-    "_links": {
-        "self": {
-            "href": "https://image.adobe.io/pie/psdService/status/8ad955af-e511-4c6f-845b-193c7bbba9b9"
-        }
-    }
-}
-```
-
-#### Example 2: Poll for status and results
-
-Using the job id returned from the previous call you can poll on the returned `/status` href to get the status for the edit job and each requested output
-
-```shell
-curl -X GET \
-  https://image.adobe.io/pie/psdService/status/8ad955af-e511-4c6f-845b-193c7bbba9b9 \
-  -H 'Authorization: Bearer <auth_token>' \
-  -H 'Content-Type: application/json' \
-  -H 'x-api-key: <YOUR_API_KEY>'
-```
-
-And this will return a request body containing the job status for each requested output and eventually either errors or the hrefs to the requested outputs
-
-```json
-{
-  "jobId":"8ad955af-e511-4c6f-845b-193c7bbba9b9",
-  "outputs":[
-    {
-      "input":"/files/Example.psd",
-      "status":"succeeded",
-      "created":"2018-01-04T12:57:15.12345:Z",
-      "modified":"2018-01-04T12:58:36.12345:Z",
-      "_links":{
-        "renditions":[
-          {
-            "href":"/files/Example.jpeg",
-            "storage":"adobe",
-            "type":"vnd.adobe.photoshop"
-          }
-        ]
-      }
-    }
-  ],
-  "_links":{
-    "self":{
-      "href":"https://image.adobe.io/pie/psdService/status/8ad955af-e511-4c6f-845b-193c7bbba9b9"
-    }
-  }
-}
-```
-
-
-#### Example 3: Adding a new adjustment layer [Supported in Pre-Release]
-
-This example shows how you can add a new brightnessContrast adjustment layer to the top of your PSD.  Things to note:
-
-- NEW KEYWORD TO INDICATE AN ADDITION: The `add` key is included, along with `insertAbove` in the new layer object to indicate exactly where you want the new layer placed in the overall Manifest tree.  
-- LAYER TYPE IS REQUIRED: The type indicates you want a new layer of type adjustment layer.
-- LAYER ID AND INDEX ARE NOT PRESENT: The layer index and id are not supported for add operations. The index is implied by the objects position in the manifest tree and the ID will be generated by the service and returned to you in subsequent calls to `/documentManifest`
-
-```shell
-curl -X POST \
-  https://image.adobe.io/pie/psdService/documentOperations \
-  -H 'Authorization: Bearer <auth_token>' \
-  -H 'Content-Type: application/json' \
-  -H 'x-api-key: <YOUR_API_KEY>' \
-  -d '{
-  "inputs":[
-    {
-      "href":"files/Example.psd",
-      "storage":"adobe"
-    }
-  ],
-  "options":{
-    "layers":[
-      {                                        
-        "add":{                          	    // <--- NEW KEYWORD TO INDICATE AN ADDITION
-          "insertAbove": {
-            "id": 549
-          }	                    // <--- INDICATES THE LAYER SHOULD BE CREATED ABOVE ID 549
-        },
-        "adjustments":{
-          "brightnessContrast":{
-            "brightness":25,
-            "contrast":-40
-          }
-        },
-        "name":"NewBrightnessContrast",
-        "type":"adjustmentLayer"              // <--- LAYER TYPE IS REQUIRED
-      }
-    ]
-  },
-  "outputs":[
-    {
-      "href":"files/Example_Out.jpeg",
-      "storage":"adobe",
-      "type":"image/jpeg"
-    }
-  ]
-}'
-```
-
-
-#### Example 4: Editing the image in a pixel layer [Supported in Pre-Release]
-
-In this example we want to replace the image in an existing pixel layer, the Hero Image layer in Example.psd. We are requesting the following:
-
-- NEW KEYWORD TO INDICATE AN EDIT: The `edit` key is included to indicate we want to edit this layer
-- NEW KEYWORD TO INDICATE IMAGE REPLACEMENT INFO: The `layers.input` object is included to indicate where the replacement image can be found
-
-```shell
-curl -X POST \
-  https://image.adobe.io/pie/psdService/documentOperations \
-  -H 'Authorization: Bearer <auth_token>' \
-  -H 'Content-Type: application/json' \
-  -H 'x-api-key: <YOUR_API_KEY>' \
-  -d '{
-  "inputs":[
-    {
-      "href":"files/Example.psd",
-      "storage":"adobe"
-    }
-  ],
-  "options":{
-    "layers":[
-      {
-        "edit":{},										// <--- NEW KEYWORD TO INDICATE AN ADDITION
-        "input":{                                       // <--- NEW KEYWORD TO INDICATE IMAGE REPLACEMENT INFO
-          "href":"/files/newBackgroundImage.jpeg",
-          "storage":"adobe"
-        },
-        "bounds":{
-          "height":405,
-          "left":0,
-          "top":237,
-          "width":300
-        },
-        "id":751,
-        "index":2,
-        "locked":false,
-        "name":"BackgroundGradient",
-        "type":"layer",
-        "visible":true
-      }
-    ]
-  },
-  "outputs":[
-    {
-      "href":"files/Example_Out.psd",
-      "storage":"adobe",
-      "type":"vnd.adobe.photoshop",
-      "overwrite":true
-    }
-  ]
-}
-'
-```
-
-#### Example 5: Creating new Renditions
-
-See the `/renditionCreate` examples below as the format for the `outputs` object in the request body is identical
-
-#### Example 6: Swapping the image in a smart object layer
-
-In this example we want to swap the smart object in an existing embedded smart object layer, the Hero Image layer in Example.psd. We are requesting the following:
-
-- The `edit` key is included to indicate we want to edit this layer
-- The `layers.input` object is included to indicate where the replacement image can be found
-- The `layers.smartObject` object is included to indicate specific information related to this image as SO
-
-All the files used in the example are available in [sample_files](https://github.com/AdobeDocs/photoshop-api-docs/tree/master/sample_files). You can download the files and put it in your CC account or any storage(AWS, Azure or Dropbox).
-
-```shell
-curl -X POST \
-  https://image.adobe.io/pie/psdService/documentOperations \
-  -H "Authorization: Bearer $token"  \
-  -H "x-api-key: $apiKey" \
-  -d '{
-  "inputs":[
-    {
-      "href":"files/Example.psd",
-      "storage":"adobe"
-    }
-  ],
-  "options":{
-    "layers":[
-      {
-        "edit":{},     
-        "input":{                                       
-          "href":"files/heroImage.png",  
-          "storage":"adobe"
-        },
-        "smartObject" : {                
-        	"type" : "image/png",
-        	"linked" : false
-        },
-        "attributes":{
-          "bounds":{
-            "height":515,
-            "left":-385,
-            "top":-21,
-            "width":929
-          }
-        },
-        "id":750,
-        "index":1,
-        "locked":false,
-        "name":"HeroImage",
-        "type":"smartObject",
-        "visible":true
-      }
-    ]
-  },
-  "outputs":[
-    {
-      "href":"files/Example_Out.psd",
-      "storage":"adobe",
-      "type":"vnd.adobe.photoshop",
-      "overwrite":true
-    }
-  ]
-}
-'
-```
-
 ### /renditionCreate (Generating New Renditions)
 
 The `/renditionsCreate` endpoint can take a number of input PSD files and generate new image renditions or a new PSD
@@ -893,6 +589,312 @@ https: //image.adobe.io/pie/psdService/smartObject
 ]}'
 
 ```
+
+
+### /documentOperations (Making PSD edits and renders)(Some features are supported in Pre-Release)
+
+Once you have your PSD file's JSON manifest you can use it to make layer and/or document level edits to your PSD and then generate new renditions with the changes. You can pass in either all or a subset of the JSON manifest to `/documentOperations` as represented in the request body's `options.layers` argument. In other words you can choose to pass `options.layers` as a flat array of only the layers that you wish to act upon and can, if desired, leave out the rest.
+
+The layer id or layer name are used by the service to identify the correct layer to operation upon in your PSD; Note that adding a new layer does not require the ID to be included, the service will generate a new layer id for you.
+
+#### The add, edit and delete objects
+
+The `add`, `edit`, `move` and `delete` blocks are how you communicate that you'd like action taken on that particular layer object. Any layer block passed into the API that is missing the one of these attributes will be ignored.
+
+#### Example 1: Making a simple edit (to a text layer) (Supported in Pre-Release)
+
+In this example we will be editing a single text layer from Example.psd. We are only including a single layer object in the `options.layers` array. We will be editing layer id 412 from the `/documentManfest` examples above and making the following requests:
+
+- NEW KEYWORD TO INDICATE AN EDIT: The `edit` key is included in layer id 412
+- CHANGE LAYER POSITION: The layer's top and left will be set to 0,0
+- CHANGE FONT SIZE: The font size will be reduced from 36 to 24 pixels
+- CHANGE TEXT CONTENT: The text string will be changed to "Inspire your customers’ creativity."
+- CHANGE LAYER NAME: The layer name will be changed to "Inspire your customers’ creativity."
+- LOCK THE LAYER: The layer will be locked
+- GENERATE RENDITION: We are requesting one new fullsize jpeg rendition
+
+```shell
+curl -X POST \
+  https://image.adobe.io/pie/psdService/documentOperations \
+  -H "Authorization: Bearer $token"  \
+  -H "x-api-key: $apiKey" \
+  -d '{
+  "inputs":[
+    {
+      "href":"files/Example.psd",
+      "storage":"adobe"
+    }
+  ],
+  "options":{
+    "layers":[
+      {
+        "edit":{},                                    // <--- NEW KEYWORD TO INDICATE AN EDIT
+        "bounds":{
+          "height":136,
+          "left":0,                                       // <--- CHANGE LAYER POSITION
+          "top":0,  
+          "width":252
+        },
+        "text":{
+          "content":"Inspire your customers’ creativity.",    // <--- CHANGE TEXT CONTENT
+          "paragraphStyles":[{
+            "alignment":"left"
+          }],
+          "characterStyles":[{
+            "fontAvailable":true,
+            "fontName":"AdobeClean-Bold",
+            "fontSize":24,                                  // <--- CHANGE FONT SIZE
+            "orientation":"horizontal",
+          }]
+        },
+        "id":412,
+        "index":6,
+        "locked":true,                                      // <--- LOCK THE LAYER
+        "name":"Inspire your customers’ creativity.",       // <--- CHANGE LAYER NAME
+        "type":"textLayer",
+        "visible":true
+      }
+    ]
+  },
+  "outputs":[
+    {
+      "href":"files/Example.jpeg",                           // <--- GENERATE RENDITION
+      "storage":"adobe",  
+      "width":0,
+      "type":"image/jpeg"
+    }
+  ]
+}'
+```
+
+This initiates an asynchronous job and returns a request body containing the href to poll for job status and requested rendition information.
+
+```json
+{
+    "_links": {
+        "self": {
+            "href": "https://image.adobe.io/pie/psdService/status/8ad955af-e511-4c6f-845b-193c7bbba9b9"
+        }
+    }
+}
+```
+
+#### Example 2: Poll for status and results
+
+Using the job id returned from the previous call you can poll on the returned `/status` href to get the status for the edit job and each requested output
+
+```shell
+curl -X GET \
+  https://image.adobe.io/pie/psdService/status/8ad955af-e511-4c6f-845b-193c7bbba9b9 \
+  -H 'Authorization: Bearer <auth_token>' \
+  -H 'Content-Type: application/json' \
+  -H 'x-api-key: <YOUR_API_KEY>'
+```
+
+And this will return a request body containing the job status for each requested output and eventually either errors or the hrefs to the requested outputs
+
+```json
+{
+  "jobId":"8ad955af-e511-4c6f-845b-193c7bbba9b9",
+  "outputs":[
+    {
+      "input":"/files/Example.psd",
+      "status":"succeeded",
+      "created":"2018-01-04T12:57:15.12345:Z",
+      "modified":"2018-01-04T12:58:36.12345:Z",
+      "_links":{
+        "renditions":[
+          {
+            "href":"/files/Example.jpeg",
+            "storage":"adobe",
+            "type":"vnd.adobe.photoshop"
+          }
+        ]
+      }
+    }
+  ],
+  "_links":{
+    "self":{
+      "href":"https://image.adobe.io/pie/psdService/status/8ad955af-e511-4c6f-845b-193c7bbba9b9"
+    }
+  }
+}
+```
+
+
+#### Example 3: Adding a new adjustment layer (Supported in Pre-Release)
+
+This example shows how you can add a new brightnessContrast adjustment layer to the top of your PSD.  Things to note:
+
+- NEW KEYWORD TO INDICATE AN ADDITION: The `add` key is included, along with `insertAbove` in the new layer object to indicate exactly where you want the new layer placed in the overall Manifest tree.  
+- LAYER TYPE IS REQUIRED: The type indicates you want a new layer of type adjustment layer.
+- LAYER ID AND INDEX ARE NOT PRESENT: The layer index and id are not supported for add operations. The index is implied by the objects position in the manifest tree and the ID will be generated by the service and returned to you in subsequent calls to `/documentManifest`
+
+```shell
+curl -X POST \
+  https://image.adobe.io/pie/psdService/documentOperations \
+  -H 'Authorization: Bearer <auth_token>' \
+  -H 'Content-Type: application/json' \
+  -H 'x-api-key: <YOUR_API_KEY>' \
+  -d '{
+  "inputs":[
+    {
+      "href":"files/Example.psd",
+      "storage":"adobe"
+    }
+  ],
+  "options":{
+    "layers":[
+      {                                        
+        "add":{                          	    // <--- NEW KEYWORD TO INDICATE AN ADDITION
+          "insertAbove": {
+            "id": 549
+          }	                    // <--- INDICATES THE LAYER SHOULD BE CREATED ABOVE ID 549
+        },
+        "adjustments":{
+          "brightnessContrast":{
+            "brightness":25,
+            "contrast":-40
+          }
+        },
+        "name":"NewBrightnessContrast",
+        "type":"adjustmentLayer"              // <--- LAYER TYPE IS REQUIRED
+      }
+    ]
+  },
+  "outputs":[
+    {
+      "href":"files/Example_Out.jpeg",
+      "storage":"adobe",
+      "type":"image/jpeg"
+    }
+  ]
+}'
+```
+
+
+#### Example 4: Editing the image in a pixel layer (Supported in Pre-Release)
+
+In this example we want to replace the image in an existing pixel layer, the Hero Image layer in Example.psd. We are requesting the following:
+
+- NEW KEYWORD TO INDICATE AN EDIT: The `edit` key is included to indicate we want to edit this layer
+- NEW KEYWORD TO INDICATE IMAGE REPLACEMENT INFO: The `layers.input` object is included to indicate where the replacement image can be found
+
+```shell
+curl -X POST \
+  https://image.adobe.io/pie/psdService/documentOperations \
+  -H 'Authorization: Bearer <auth_token>' \
+  -H 'Content-Type: application/json' \
+  -H 'x-api-key: <YOUR_API_KEY>' \
+  -d '{
+  "inputs":[
+    {
+      "href":"files/Example.psd",
+      "storage":"adobe"
+    }
+  ],
+  "options":{
+    "layers":[
+      {
+        "edit":{},										// <--- NEW KEYWORD TO INDICATE AN ADDITION
+        "input":{                                       // <--- NEW KEYWORD TO INDICATE IMAGE REPLACEMENT INFO
+          "href":"/files/newBackgroundImage.jpeg",
+          "storage":"adobe"
+        },
+        "bounds":{
+          "height":405,
+          "left":0,
+          "top":237,
+          "width":300
+        },
+        "id":751,
+        "index":2,
+        "locked":false,
+        "name":"BackgroundGradient",
+        "type":"layer",
+        "visible":true
+      }
+    ]
+  },
+  "outputs":[
+    {
+      "href":"files/Example_Out.psd",
+      "storage":"adobe",
+      "type":"vnd.adobe.photoshop",
+      "overwrite":true
+    }
+  ]
+}
+'
+```
+
+#### Example 5: Creating new Renditions
+
+See the `/renditionCreate` examples below as the format for the `outputs` object in the request body is identical
+
+#### Example 6: Swapping the image in a smart object layer
+
+In this example we want to swap the smart object in an existing embedded smart object layer, the Hero Image layer in Example.psd. We are requesting the following:
+
+- The `edit` key is included to indicate we want to edit this layer
+- The `layers.input` object is included to indicate where the replacement image can be found
+- The `layers.smartObject` object is included to indicate specific information related to this image as SO
+
+All the files used in the example are available in [sample_files](https://github.com/AdobeDocs/photoshop-api-docs/tree/master/sample_files). You can download the files and put it in your CC account or any storage(AWS, Azure or Dropbox).
+
+```shell
+curl -X POST \
+  https://image.adobe.io/pie/psdService/documentOperations \
+  -H "Authorization: Bearer $token"  \
+  -H "x-api-key: $apiKey" \
+  -d '{
+  "inputs":[
+    {
+      "href":"files/Example.psd",
+      "storage":"adobe"
+    }
+  ],
+  "options":{
+    "layers":[
+      {
+        "edit":{},     
+        "input":{                                       
+          "href":"files/heroImage.png",  
+          "storage":"adobe"
+        },
+        "smartObject" : {                
+        	"type" : "image/png",
+        	"linked" : false
+        },
+        "attributes":{
+          "bounds":{
+            "height":515,
+            "left":-385,
+            "top":-21,
+            "width":929
+          }
+        },
+        "id":750,
+        "index":1,
+        "locked":false,
+        "name":"HeroImage",
+        "type":"smartObject",
+        "visible":true
+      }
+    ]
+  },
+  "outputs":[
+    {
+      "href":"files/Example_Out.psd",
+      "storage":"adobe",
+      "type":"vnd.adobe.photoshop",
+      "overwrite":true
+    }
+  ]
+}
+'
+```
+
 ## Sample Code
 
 The [sample_code](sample_code) folder in this repo contains sample code for calling the Photoshop APIs.
