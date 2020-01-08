@@ -440,6 +440,7 @@ curl -X POST \
   ]
 }
 '
+```
 
 #### Example 2: Creating new Renditions
 
