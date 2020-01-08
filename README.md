@@ -23,8 +23,6 @@
     - [Tracking document changes](#tracking-document-changes)
   - [Supported Features](#supported-features)
     - [Layer level edits](#layer-level-edits)
-    - [Artboards](#artboards)
-    - [Document level edits](#document-level-edits)
     - [Rendering / Conversions](#rendering--conversions)
       - [Compatibility with Photoshop versions](#compatibility-with-photoshop-versions)
   - [How to use the APIs](#how-to-use-the-apis)
@@ -34,12 +32,9 @@
       - [Example 3: The returned manifest](#example-3-the-returned-manifest)
     - [/documentOperations (Making PSD edits and renders)](#documentoperations-making-psd-edits-and-renders)
       - [The add, edit and delete objects](#the-add-edit-and-delete-objects)
-      - [Example 1: Making a simple edit (to a text layer)](#example-1-making-a-simple-edit-to-a-text-layer)
-      - [Example 2: Poll for status and results](#example-2-poll-for-status-and-results-1)
-      - [Example 3: Adding a new adjustment layer](#example-3-adding-a-new-adjustment-layer)
-      - [Example 4: Editing the image in a pixel layer](#example-4-editing-the-image-in-a-pixel-layer)
-      - [Example 5: Creating new Renditions](#example-5-creating-new-renditions)
-      - [Example 6: Swapping the image in a smart object layer](#example-6-swapping-the-image-in-a-smart-object-layer)
+      - [Example 1: Making a simple edit](#example-1-making-a-simple-edit)
+      - [Example 2: Creating new Renditions](#example-5-creating-new-renditions)
+      - [Example 3: Swapping the image in a smart object layer](#example-6-swapping-the-image-in-a-smart-object-layer)
     - [/renditionCreate (Generating New Renditions)](#renditioncreate-generating-new-renditions)
         - [Example 1: A single file input](#example-1-a-single-file-input)
       - [Example 2: Poll for status and results](#example-2-poll-for-status-and-results-2)
@@ -49,10 +44,6 @@
         - [Example 2: Creating a SmartObject](#example-2-creating-a-smartobject)
   - [Sample Code](#sample-code)
   - [Current Limitations](#current-limitations)
-  - [Release Notes](#release-notes)
-- [ImageCutout](#imagecutout)
-  - [General Workflow](#general-workflow-1)
-  - [How to use the API's](#how-to-use-the-apis)
 - [Lightroom APIs](#lightroom-apis)
   - [General Workflow](#general-workflow-2)
   - [How to use the API's](#how-to-use-the-apis-1)
@@ -79,24 +70,7 @@ We have two kinds of authorizations.
 1. OAuth 2.0 access token for individual user access
 2. JSON Web Token (JWT) for service integration for Adobe Enterprise ETLA customers only
 
-### Individual users
-You will use the 1st authorization flow here.
-You will be emailed your Client ID and Client Secret required for API authentication after you've been accepted to the PreRelease program.
-You will create the OAuth access token using Adobe IMS endpoints.
-Once you've received your Client ID and Client Secret by email...
-- Do a quick test:
-  - Browse to [https://ps-prerelease-us-east-1.cloud.adobe.io/](https://ps-prerelease-us-east-1.cloud.adobe.io/)
-  - Add your Client ID and Client Secret sent in email
-  - Enter your Adobe credentials when prompted
-  - Use the access token to try the example calls further down this README
-
-You must pass in an OAuth 2.0 access token with every request.The Photoshop APIs does not provide any API methods for authentication or authorization. Access tokens are granted by Adobe's IMS service. The Photoshop API needs an access token in the scope="openid,creative_sdk" and hence it is required that you pass in this parameter to the IMS Login Authorization API.
-
-The access token must never be transmitted as a URI parameter. Doing so would expose it to being captured in-the-clear by intermediaries such as proxy server logs. The API does not allow you to send an access token anywhere except the Authorization header field.
-
-
 ### Adobe Enterprise ETLA customers
-You may use 1st authorization flow or the 2nd depending on your integration.
 If your company has an Adobe ETLA agreement you may be able to create your own integration using the instructions below. You may generate a user access token using an OAuth 2.0 workflow, or, a service token.
 
 #### OAuth 2.0 Guide  
@@ -430,7 +404,7 @@ The layer id or layer name are used by the service to identify the correct layer
 
 The `add`, `edit`, `move` and `delete` blocks are how you communicate that you'd like action taken on that particular layer object. Any layer block passed into the API that is missing the one of these attributes will be ignored.
 
-#### Example 1: Editing a layer
+#### Example 1: Making a simple edit
 ```shell
 curl -X POST \
   https://image.adobe.io/pie/psdService/documentOperations \
@@ -749,7 +723,7 @@ Note that the sample code is covered by the MIT license.
 ## Current Limitations
 There are a few limitations to the APIs you should be aware of ahead of time.  
 - Multi-part uploads and downloads are not yet supported
-- Our endpoints only support a single PSD input
+- The /documentOperations and /smartObject endpoints only support a single PSD input
 
 
 The file Example.psd is included in this repository if you'd like to experiment with these example calls on your own.
