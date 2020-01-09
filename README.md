@@ -22,8 +22,8 @@
   - [Supported Features](#supported-features)
     - [Layer level edits](#layer-level-edits)
     - [Rendering / Conversions](#rendering--conversions)
-      - [Compatibility with Photoshop versions](#compatibility-with-photoshop-versions)
     - [SmartObject](#smartobject)
+      - [Compatibility with Photoshop versions](#compatibility-with-photoshop-versions)
   - [How to use the Photoshop APIs](#how-to-use-the-photoshop-apis)
     - [/documentManifest (Retrieving a PSD manifest)](#documentmanifest-retrieving-a-psd-manifest)
       - [Example 1: Initiate a job to retrieve a PSD's JSON manifest](#example-1-initiate-a-job-to-retrieve-a-psds-json-manifest)
@@ -156,12 +156,6 @@ This is a list of currently supported features.
 - Request thumbnail previews of all renderable layers
 - Convert between any of the supported filetypes (PSD, JPEG, TIFF, PNG)
 
-#### Compatibility with Photoshop versions
-
-1. The API’s will open any PSD created with Photoshop 1.0 through the current release and this will always be true.
-2.  When saving as PSD, the API’s will create PSD’s compatible with the current shipping Photoshop.
-3.  In regards to “maximize compatibility” referenced in [https://helpx.adobe.com/photoshop/using/file-formats.html#maximize_compatibility_for_psd_and_psb_files](https://helpx.adobe.com/photoshop/using/file-formats.html#maximize_compatibility_for_psd_and_psb_files)  the API's default to “yes”
-
 ### SmartObject
 
 The Photoshop APIs currently support creating and editing of Embedded Smart Objects.
@@ -175,6 +169,13 @@ The API's are documented [here](https://adobedocs.github.io/photoshop-api-docs/#
 We also have an example of replacing a Smart Object within a layer.
 
 [Smart Object Example Code](https://github.com/AdobeDocs/photoshop-api-docs#example-6-swapping-the-image-in-a-smart-object-layer)
+
+#### Compatibility with Photoshop versions
+
+1. The API’s will open any PSD created with Photoshop 1.0 through the current release and this will always be true.
+2.  When saving as PSD, the API’s will create PSD’s compatible with the current shipping Photoshop.
+3.  In regards to “maximize compatibility” referenced in [https://helpx.adobe.com/photoshop/using/file-formats.html#maximize_compatibility_for_psd_and_psb_files](https://helpx.adobe.com/photoshop/using/file-formats.html#maximize_compatibility_for_psd_and_psb_files)  the API's default to “yes”
+
 
 ## How to use the Photoshop APIs
 
