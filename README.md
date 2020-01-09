@@ -7,7 +7,6 @@
 - [Welcome to Photoshop APIs!](#welcome-to-photoshop-apis)
 - [General Setup and Onboarding](#general-setup-and-onboarding)
   - [Authentication](#authentication)
-    - [Individual users](#individual-users)
     - [Adobe Enterprise ETLA customers](#adobe-enterprise-etla-customers)
       - [OAuth 2.0 Guide](#oauth-20-guide)
     - [Service-to-service clients](#service-to-service-clients)
@@ -33,11 +32,11 @@
     - [/documentOperations (Making PSD edits and renders)](#documentoperations-making-psd-edits-and-renders)
       - [The add, edit and delete objects](#the-add-edit-and-delete-objects)
       - [Example 1: Making a simple edit](#example-1-making-a-simple-edit)
-      - [Example 2: Creating new Renditions](#example-5-creating-new-renditions)
-      - [Example 3: Swapping the image in a smart object layer](#example-6-swapping-the-image-in-a-smart-object-layer)
+      - [Example 2: Creating new Renditions](#example-2-creating-new-renditions)
+      - [Example 3: Swapping the image in a smart object layer](#example-3-swapping-the-image-in-a-smart-object-layer)
     - [/renditionCreate (Generating New Renditions)](#renditioncreate-generating-new-renditions)
         - [Example 1: A single file input](#example-1-a-single-file-input)
-      - [Example 2: Poll for status and results](#example-2-poll-for-status-and-results-2)
+      - [Example 2: Poll for status and results](#example-2-poll-for-status-and-results-1)
       - [Example 3: A folder input (multiple files)](#example-3-a-folder-input-multiple-files)
     - [/smartObject (Replacing smartobject)](#smartobject-replacing-smartobject)
         - [Example 1: Replacing a SmartObject](#example-1-replacing-a-smartobject)
@@ -45,8 +44,8 @@
   - [Sample Code](#sample-code)
   - [Current Limitations](#current-limitations)
 - [Lightroom APIs](#lightroom-apis)
-  - [General Workflow](#general-workflow-2)
-  - [How to use the API's](#how-to-use-the-apis-1)
+  - [General Workflow](#general-workflow-1)
+  - [How to use the API's](#how-to-use-the-apis)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -153,14 +152,17 @@ If you are making multiple edits to a PSD during the course of a user session it
 
 ## Supported Features
 
-This is a partial list of currently supported features.  Please also see the [Release Notes](https://forums.adobeprerelease.com/photoshopapiservice/categories/releasenotes) for a list of added features
+This is a list of currently supported features.
 
 ### Layer level edits
 
 - General layer edits
-  - Edit the layer name
+  - Edit the layer name/id
   - Toggle the layer locked state
   - Toggle layer visibility
+  - Apply bounds
+  - Add or replace a Smart Object Layer in a document
+  - Add or edit a Fill layer in a document along with Blend modes  
 
 ### Rendering / Conversions
 
