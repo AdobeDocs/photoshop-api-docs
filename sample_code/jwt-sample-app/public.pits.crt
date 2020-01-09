@@ -1,0 +1,68 @@
+Certificate:
+    Data:
+        Version: 1 (0x0)
+        Serial Number: 16107242245534924753 (0xdf886b7b84463fd1)
+    Signature Algorithm: sha256WithRSAEncryption
+        Issuer: C=US, ST=CA, L=San Jose, O=Adobe, OU=PITS
+        Validity
+            Not Before: Apr 15 22:22:57 2019 GMT
+            Not After : Apr  5 22:22:57 2020 GMT
+        Subject: C=US, ST=CA, L=San Jose, O=Adobe, OU=PITS
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                Public-Key: (2048 bit)
+                Modulus:
+                    00:b7:a6:f8:52:5c:a3:32:f1:fa:76:78:d7:78:4d:
+                    65:f0:5c:ef:3e:d8:34:72:63:ea:3d:70:b7:93:42:
+                    f9:8d:9e:83:9f:a3:5e:d5:36:5b:90:43:70:08:7f:
+                    ae:44:75:08:6f:74:84:b5:62:cf:35:44:72:72:8a:
+                    dd:03:75:5c:ca:88:79:60:85:bd:64:60:c6:23:97:
+                    a4:13:10:bd:13:f8:a8:38:df:37:1a:f8:ef:b4:a8:
+                    5b:db:9f:60:aa:e8:38:9b:65:d7:36:fa:59:20:21:
+                    e4:e3:c5:e4:68:06:f3:41:58:dc:31:7d:29:46:70:
+                    38:45:c5:5c:90:ad:ff:9c:af:b1:81:e8:88:6e:e4:
+                    39:75:d4:42:3f:83:de:ac:30:46:86:eb:16:90:df:
+                    c9:3e:a4:1e:13:0f:74:57:87:17:47:50:07:b9:17:
+                    67:9f:6d:0f:fe:41:4a:4e:9c:66:6c:db:d5:d2:f8:
+                    d6:bb:84:38:52:1a:9e:7e:66:01:ea:bc:7d:7f:c3:
+                    83:7f:7d:58:8c:1a:ca:24:3d:36:a6:e1:d2:d7:ad:
+                    1a:1b:0f:51:82:a6:97:62:e8:48:13:48:3f:48:25:
+                    4e:8e:b4:e5:6b:3f:f0:53:c6:13:e8:c8:bd:07:66:
+                    1b:19:5e:c7:09:05:98:49:07:92:e4:05:a0:bb:4d:
+                    89:95
+                Exponent: 65537 (0x10001)
+    Signature Algorithm: sha256WithRSAEncryption
+         13:cd:94:44:5b:8d:a2:38:09:47:53:c4:93:8d:ae:02:2c:5e:
+         54:10:3d:cb:a1:db:15:9e:3c:98:06:bd:30:2d:f1:09:6d:b5:
+         bd:79:5f:f2:a2:39:14:7f:2c:58:44:73:d4:f3:3a:c2:c0:ea:
+         35:32:12:a4:b3:5b:1c:54:89:c0:a4:40:d9:23:dd:4d:76:60:
+         a4:95:4e:49:d4:7a:6f:27:73:94:13:8c:47:8c:57:4b:3b:be:
+         98:4e:7f:9e:a0:89:0b:a7:b6:fe:c5:bf:ef:a5:3f:8a:73:92:
+         56:35:e4:e9:3e:2b:71:a8:40:54:78:ef:d2:ca:aa:84:e9:55:
+         ec:69:a9:a7:ea:8f:57:f7:3b:ca:0c:76:c9:b2:d3:a8:16:5a:
+         21:bb:eb:d4:30:2f:45:2b:6b:0f:56:29:f2:63:60:8f:97:74:
+         fb:1a:0b:9d:39:c0:0f:76:31:4a:5b:7d:03:41:1b:c3:e9:a2:
+         fb:68:1b:6a:d8:0d:14:cd:c7:ee:53:c1:5c:26:eb:73:e1:a3:
+         4b:2a:87:2c:e4:d5:50:dd:7f:3f:7c:33:9f:3b:63:db:ee:05:
+         00:7c:32:c9:85:70:7d:11:eb:d1:6d:3b:76:bb:1b:70:a4:ed:
+         14:e3:5c:43:54:ef:b5:31:69:ba:54:92:25:ed:0b:82:b8:c5:
+         73:0f:a5:af
+-----BEGIN CERTIFICATE-----
+MIIDFDCCAfwCCQDfiGt7hEY/0TANBgkqhkiG9w0BAQsFADBMMQswCQYDVQQGEwJV
+UzELMAkGA1UECAwCQ0ExETAPBgNVBAcMCFNhbiBKb3NlMQ4wDAYDVQQKDAVBZG9i
+ZTENMAsGA1UECwwEUElUUzAeFw0xOTA0MTUyMjIyNTdaFw0yMDA0MDUyMjIyNTda
+MEwxCzAJBgNVBAYTAlVTMQswCQYDVQQIDAJDQTERMA8GA1UEBwwIU2FuIEpvc2Ux
+DjAMBgNVBAoMBUFkb2JlMQ0wCwYDVQQLDARQSVRTMIIBIjANBgkqhkiG9w0BAQEF
+AAOCAQ8AMIIBCgKCAQEAt6b4UlyjMvH6dnjXeE1l8FzvPtg0cmPqPXC3k0L5jZ6D
+n6Ne1TZbkENwCH+uRHUIb3SEtWLPNURycordA3Vcyoh5YIW9ZGDGI5ekExC9E/io
+ON83GvjvtKhb259gqug4m2XXNvpZICHk48XkaAbzQVjcMX0pRnA4RcVckK3/nK+x
+geiIbuQ5ddRCP4PerDBGhusWkN/JPqQeEw90V4cXR1AHuRdnn20P/kFKTpxmbNvV
+0vjWu4Q4UhqefmYB6rx9f8ODf31YjBrKJD02puHS160aGw9RgqaXYuhIE0g/SCVO
+jrTlaz/wU8YT6Mi9B2YbGV7HCQWYSQeS5AWgu02JlQIDAQABMA0GCSqGSIb3DQEB
+CwUAA4IBAQATzZREW42iOAlHU8STja4CLF5UED3LodsVnjyYBr0wLfEJbbW9eV/y
+ojkUfyxYRHPU8zrCwOo1MhKks1scVInApEDZI91NdmCklU5J1HpvJ3OUE4xHjFdL
+O76YTn+eoIkLp7b+xb/vpT+Kc5JWNeTpPitxqEBUeO/SyqqE6VXsaamn6o9X9zvK
+DHbJstOoFlohu+vUMC9FK2sPVinyY2CPl3T7GgudOcAPdjFKW30DQRvD6aL7aBtq
+2A0UzcfuU8FcJutz4aNLKocs5NVQ3X8/fDOfO2Pb7gUAfDLJhXB9EevRbTt2uxtw
+pO0U41xDVO+1MWm6VJIl7QuCuMVzD6Wv
+-----END CERTIFICATE-----

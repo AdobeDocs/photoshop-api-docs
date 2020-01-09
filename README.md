@@ -4,11 +4,9 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
-- [Prerelease Program](#prerelease-program)
 - [Welcome to Photoshop APIs!](#welcome-to-photoshop-apis)
 - [General Setup and Onboarding](#general-setup-and-onboarding)
   - [Authentication](#authentication)
-    - [Individual users](#individual-users)
     - [Adobe Enterprise ETLA customers](#adobe-enterprise-etla-customers)
       - [OAuth 2.0 Guide](#oauth-20-guide)
     - [Service-to-service clients](#service-to-service-clients)
@@ -20,59 +18,41 @@
 - [Photoshop](#photoshop)
   - [General Workflow](#general-workflow)
     - [Input and Output file storage](#input-and-output-file-storage)
-    - [Text layers](#text-layers)
-      - [Fonts](#fonts)
-    - [SmartObject](#smartobject)
     - [Tracking document changes](#tracking-document-changes)
   - [Supported Features](#supported-features)
     - [Layer level edits](#layer-level-edits)
-    - [Artboards](#artboards)
-    - [Document level edits](#document-level-edits)
     - [Rendering / Conversions](#rendering--conversions)
       - [Compatibility with Photoshop versions](#compatibility-with-photoshop-versions)
-  - [How to use the APIs](#how-to-use-the-apis)
+    - [SmartObject](#smartobject)
+  - [How to use the Photoshop APIs](#how-to-use-the-photoshop-apis)
     - [/documentManifest (Retrieving a PSD manifest)](#documentmanifest-retrieving-a-psd-manifest)
       - [Example 1: Initiate a job to retrieve a PSD's JSON manifest](#example-1-initiate-a-job-to-retrieve-a-psds-json-manifest)
       - [Example 2: Poll for status and results](#example-2-poll-for-status-and-results)
       - [Example 3: The returned manifest](#example-3-the-returned-manifest)
     - [/documentOperations (Making PSD edits and renders)](#documentoperations-making-psd-edits-and-renders)
       - [The add, edit and delete objects](#the-add-edit-and-delete-objects)
-      - [Example 1: Making a simple edit (to a text layer)](#example-1-making-a-simple-edit-to-a-text-layer)
-      - [Example 2: Poll for status and results](#example-2-poll-for-status-and-results-1)
-      - [Example 3: Adding a new adjustment layer](#example-3-adding-a-new-adjustment-layer)
-      - [Example 4: Editing the image in a pixel layer](#example-4-editing-the-image-in-a-pixel-layer)
-      - [Example 5: Creating new Renditions](#example-5-creating-new-renditions)
-      - [Example 6: Swapping the image in a smart object layer](#example-6-swapping-the-image-in-a-smart-object-layer)
+      - [Example 1: Making a simple edit](#example-1-making-a-simple-edit)
+      - [Example 2: Creating new Renditions](#example-2-creating-new-renditions)
+      - [Example 3: Swapping the image in a smart object layer](#example-3-swapping-the-image-in-a-smart-object-layer)
     - [/renditionCreate (Generating New Renditions)](#renditioncreate-generating-new-renditions)
         - [Example 1: A single file input](#example-1-a-single-file-input)
-      - [Example 2: Poll for status and results](#example-2-poll-for-status-and-results-2)
+      - [Example 2: Poll for status and results](#example-2-poll-for-status-and-results-1)
       - [Example 3: A folder input (multiple files)](#example-3-a-folder-input-multiple-files)
     - [/smartObject (Replacing smartobject)](#smartobject-replacing-smartobject)
         - [Example 1: Replacing a SmartObject](#example-1-replacing-a-smartobject)
         - [Example 2: Creating a SmartObject](#example-2-creating-a-smartobject)
   - [Sample Code](#sample-code)
   - [Current Limitations](#current-limitations)
-  - [Release Notes](#release-notes)
-- [ImageCutout](#imagecutout)
-  - [General Workflow](#general-workflow-1)
-  - [How to use the API's](#how-to-use-the-apis)
 - [Lightroom APIs](#lightroom-apis)
-  - [General Workflow](#general-workflow-2)
-  - [How to use the API's](#how-to-use-the-apis-1)
+  - [General Workflow](#general-workflow-1)
+  - [How to use the Lightroom API's](#how-to-use-the-lightroom-apis)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-# Prerelease Program
-
-The Photoshop APIs are made available through the Adobe Prelease program. For the ability to make API calls we invite you to join the program.
-
-Please be aware of some aspects of the program. For example, you will need to agree to the Adobe Prelease agreement and NDA. The APIs are provided for evaluation purposes. The current APIs are subject to change. You can find more information on the Adobe Prerelease page.
-
-If you are not currently a member, please sign up at [https://photoshop.adobelanding.com/prerelease-stack/](https://photoshop.adobelanding.com/prerelease-stack/)
 
 # Welcome to Photoshop APIs!
 
-The Adobe Photoshop APIs will allow you to make both layer and document level edits to Photoshop PSD files.  This page is meant to help you onboard with the service and get you started with some basic usage examples.
+The Adobe Photoshop APIs enable you to make creative edits to your images and Ps files by providing access to core Adobe technologies.  This document  will help you onboard to the services, familiarize you with available features, and get you started with some basic usage examples.
 
 The API documentation is published at
 
@@ -80,7 +60,6 @@ The API documentation is published at
 
 [Lightroom API Documentation](https://adobedocs.github.io/lightroom-api-docs/)
 
-[Image Cutout API Documentation](https://adobedocs.github.io/photoshop-api-docs/#api-Sensei-ImageCutout)
 
 # General Setup and Onboarding
 
@@ -90,24 +69,7 @@ We have two kinds of authorizations.
 1. OAuth 2.0 access token for individual user access
 2. JSON Web Token (JWT) for service integration for Adobe Enterprise ETLA customers only
 
-### Individual users
-You will use the 1st authorization flow here.
-You will be emailed your Client ID and Client Secret required for API authentication after you've been accepted to the PreRelease program.
-You will create the OAuth access token using Adobe IMS endpoints.
-Once you've received your Client ID and Client Secret by email...
-- Do a quick test:
-  - Browse to [https://ps-prerelease-us-east-1.cloud.adobe.io/](https://ps-prerelease-us-east-1.cloud.adobe.io/)
-  - Add your Client ID and Client Secret sent in email
-  - Enter your Adobe credentials when prompted
-  - Use the access token to try the example calls further down this README
-
-You must pass in an OAuth 2.0 access token with every request.The Photoshop APIs does not provide any API methods for authentication or authorization. Access tokens are granted by Adobe's IMS service. The Photoshop API needs an access token in the scope="openid,creative_sdk" and hence it is required that you pass in this parameter to the IMS Login Authorization API.
-
-The access token must never be transmitted as a URI parameter. Doing so would expose it to being captured in-the-clear by intermediaries such as proxy server logs. The API does not allow you to send an access token anywhere except the Authorization header field.
-
-
 ### Adobe Enterprise ETLA customers
-You may use 1st authorization flow or the 2nd depending on your integration.
 If your company has an Adobe ETLA agreement you may be able to create your own integration using the instructions below. You may generate a user access token using an OAuth 2.0 workflow, or, a service token.
 
 #### OAuth 2.0 Guide  
@@ -168,41 +130,6 @@ Clients can use assets stored on one of the following storage types:
 3. Azure: By generating a SAS (Shared Access Signature) for upload/download
 4. Dropbox: Generate temporary upload/download links using https://dropbox.github.io/dropbox-api-v2-explorer/
 
-### Text layers
-
-The Photoshop APIs currently support creating and editing of Text Layer with different fonts, character styles and paragraph styles.
-
-The API's are documented [here](https://adobedocs.github.io/photoshop-api-docs/#api-Photoshop-document_operations)
-
-We also have an example of making a simple text layer edit.
-
-[Text layer Example Code](https://github.com/AdobeDocs/photoshop-api-docs#example-1-making-a-simple-edit-to-a-text-layer)
-
-#### Fonts
-
-The APIs all use Postscript names.
-
-The Photoshop APIs supports using fonts from two locations:
-- [Currently Installed Fonts](SupportedFonts.md)
-- Fonts the user is authorized to access via [Typekit](https://fonts.adobe.com/fonts). (Currently only available for OAuth tokens, service token support is forthcoming...)
-
-If your font is not included in either of these locations you must include an href to the font in your request. See the api docs for more information.
-
-Font support is a work in progress.
-
-### SmartObject
-
-The Photoshop APIs currently support creating and editing of Embedded Smart Objects. Support for Linked Smart Objects is forthcoming.
-
-- In order to update an embedded smart object that is referenced by multiple layers you only need to update one of those layers, the effect will be reflected in all layers referencing the same smart object.
-
-The API's are documented [here](https://adobedocs.github.io/photoshop-api-docs/#api-Photoshop-document_operations)
-
-We also have an example of replacing a Smart Object within a layer.
-
-[Smart Object Example Code](https://github.com/AdobeDocs/photoshop-api-docs#example-6-swapping-the-image-in-a-smart-object-layer)
-
-Smart Object support is a work in progress.
 
 ### Tracking document changes
 
@@ -210,45 +137,17 @@ If you are making multiple edits to a PSD during the course of a user session it
 
 ## Supported Features
 
-This is a partial list of currently supported features.  Please also see the [Release Notes](https://forums.adobeprerelease.com/photoshopapiservice/categories/releasenotes) for a list of added features
+This is a list of currently supported features.
 
 ### Layer level edits
 
 - General layer edits
-  - Edit the layer name
+  - Edit the layer name/id
   - Toggle the layer locked state
   - Toggle layer visibility
-  - Move or resize the layer via it's bounds
-  - Delete layers
-- Adjustment layers
-  - Add or edit an adjustment layer. The following types of adjustment layers are currently supported:
-  - Brightness and Contrast
-  - Exposure
-  - Hue and Saturation
-  - Color Balance
-- Image/Pixel layers
-  - Add a new pixel layer, with optional image
-  - Swap the image in an existing pixel layer
-- Shape layers
-  - Resize a shape layer via it's bounds
-- Text layers
-  - Edit the text
-  - Change the font (See the `Fonts` section for more info)
-  - Edit the font size
-  - Edit the text decoration (bold, italic, etc)
-  - Edit the text orientation (horizontal/vertical)
-  - Edit the paragraph alignment (centered, justified, etc)
-  - Edit the font weight
-
-### Artboards
-
-- Show artboard information in the JSON Manifest
-- Create a new artboard from multiple input psd's
-
-### Document level edits
-
-- Crop a PSD
-- Resize a PSD
+  - Apply bounds
+- Add or replace a Smart Object Layer in a document
+- Add or edit a Fill layer in a document along with Blend modes  
 
 ### Rendering / Conversions
 
@@ -263,7 +162,21 @@ This is a partial list of currently supported features.  Please also see the [Re
 2.  When saving as PSD, the API’s will create PSD’s compatible with the current shipping Photoshop.
 3.  In regards to “maximize compatibility” referenced in [https://helpx.adobe.com/photoshop/using/file-formats.html#maximize_compatibility_for_psd_and_psb_files](https://helpx.adobe.com/photoshop/using/file-formats.html#maximize_compatibility_for_psd_and_psb_files)  the API's default to “yes”
 
-## How to use the APIs
+### SmartObject
+
+The Photoshop APIs currently support creating and editing of Embedded Smart Objects.
+
+- In order to update an embedded smart object that is referenced by multiple layers you only need to update one of those layers, the effect will be reflected in all layers referencing the same smart object.
+
+- The replaced smart object takes the bounds of the new image by default. If your document contains transparent pixels (e.g some .png) , you may not get consistent bounds.
+
+The API's are documented [here](https://adobedocs.github.io/photoshop-api-docs/#api-Photoshop-document_operations)
+
+We also have an example of replacing a Smart Object within a layer.
+
+[Smart Object Example Code](https://github.com/AdobeDocs/photoshop-api-docs#example-6-swapping-the-image-in-a-smart-object-layer)
+
+## How to use the Photoshop APIs
 
 The API's are documented at https://adobedocs.github.io/photoshop-api-docs/
 
@@ -492,18 +405,7 @@ The layer id or layer name are used by the service to identify the correct layer
 
 The `add`, `edit`, `move` and `delete` blocks are how you communicate that you'd like action taken on that particular layer object. Any layer block passed into the API that is missing the one of these attributes will be ignored.
 
-#### Example 1: Making a simple edit (to a text layer)
-
-In this example we will be editing a single text layer from Example.psd. We are only including a single layer object in the `options.layers` array. We will be editing layer id 412 from the `/documentManfest` examples above and making the following requests:
-
-- NEW KEYWORD TO INDICATE AN EDIT: The `edit` key is included in layer id 412
-- CHANGE LAYER POSITION: The layer's top and left will be set to 0,0
-- CHANGE FONT SIZE: The font size will be reduced from 36 to 24 pixels
-- CHANGE TEXT CONTENT: The text string will be changed to "Inspire your customers’ creativity."
-- CHANGE LAYER NAME: The layer name will be changed to "Inspire your customers’ creativity."
-- LOCK THE LAYER: The layer will be locked
-- GENERATE RENDITION: We are requesting one new fullsize jpeg rendition
-
+#### Example 1: Making a simple edit
 ```shell
 curl -X POST \
   https://image.adobe.io/pie/psdService/documentOperations \
@@ -519,190 +421,12 @@ curl -X POST \
   "options":{
     "layers":[
       {
-        "edit":{},                                    // <--- NEW KEYWORD TO INDICATE AN EDIT
-        "bounds":{
-          "height":136,
-          "left":0,                                       // <--- CHANGE LAYER POSITION
-          "top":0,  
-          "width":252
-        },
-        "text":{
-          "content":"Inspire your customers’ creativity.",    // <--- CHANGE TEXT CONTENT
-          "paragraphStyles":[{
-            "alignment":"left"
-          }],
-          "characterStyles":[{
-            "fontAvailable":true,
-            "fontName":"AdobeClean-Bold",
-            "fontSize":24,                                  // <--- CHANGE FONT SIZE
-            "orientation":"horizontal",
-          }]
-        },
-        "id":412,
-        "index":6,
-        "locked":true,                                      // <--- LOCK THE LAYER
-        "name":"Inspire your customers’ creativity.",       // <--- CHANGE LAYER NAME
-        "type":"textLayer",
-        "visible":true
-      }
-    ]
-  },
-  "outputs":[
-    {
-      "href":"files/Example.jpeg",                           // <--- GENERATE RENDITION
-      "storage":"adobe",  
-      "width":0,
-      "type":"image/jpeg"
-    }
-  ]
-}'
-```
-
-This initiates an asynchronous job and returns a request body containing the href to poll for job status and requested rendition information.
-
-```json
-{
-    "_links": {
-        "self": {
-            "href": "https://image.adobe.io/pie/psdService/status/8ad955af-e511-4c6f-845b-193c7bbba9b9"
-        }
-    }
-}
-```
-
-#### Example 2: Poll for status and results
-
-Using the job id returned from the previous call you can poll on the returned `/status` href to get the status for the edit job and each requested output
-
-```shell
-curl -X GET \
-  https://image.adobe.io/pie/psdService/status/8ad955af-e511-4c6f-845b-193c7bbba9b9 \
-  -H 'Authorization: Bearer <auth_token>' \
-  -H 'Content-Type: application/json' \
-  -H 'x-api-key: <YOUR_API_KEY>'
-```
-
-And this will return a request body containing the job status for each requested output and eventually either errors or the hrefs to the requested outputs
-
-```json
-{
-  "jobId":"8ad955af-e511-4c6f-845b-193c7bbba9b9",
-  "outputs":[
-    {
-      "input":"/files/Example.psd",
-      "status":"succeeded",
-      "created":"2018-01-04T12:57:15.12345:Z",
-      "modified":"2018-01-04T12:58:36.12345:Z",
-      "_links":{
-        "renditions":[
-          {
-            "href":"/files/Example.jpeg",
-            "storage":"adobe",
-            "type":"vnd.adobe.photoshop"
-          }
-        ]
-      }
-    }
-  ],
-  "_links":{
-    "self":{
-      "href":"https://image.adobe.io/pie/psdService/status/8ad955af-e511-4c6f-845b-193c7bbba9b9"
-    }
-  }
-}
-```
-
-
-#### Example 3: Adding a new adjustment layer
-
-This example shows how you can add a new brightnessContrast adjustment layer to the top of your PSD.  Things to note:
-
-- NEW KEYWORD TO INDICATE AN ADDITION: The `add` key is included, along with `insertAbove` in the new layer object to indicate exactly where you want the new layer placed in the overall Manifest tree.  
-- LAYER TYPE IS REQUIRED: The type indicates you want a new layer of type adjustment layer.
-- LAYER ID AND INDEX ARE NOT PRESENT: The layer index and id are not supported for add operations. The index is implied by the objects position in the manifest tree and the ID will be generated by the service and returned to you in subsequent calls to `/documentManifest`
-
-```shell
-curl -X POST \
-  https://image.adobe.io/pie/psdService/documentOperations \
-  -H 'Authorization: Bearer <auth_token>' \
-  -H 'Content-Type: application/json' \
-  -H 'x-api-key: <YOUR_API_KEY>' \
-  -d '{
-  "inputs":[
-    {
-      "href":"files/Example.psd",
-      "storage":"adobe"
-    }
-  ],
-  "options":{
-    "layers":[
-      {                                        
-        "add":{                          	    // <--- NEW KEYWORD TO INDICATE AN ADDITION
-          "insertAbove": {
-            "id": 549
-          }	                    // <--- INDICATES THE LAYER SHOULD BE CREATED ABOVE ID 549
-        },
-        "adjustments":{
-          "brightnessContrast":{
-            "brightness":25,
-            "contrast":-40
-          }
-        },
-        "name":"NewBrightnessContrast",
-        "type":"adjustmentLayer"              // <--- LAYER TYPE IS REQUIRED
-      }
-    ]
-  },
-  "outputs":[
-    {
-      "href":"files/Example_Out.jpeg",
-      "storage":"adobe",
-      "type":"image/jpeg"
-    }
-  ]
-}'
-```
-
-
-#### Example 4: Editing the image in a pixel layer
-
-In this example we want to replace the image in an existing pixel layer, the Hero Image layer in Example.psd. We are requesting the following:
-
-- NEW KEYWORD TO INDICATE AN EDIT: The `edit` key is included to indicate we want to edit this layer
-- NEW KEYWORD TO INDICATE IMAGE REPLACEMENT INFO: The `layers.input` object is included to indicate where the replacement image can be found
-
-```shell
-curl -X POST \
-  https://image.adobe.io/pie/psdService/documentOperations \
-  -H 'Authorization: Bearer <auth_token>' \
-  -H 'Content-Type: application/json' \
-  -H 'x-api-key: <YOUR_API_KEY>' \
-  -d '{
-  "inputs":[
-    {
-      "href":"files/Example.psd",
-      "storage":"adobe"
-    }
-  ],
-  "options":{
-    "layers":[
-      {
-        "edit":{},										// <--- NEW KEYWORD TO INDICATE AN ADDITION
-        "input":{                                       // <--- NEW KEYWORD TO INDICATE IMAGE REPLACEMENT INFO
-          "href":"/files/newBackgroundImage.jpeg",
-          "storage":"adobe"
-        },
-        "bounds":{
-          "height":405,
-          "left":0,
-          "top":237,
-          "width":300
-        },
-        "id":751,
-        "index":2,
-        "locked":false,
-        "name":"BackgroundGradient",
-        "type":"layer",
+        "edit":{},     
+        "id":750,
+        "index":1,
+        "locked":true,
+        "name":"HeroImage",
+        "type":"smartObject",
         "visible":true
       }
     ]
@@ -719,11 +443,11 @@ curl -X POST \
 '
 ```
 
-#### Example 5: Creating new Renditions
+#### Example 2: Creating new Renditions
 
 See the `/renditionCreate` examples below as the format for the `outputs` object in the request body is identical
 
-#### Example 6: Swapping the image in a smart object layer
+#### Example 3: Swapping the image in a smart object layer
 
 In this example we want to swap the smart object in an existing embedded smart object layer, the Hero Image layer in Example.psd. We are requesting the following:
 
@@ -754,8 +478,7 @@ curl -X POST \
           "storage":"adobe"
         },
         "smartObject" : {                
-        	"type" : "image/png",
-        	"linked" : false
+        	"type" : "image/png"
         },
         "attributes":{
           "bounds":{
@@ -1002,25 +725,11 @@ Note that the sample code is covered by the MIT license.
 ## Current Limitations
 There are a few limitations to the APIs you should be aware of ahead of time.  
 - Multi-part uploads and downloads are not yet supported
-- The `/documentOperations` endpoint only supports a single PSD input
-- Error handling is a work in progress. Sometimes you may not see the most helpful of messages
+- The /documentOperations and /smartObject endpoints only support a single PSD input
+
 
 The file Example.psd is included in this repository if you'd like to experiment with these example calls on your own.
 
-## Release Notes
-Please see the [Release Notes](https://forums.adobeprerelease.com/photoshopapiservice/categories/releasenotes) section of the discussion forums
-
-# ImageCutout
-
-Image Cutout Service is based on Photoshop technology and [Adobe Sensei](https://www.adobe.com/sensei.html) technology. You can call this service to execute the task of identifying and “cutting out” the most salient object in a digital image. It returns a mask of the most salient object in an image.
-
-## General Workflow
-
-The typical workflow involves making a synchronous API call to the POST endpoint https://sensei.adobe.io/services/v1/predict for which the response will contain a link to the created mask file.
-
-## How to use the API's
-
-The API's are documented at [https://adobedocs.github.io/photoshop-api-docs/#api-Sensei-ImageCutout](https://adobedocs.github.io/photoshop-api-docs/#api-Sensei-ImageCutout)
 
 # Lightroom APIs
 
@@ -1030,6 +739,6 @@ The Adobe Lightroom APIs allow you to make Lightroom-like automated edits to ima
 
 The typical workflow involves making an API POST call to the endpoint https://image.adobe.io/lrService/ for which the response will contain a link to check the status of the asynchronous job. Making a GET call to this link will return the status of the job and, eventually, the links to your generated output.
 
-## How to use the API's
+## How to use the Lightroom API's
 
 The API's are documented at [https://github.com/AdobeDocs/lightroom-api-docs](https://github.com/AdobeDocs/lightroom-api-docs/)
