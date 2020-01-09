@@ -7,7 +7,6 @@
 - [Welcome to Photoshop APIs!](#welcome-to-photoshop-apis)
 - [General Setup and Onboarding](#general-setup-and-onboarding)
   - [Authentication](#authentication)
-    - [Individual users](#individual-users)
     - [Adobe Enterprise ETLA customers](#adobe-enterprise-etla-customers)
       - [OAuth 2.0 Guide](#oauth-20-guide)
     - [Service-to-service clients](#service-to-service-clients)
