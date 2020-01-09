@@ -23,7 +23,7 @@
     - [Layer level edits](#layer-level-edits)
     - [Rendering / Conversions](#rendering--conversions)
     - [SmartObject](#smartobject)
-      - [Compatibility with Photoshop versions](#compatibility-with-photoshop-versions)
+    - [Compatibility with Photoshop versions](#compatibility-with-photoshop-versions)
   - [How to use the Photoshop APIs](#how-to-use-the-photoshop-apis)
     - [/documentManifest (Retrieving a PSD manifest)](#documentmanifest-retrieving-a-psd-manifest)
       - [Example 1: Initiate a job to retrieve a PSD's JSON manifest](#example-1-initiate-a-job-to-retrieve-a-psds-json-manifest)
@@ -170,7 +170,7 @@ We also have an example of replacing a Smart Object within a layer.
 
 [Smart Object Example Code](https://github.com/AdobeDocs/photoshop-api-docs#example-6-swapping-the-image-in-a-smart-object-layer)
 
-#### Compatibility with Photoshop versions
+### Compatibility with Photoshop versions
 
 1. The API’s will open any PSD created with Photoshop 1.0 through the current release and this will always be true.
 2.  When saving as PSD, the API’s will create PSD’s compatible with the current shipping Photoshop.
