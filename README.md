@@ -24,7 +24,7 @@
     - [Layer level edits](#layer-level-edits)
     - [Rendering / Conversions](#rendering--conversions)
       - [Compatibility with Photoshop versions](#compatibility-with-photoshop-versions)
-  - [How to use the APIs](#how-to-use-the-apis)
+  - [How to use the Photoshop APIs](#how-to-use-the-photoshop-apis)
     - [/documentManifest (Retrieving a PSD manifest)](#documentmanifest-retrieving-a-psd-manifest)
       - [Example 1: Initiate a job to retrieve a PSD's JSON manifest](#example-1-initiate-a-job-to-retrieve-a-psds-json-manifest)
       - [Example 2: Poll for status and results](#example-2-poll-for-status-and-results)
@@ -45,14 +45,14 @@
   - [Current Limitations](#current-limitations)
 - [Lightroom APIs](#lightroom-apis)
   - [General Workflow](#general-workflow-1)
-  - [How to use the API's](#how-to-use-the-apis)
+  - [How to use the Lightroom API's](#how-to-use-the-lightroom-apis)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 
 # Welcome to Photoshop APIs!
 
-The Adobe Photoshop APIs will allow you to make both layer and document level edits to Photoshop PSD files.  This page is meant to help you onboard with the service and get you started with some basic usage examples.
+The Adobe Photoshop APIs enable you to make creative edits to your images and Ps files by providing access to core Adobe technologies.  This document  will help you onboard to the services, familiarize you with available features, and get you started with some basic usage examples.
 
 The API documentation is published at
 
@@ -177,7 +177,7 @@ This is a list of currently supported features.
 2.  When saving as PSD, the API’s will create PSD’s compatible with the current shipping Photoshop.
 3.  In regards to “maximize compatibility” referenced in [https://helpx.adobe.com/photoshop/using/file-formats.html#maximize_compatibility_for_psd_and_psb_files](https://helpx.adobe.com/photoshop/using/file-formats.html#maximize_compatibility_for_psd_and_psb_files)  the API's default to “yes”
 
-## How to use the APIs
+## How to use the Photoshop APIs
 
 The API's are documented at https://adobedocs.github.io/photoshop-api-docs/
 
@@ -740,6 +740,6 @@ The Adobe Lightroom APIs allow you to make Lightroom-like automated edits to ima
 
 The typical workflow involves making an API POST call to the endpoint https://image.adobe.io/lrService/ for which the response will contain a link to check the status of the asynchronous job. Making a GET call to this link will return the status of the job and, eventually, the links to your generated output.
 
-## How to use the API's
+## How to use the Lightroom API's
 
 The API's are documented at [https://github.com/AdobeDocs/lightroom-api-docs](https://github.com/AdobeDocs/lightroom-api-docs/)
