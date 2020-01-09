@@ -146,8 +146,8 @@ This is a list of currently supported features.
   - Toggle the layer locked state
   - Toggle layer visibility
   - Apply bounds
-  - Add or replace a Smart Object Layer in a document
-  - Add or edit a Fill layer in a document along with Blend modes  
+- Add or replace a Smart Object Layer in a document
+- Add or edit a Fill layer in a document along with Blend modes  
 
 ### Rendering / Conversions
 
