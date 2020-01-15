@@ -726,7 +726,7 @@ Note that the sample code is covered by the MIT license.
 ## Current Limitations
 There are a few limitations to the APIs you should be aware of ahead of time.  
 - Multi-part uploads and downloads are not yet supported
-- The /documentOperations and /smartObject endpoints only support a single PSD input
+- The `/documentOperations`, `/documentManifest`, `/renditionCreate` and `/smartObject` endpoints only support a single PSD input
 
 
 The file Example.psd is included in this repository if you'd like to experiment with these example calls on your own.
