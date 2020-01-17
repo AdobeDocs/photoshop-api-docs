@@ -7,11 +7,12 @@
 - [Welcome to Photoshop APIs!](#welcome-to-photoshop-apis)
 - [General Setup and Onboarding](#general-setup-and-onboarding)
   - [Authentication](#authentication)
-    - [Adobe Enterprise ETLA customers](#adobe-enterprise-etla-customers)
-      - [OAuth 2.0 Guide](#oauth-20-guide)
-    - [Service-to-service clients](#service-to-service-clients)
-      - [Assets stored on Adobe's Creative Cloud](#assets-stored-on-adobes-creative-cloud)
-      - [Assets stored externally to Adobe](#assets-stored-externally-to-adobe)
+    - [Overview](#overview)
+    - [Workflow and Use Cases](#workflow-and-use-cases)
+    - [Individual users](#individual-users)
+      - [Additional OAuth 2.0 and IMS Information](#additional-oauth-20-and-ims-information)
+    - [Service Token Workflow (Adobe ETLA users)](#service-token-workflow-adobe-etla-users)
+      - [Additional Service Token and JWT Information](#additional-service-token-and-jwt-information)
   - [API Keys](#api-keys)
   - [Retries](#retries)
   - [Rate Limiting](#rate-limiting)
@@ -61,45 +62,123 @@ The API documentation is published at
 [Lightroom API Documentation](https://adobedocs.github.io/lightroom-api-docs/)
 
 
+
 # General Setup and Onboarding
 
 ## Authentication
+### Overview
 
-We have two kinds of authorizations.
-1. OAuth 2.0 access token for individual user access
-2. JSON Web Token (JWT) for service integration for Adobe Enterprise ETLA customers only
+The Photoshop API uses client id’s (also know as api keys) and authentication tokens to authenticate requests. There are two different kinds of authorization tokens available:  
 
-### Adobe Enterprise ETLA customers
-If your company has an Adobe ETLA agreement you may be able to create your own integration using the instructions below. You may generate a user access token using an OAuth 2.0 workflow, or, a service token.
+1. Individual user access (OAuth 2.0 access token)
+2. Adobe Enterprise ETLA (Service token using JSON Web Token/JWT)
 
-#### OAuth 2.0 Guide  
+If this is your first time using Adobe API’s we suggest trying out the OAuth workflow.
 
- - Instructions regarding the Adobe IMS endpoints can be found at [Generating Access Tokens](https://www.adobe.io/authentication/auth-methods.html#!AdobeDocs/adobeio-auth/master/OAuth/OAuth.md#authentication)
- - Additional instructions can be found at [Setting up OAuth authentication](https://www.adobe.io/authentication/auth-methods.html#!AdobeDocs/adobeio-auth/master/OAuth/OAuth.md)
- - An OAuth playground can be found [here]([https://www.adobe.io/authentication/auth-methods.html#!AdobeDocs/adobeio-auth/master/Resources/Tools/ToolsOverview.md](https://www.adobe.io/authentication/auth-methods.html#!AdobeDocs/adobeio-auth/master/Resources/Tools/ToolsOverview.md))
- - Complete examples for OAuth endpoints can be found at [OAuth endpoint examples]([https://www.adobe.io/authentication/auth-methods.html#!AdobeDocs/adobeio-auth/master/OAuth/samples/samples.md](https://www.adobe.io/authentication/auth-methods.html#!AdobeDocs/adobeio-auth/master/OAuth/samples/samples.md))
+In order to use the Photoshop API's you’ll need to get a Client ID (also known as an API key) and a Client Secret. Once you have those you can use them to programmatically get an access token to authenticate your requests.  We’ll walk you through the steps below.
 
 
-### Service-to-service clients
+### Workflow and Use Cases
 
-For service-to-service clients you'll need to set up an Adobe I/O Console Integration and create a JSON Web Token (JWT) to retrieve your access token for Photoshop APIs. It is assumed your organization already has an Adobe IMS Org ID and you have added the required users to it.
+Here are the workflows we currently support.  You are…
 
+- An individual user logged in who has an Adobe Creative Cloud Account
+- An organization with an Adobe ETLA (an enterprise account)
+- Running a job on a server
+- Running in a browser
 
-#### Assets stored on Adobe's Creative Cloud
+If your workflow falls outside of these please contact us at psdservices@adobe.com so we can help meet your needs.
 
-The Adobe Photoshop APIs currently have a limitation that Service clients must store their assets externally to Adobe's Creative Cloud...
+### Individual users
+1. Get your client id and client secret.
+After you've been accepted to the PreRelease program you will be emailed your credentials (your client ID and client Secret) required for API authentication.
 
-#### Assets stored externally to Adobe
-This applies to assets stored outside of Adobe's Creative Cloud and accessed via preSigned URL's
+2. Test out your credentials.
+This will allow you to verify that your credentials work and show you want an OAuth token looks like for when you eventually do this programmatically.
+  - Browse to https://ps-prerelease-us-east-1.cloud.adobe.io
+  - Enter the client id and secret
+  - Follow through the login process
+  - If your credentials work you should see an authorization token appear on your screen
+This is the OAuth token that’s required to make calls to the Photoshop API’s and if you’d like you can jump ahead and immediately try them out now.  Eventually you will make this process programmatic (instructions below) but in the meantime the token expires in 24 hours and you can use this workflow during development for as long as you’d like.
 
-- Browse to https://console.adobe.io/integrations
-- Select New Integration
-- Select `Access an API`
-- Select `Photoshop`
-- Select `Service Account integration`
-- Select `Create new integration`
+3. Make an authenticated call to ensure you can round trip successfully with the API’s
+```shell
+curl --request GET \
+  --url https://image.adobe.io/pie/psdService/hello  \
+  --header 'Authorization: Bearer <YOUR_OAUTH_TOKEN>' \
+  --header 'x-api-key: <YOUR_CLIENT_ID>' \
+```
+  Congrats! You just made your first request to the Photoshop API.
 
-To retrieve your access token see additional instructions at [Setting up JWT Authentication](https://www.adobe.io/authentication/auth-methods.html#!adobeio/adobeio-documentation/master/auth/JWTAuthenticationQuickStart.md)
+4.  Make a Photoshop API call with real assets
+
+  Now that you can successfully authenticate and talk to the API’s it’s time to make “real” calls…
+
+  [link to individual services]
+
+5. Automate token retrieval
+
+  Eventually you will need to automate the OAuth token retrieval process. The Photoshop API does not provide any API methods for authentication or authorization.  Instead, access tokens are granted by Adobe's IMS service. When you call IMS to retrieve your token you will need to pass in a `scope`  parameter. The Photoshop API needs an access token with a scope="openid,creative_sdk" and hence it is required that you pass in this parameter to the IMS Login Authorization API.
+
+  The access token must never be transmitted as a URI parameter. Doing so would expose it to being captured in-the-clear by intermediaries such as proxy server logs. The API does not allow you to send an access token anywhere except the Authorization header field.
+
+  Your access token will expire typically in 24 hours.  You will receive a ‘refresh_token’ when you initially obtain the access token that you can use to get a new access token.  Be aware that refreshing your token might require a new login event.  Please reference the [OAuth documentation](https://www.adobe.io/authentication/auth-methods.html#!AdobeDocs/adobeio-auth/master/OAuth/OAuth.md) for additional instructions.
+
+  Here’s an example call to IMS to retrieve your auth token.  Please refer to the [OAuth sample code](https://github.com/AdobeDocs/photoshop-api-docs/tree/sudipta/archydoc/sample_code/oauth-sample-app) for how you would do this in an actual production environment.
+
+  Don’t forget to escape your username.  For example “`yoda@adobe.com`" becomes “`yoda%40adobe.com`".  
+
+  ``` shell
+  curl -X POST 'https://ims-na1-cc1.adobelogin.com/ims/token/v1?client_id=<INSERT_CLIENT_ID>&username=<INSERT_ADOBE_USERNAME>&password=<INSERT_PASSWORD>&scope=AdobeID%2Ccreative_sdk&grant_type=password&client_secret=<INSERT_SECRET>'
+  ```
+#### Additional OAuth 2.0 and IMS Information
+
+You can find details on interacting with Adobe IMS API’s and authentication in general
+1. [General Authentication Information](https://www.adobe.io/authentication/auth-methods.html#!AdobeDocs/adobeio-auth/master/AuthenticationOverview/AuthenticationGuide.md)
+2. [OAuth Authentication](https://www.adobe.io/authentication/auth-methods.html#!AdobeDocs/adobeio-auth/master/OAuth/OAuth.md)
+3. [IMS API’s](https://www.adobe.io/authentication/auth-methods.html#!AdobeDocs/adobeio-auth/master/Resources/IMS.md)
+4. [OAuth Sample Code](https://github.com/AdobeDocs/photoshop-api-docs/tree/sudipta/archydoc/sample_code/oauth-sample-app)
+
+### Service Token Workflow (Adobe ETLA users)
+In order to be an enterprise user you must already have an ETLA.  To find out if you have an ETLA reach out to your system administrator or your Adobe Account Executive.  
+
+Enterprise users will not have access to assets stored in the Creative Cloud so you must use an external storage source when making calls to the API.
+1. Get a developer role in the Adobe Admin Console
+You system admin will need to give you developer access in the [Adobe Admin Console](https://adminconsole.adobe.com/overview)
+2. Go to https://console.adobe.io and create a service integration and follow the instructions at [Service Token Instructions](https://www.adobe.io/authentication/auth-methods.html#!AdobeDocs/adobeio-auth/master/AuthenticationOverview/ServiceAccountIntegration.md)
+
+  On Step 1 of the Service Integration docs, ‘Subscribe to an Adobe Service’ you will select the following
+    1. Photoshop
+    2. Lightroom / Camera Raw API
+    3. Image Cutout
+
+3. Create a JSON Web Token (JWT) and exchange it for an access token
+Take the information from your integration, plus your private key that you created when you created your integration and follow the instructions at [JWT Instructions:](https://www.adobe.io/authentication/auth-methods.html#!AdobeDocs/adobeio-auth/master/JWT/JWT.md)
+
+  You can refer to [JWT sample code](https://github.com/AdobeDocs/photoshop-api-docs/tree/sudipta/archydoc/sample_code/jwt-sample-app) for additional help
+
+4. Make your first Photoshop API call
+Make an authenticated call to ensure you can round trip successfully with the API’s
+
+``` shell
+
+curl --request GET \
+  --url https://image.adobe.io/pie/psdService/hello \
+  --header 'Authorization: Bearer <YOUR_SERVICE_TOKEN>' \
+  --header 'x-api-key: <YOUR_CLIENT_ID>'
+  ```
+  Congrats! You just made your first request to the Photoshop API.
+
+5. Automate your access token retrieval
+Go back to step 3 to obtain a fresh service token
+
+#### Additional Service Token and JWT Information
+
+You can find details on interacting with Adobe IMS API’s and authentication in general
+  1. [General Authentication Information](https://www.adobe.io/authentication/auth-methods.html#!AdobeDocs/adobeio-auth/master/AuthenticationOverview/AuthenticationGuide.md)
+  2. [JWT/Service Token Authentication](https://www.adobe.io/authentication/auth-methods.html#!AdobeDocs/adobeio-auth/master/JWT/JWT.md)
+  3. [IMS API’s](https://www.adobe.io/authentication/auth-methods.html#!AdobeDocs/adobeio-auth/master/Resources/IMS.md)
+  4. [JWT Sample Code](https://github.com/AdobeDocs/photoshop-api-docs/tree/sudipta/archydoc/sample_code/jwt-sample-app)
 
 ## API Keys
 
