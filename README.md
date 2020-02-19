@@ -130,21 +130,16 @@ curl --request GET \
   }'
   ```
 
-5. Automate token retrieval
-
-  Eventually you will need to automate the OAuth token retrieval process. The Photoshop API does not provide any API methods for authentication or authorization.  Instead, access tokens are granted by Adobe's IMS service. When you call IMS to retrieve your token you will need to pass in a `scope`  parameter. The Photoshop API needs an access token with a scope="openid,creative_sdk" and hence it is required that you pass in this parameter to the IMS Login Authorization API.
+5. Notes on token retrieval
 
   The access token must never be transmitted as a URI parameter. Doing so would expose it to being captured in-the-clear by intermediaries such as proxy server logs. The API does not allow you to send an access token anywhere except the Authorization header field.
 
   Your access token will expire typically in 24 hours.  You will receive a ‘refresh_token’ when you initially obtain the access token that you can use to get a new access token.  Be aware that refreshing your token might require a new login event.  Please reference the [OAuth documentation](https://www.adobe.io/authentication/auth-methods.html#!AdobeDocs/adobeio-auth/master/OAuth/OAuth.md) for additional instructions.
 
-  Here’s an example call to IMS to retrieve your auth token.  Please refer to the [OAuth sample code](https://github.com/AdobeDocs/photoshop-api-docs/tree/sudipta/archydoc/sample_code/oauth-sample-app) for how you would do this in an actual production environment.
+6. Automate token retrieval
 
-  Don’t forget to escape your username.  For example “`yoda@adobe.com`" becomes “`yoda%40adobe.com`".  
+  Please contact psdservices@adobe.com for more information on how you can automate token generation for your workflow.
 
-  ``` shell
-  curl -X POST 'https://ims-na1-cc1.adobelogin.com/ims/token/v1?client_id=<INSERT_CLIENT_ID>&username=<INSERT_ADOBE_USERNAME>&password=<INSERT_PASSWORD>&scope=AdobeID%2Ccreative_sdk&grant_type=password&client_secret=<INSERT_SECRET>'
-  ```
 #### Additional OAuth 2.0 and IMS Information
 
 You can find details on interacting with Adobe IMS API’s and authentication in general
