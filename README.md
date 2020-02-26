@@ -263,8 +263,8 @@ We also have an example of replacing a Smart Object within a layer.
 ### Compatibility with Photoshop versions
 
 1. The API’s will open any PSD created with Photoshop 1.0 through the current release and this will always be true.
-2.  When saving as PSD, the API’s will create PSD’s compatible with the current shipping Photoshop.
-3.  In regards to “maximize compatibility” referenced in [https://helpx.adobe.com/photoshop/using/file-formats.html#maximize_compatibility_for_psd_and_psb_files](https://helpx.adobe.com/photoshop/using/file-formats.html#maximize_compatibility_for_psd_and_psb_files)  the API's default to “yes”
+2. When saving as PSD, the API’s will create PSD’s compatible with the current shipping Photoshop.
+3. In regards to “maximize compatibility” referenced in [https://helpx.adobe.com/photoshop/using/file-formats.html#maximize_compatibility_for_psd_and_psb_files](https://helpx.adobe.com/photoshop/using/file-formats.html#maximize_compatibility_for_psd_and_psb_files)  the API's default to “yes”
 
 
 ## How to use the Photoshop APIs
@@ -740,11 +740,11 @@ This API is a simple API developed to ease the smartObject replacement workflow 
 This example shows how you can replace an embedded smart object
 
 ``` shell
-curl - H "Authorization: Bearer $token" \
-- H "x-api-key: $api_key" \
-- X POST \
-https: //image.adobe.io/pie/psdService/smartObject \
-- d '{
+curl -H "Authorization: Bearer $token" \
+-H "x-api-key: $api_key" \
+-X POST \
+https://image.adobe.io/pie/psdService/smartObject \
+-d '{
   "inputs": [
   {
     "href": "files/SOCreate.psd",
@@ -774,11 +774,11 @@ https: //image.adobe.io/pie/psdService/smartObject \
 This example shows how you can create an embedded smart object
 
 ``` shell
-curl - H "Authorization: Bearer $token" \
-- H "x-api-key: $api_key" \
-- X POST \
-https: //image.adobe.io/pie/psdService/smartObject
-- d '{
+curl -H "Authorization: Bearer $token" \
+-H "x-api-key: $api_key" \
+-X POST \
+https://image.adobe.io/pie/psdService/smartObject
+-d '{
   "inputs": [
   {
     "href": "files/SO.psd",
