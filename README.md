@@ -1,5 +1,6 @@
 
 
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
@@ -44,8 +45,13 @@
         - [Step 2: Creating a SmartObject](#step-2-creating-a-smartobject)
   - [Sample Code](#sample-code)
   - [Current Limitations](#current-limitations)
-- [Lightroom APIs](#lightroom-apis)
+- [ImageCutout](#imagecutout)
   - [General Workflow](#general-workflow-1)
+  - [How to use the API's](#how-to-use-the-apis)
+    - [Example 1: Initiate a job to create an image cutout](#example-1-initiate-a-job-to-create-an-image-cutout)
+    - [Example 2: Initiate a job to create an image mask](#example-2-initiate-a-job-to-create-an-image-mask)
+- [Lightroom APIs](#lightroom-apis)
+  - [General Workflow](#general-workflow-2)
   - [How to use the Lightroom API's](#how-to-use-the-lightroom-apis)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -263,8 +269,8 @@ We also have an example of replacing a Smart Object within a layer.
 ### Compatibility with Photoshop versions
 
 1. The API’s will open any PSD created with Photoshop 1.0 through the current release and this will always be true.
-2. When saving as PSD, the API’s will create PSD’s compatible with the current shipping Photoshop.
-3. In regards to “maximize compatibility” referenced in [https://helpx.adobe.com/photoshop/using/file-formats.html#maximize_compatibility_for_psd_and_psb_files](https://helpx.adobe.com/photoshop/using/file-formats.html#maximize_compatibility_for_psd_and_psb_files)  the API's default to “yes”
+2.  When saving as PSD, the API’s will create PSD’s compatible with the current shipping Photoshop.
+3.  In regards to “maximize compatibility” referenced in [https://helpx.adobe.com/photoshop/using/file-formats.html#maximize_compatibility_for_psd_and_psb_files](https://helpx.adobe.com/photoshop/using/file-formats.html#maximize_compatibility_for_psd_and_psb_files)  the API's default to “yes”
 
 
 ## How to use the Photoshop APIs
@@ -740,11 +746,11 @@ This API is a simple API developed to ease the smartObject replacement workflow 
 This example shows how you can replace an embedded smart object
 
 ``` shell
-curl -H "Authorization: Bearer $token" \
--H "x-api-key: $api_key" \
--X POST \
-https://image.adobe.io/pie/psdService/smartObject \
--d '{
+curl - H "Authorization: Bearer $token" \
+- H "x-api-key: $api_key" \
+- X POST \
+https: //image.adobe.io/pie/psdService/smartObject \
+- d '{
   "inputs": [
   {
     "href": "files/SOCreate.psd",
@@ -774,11 +780,11 @@ https://image.adobe.io/pie/psdService/smartObject \
 This example shows how you can create an embedded smart object
 
 ``` shell
-curl -H "Authorization: Bearer $token" \
--H "x-api-key: $api_key" \
--X POST \
-https://image.adobe.io/pie/psdService/smartObject
--d '{
+curl - H "Authorization: Bearer $token" \
+- H "x-api-key: $api_key" \
+- X POST \
+https: //image.adobe.io/pie/psdService/smartObject
+- d '{
   "inputs": [
   {
     "href": "files/SO.psd",
@@ -821,6 +827,99 @@ There are a few limitations to the APIs you should be aware of ahead of time.
 
 The file Example.psd is included in this repository if you'd like to experiment with these example calls on your own.
 
+# ImageCutout
+
+The Image Cutout API is powered by Sensei, Adobe’s Artificial Intelligence Technology, and Photoshop. The API's can identify the main subject of an image and produce two types of outputs. You can create a greyscale [mask](https://en.wikipedia.org/wiki/Layers_(digital_image_editing)#Layer_mask) png file that you can composite onto the original image (or any other).  You can also create a cutout where the mask has already composited onto your original image so that everything except the main subject has been removed.
+
+| Original        | Mask           | Cutout  |
+| :-------------: |:-------------:| :-----:|
+| ![Alt text](assets/sensei_orig.jpg?raw=true "Original Image") | ![Alt text](assets/sensei_mask.png?raw=true "Mask") | ![Alt text](assets/sensei_cutout.png?raw=true "Original Image") |
+
+
+## General Workflow
+
+The typical workflow involves making an API POST call to the endpoint https://image.adobe.io/sensei for which the response will contain a link to check the status of the asynchronous job. Making a GET call to this link will return the status of the job and, eventually, the links to your generated output.
+
+## How to use the API's
+
+The API's are documented at [https://adobedocs.github.io/photoshop-api-docs/#api-Sensei](https://adobedocs.github.io/photoshop-api-docs-pre-release/#api-Sensei)
+
+First be sure to follow the instructions in the [Authentication](#authentication) section to get your token.
+
+### Example 1: Initiate a job to create an image cutout
+
+The `/cutout` api takes a single input image to generate your mask or cutout from. Using Example.jpg, with the use case of a document stored in Adobe's Creative Cloud, a typical curl call might look like this:
+
+```shell
+curl -X POST \
+  https://image.adobe.io/sensei/cutout \
+  -H 'Authorization: Bearer <auth_token>' \
+  -H 'Content-Type: application/json' \
+  -H 'x-api-key: <YOUR_API_KEY>' \
+  -d '{
+   "input":{
+      "storage":"adobe",
+      "href":"/files/images/Example.jpg"
+   },
+   "output":{
+      "storage":"adobe",
+      "href":"/files/output/cutout.png",
+      "mask":{
+         "format":"binary"
+      }
+   }
+}'
+```
+
+This initiates an asynchronous job and returns a response containing the href to poll for job status and the JSON manifest.
+```json
+{
+    "_links": {
+        "self": {
+            "href": "https://image.adobe.io/sensei/status/e3a13d81-a462-4b71-9964-28b2ef34aca7"
+        }
+    }
+}
+```
+
+
+Using the job id returned from the previous call you can poll on the returned `/status` href to get the job status
+
+```shell
+curl -X GET \
+  https://image.adobe.io/sensei/status/e3a13d81-a462-4b71-9964-28b2ef34aca7 \
+  -H 'Authorization: Bearer <auth_token>' \
+  -H 'Content-Type: application/json' \
+  -H 'x-api-key: <YOUR_API_KEY>'
+```
+
+Once the job is complete your successful `/status` response will look similar to the response below; The output will have been placed in your requested location. In the event of failure the errors will be shown instead
+
+```json
+{
+    "jobID": "e3a13d81-a462-4b71-9964-28b2ef34aca7",
+    "status": "succeeded",
+    "created": "2020-02-11T21:08:43.789Z",
+    "modified": "2020-02-11T21:08:48.492Z",
+    "input": "/files/images/Example.jpg",
+    "_links": {
+        "self": {
+            "href": "https://image-stage.adobe.io/sensei/status/e3a13d81-a462-4b71-9964-28b2ef34aca7"
+        }
+    },
+    "output": {
+        "storage": "adobe",
+        "href": "/files/output/cutout.png",
+        "mask": {
+            "format": "binary"
+        }
+    }
+}
+```
+
+### Example 2: Initiate a job to create an image mask
+
+The workflow is exactly the same as [creating an image cutout](#example-1-initiate-a-job-to-create-an-image-cutout) except you use the `/mask` endpoint instead of `/cutout`.  
 
 # Lightroom APIs
 

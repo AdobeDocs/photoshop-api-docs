@@ -3456,5 +3456,703 @@ define({ "api": [
         }
       ]
     }
+  },
+  {
+    "type": "post",
+    "url": "https://sensei.adobe.io/services/v1/predict",
+    "title": "cutout V1 [DEPRECATED]",
+    "description": "<p>DEPRECATED!!!! Initiates a synchronous job to create image cutout.</p>",
+    "version": "1.0.0",
+    "name": "ImageCutout_V1",
+    "group": "Sensei",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "string",
+            "optional": false,
+            "field": "authorization",
+            "description": "<p>Authorization value</p>"
+          },
+          {
+            "group": "Header",
+            "type": "string",
+            "optional": false,
+            "field": "Content-Type",
+            "description": "<p>multipart/form-data</p>"
+          },
+          {
+            "group": "Header",
+            "type": "string",
+            "optional": false,
+            "field": "x-api-key",
+            "description": "<p>a client id</p>"
+          }
+        ]
+      }
+    },
+    "parameter": {
+      "fields": {
+        "Request": [
+          {
+            "group": "Request",
+            "type": "json",
+            "optional": false,
+            "field": "contentAnalyzerRequests",
+            "description": "<p>Every service requires this parameter. See schema below.</p>"
+          },
+          {
+            "group": "Request",
+            "type": "string",
+            "optional": true,
+            "field": "contentAnalyzerRequests.enable_diagnostics",
+            "defaultValue": "true",
+            "description": "<p>If true, enables debugging information.</p>"
+          },
+          {
+            "group": "Request",
+            "type": "array",
+            "optional": false,
+            "field": "contentAnalyzerRequests.requests",
+            "description": "<p>an array of analyzer_ids</p>"
+          },
+          {
+            "group": "Request",
+            "type": "string",
+            "optional": false,
+            "field": "contentAnalyzerRequests.requests.analyzer_id",
+            "description": "<p>Feature:salient-masking:Service-91453abfc65a4a778f07792961127708</p>"
+          },
+          {
+            "group": "Request",
+            "type": "string",
+            "optional": false,
+            "field": "file",
+            "description": "<p>Either provide file or provide fileURL. Use to specify a file to upload as part of the request with @filename Be sure to use multipart/form-data for content-type header.</p>"
+          },
+          {
+            "group": "Request",
+            "type": "string",
+            "optional": false,
+            "field": "fileURL",
+            "description": "<p>Either provide file or provide fileURL. The content ref to be analyzed.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request: HTTP Templated",
+          "content": "POST https://sensei.adobe.io/services/v1/predict\nContent-Type: multipart/form-data\nAuthorization: Bearer $token\nX-Api-Key: $api_key\n{\n  \"file\": \"/path/to/image/file.jpeg\"\n  \"contentAnalyzerRequests\" :{\n    \"enable_diagnostics\":\"true\",\n    \"requests\": [\n      {\n        \"analyzer_id\": \"Feature:salient-masking:Service-91453abfc65a4a778f07792961127708\"\n      }\n    ]\n  }\n}",
+          "type": "HTTP"
+        },
+        {
+          "title": "Request: CURL Templated",
+          "content": "curl -X POST \\\nhttps://sensei.adobe.io/services/v1/predict \\\n-H \"content-type: multipart/form-data\" \\\n-H \"x-api-key: $api_key\" \\\n-H \"authorization: Bearer $token\" \\\n-F file=@/path/to/image/file.jpeg \\\n-F 'contentAnalyzerRequests={\"enable_diagnostics\":\"true\" , \"requests\": [{ \"analyzer_id\":\"Feature:salient-masking:Service-91453abfc65a4a778f07792961127708\"}]}'",
+          "type": "CURL"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "Response fields": [
+          {
+            "group": "Response fields",
+            "type": "string",
+            "optional": false,
+            "field": "status",
+            "description": "<p>HTTP status code.</p>"
+          },
+          {
+            "group": "Response fields",
+            "type": "string",
+            "optional": false,
+            "field": "content_id",
+            "description": "<p>URL or other unique identifer for the response content.</p>"
+          },
+          {
+            "group": "Response fields",
+            "type": "array",
+            "optional": false,
+            "field": "cas_responses",
+            "description": "<p>an array of cas_responses</p>"
+          },
+          {
+            "group": "Response fields",
+            "type": "integer",
+            "optional": false,
+            "field": "cas_responses.status",
+            "description": "<p>status code for the response.</p>"
+          },
+          {
+            "group": "Response fields",
+            "type": "string",
+            "optional": false,
+            "field": "cas_responses.analyzer_id",
+            "description": "<p>Feature:salient-masking:Service-91453abfc65a4a778f07792961127708</p>"
+          },
+          {
+            "group": "Response fields",
+            "type": "string",
+            "optional": false,
+            "field": "cas_responses.content_id",
+            "description": "<p>URL or other unique identifer for the response content.</p>"
+          },
+          {
+            "group": "Response fields",
+            "type": "object",
+            "optional": false,
+            "field": "cas_responses.result",
+            "description": "<p>a result object</p>"
+          },
+          {
+            "group": "Response fields",
+            "type": "string",
+            "optional": false,
+            "field": "cas_responses.result.response_type",
+            "description": "<p>&quot;feature&quot;</p>"
+          },
+          {
+            "group": "Response fields",
+            "type": "array",
+            "optional": false,
+            "field": "cas_responses.result.response",
+            "description": "<p>an array of responses</p>"
+          },
+          {
+            "group": "Response fields",
+            "type": "string",
+            "optional": false,
+            "field": "cas_responses.result.response.feature_name",
+            "description": "<p>&quot;content:base64&quot;</p>"
+          },
+          {
+            "group": "Response fields",
+            "type": "string",
+            "optional": false,
+            "field": "cas_responses.result.response.feature_value",
+            "description": "<p>Base64 encoded image raw data.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Response: Success Templated",
+          "content": "{\n  \"status\":200,\n  \"content_id\":\"<url_string>\",\n  \"cas_responses\": [\n    {\n      \"status\":<number>,\n      \"analyzer_id\":\"<string>\",\n      \"content_id\": \"<string>\",\n      \"result\": {\n        \"response_type\":\"<string>\",\n        \"response\": [\n          {\n            \"feature_name\": \"<string>\",\n            \"feature_value\":\"<string>\"\n          }\n        ]\n      }\n    }\n  ],\n  \"error\":[]\n}",
+          "type": "json"
+        },
+        {
+          "title": "Response: Success Example",
+          "content": "{\n    \"status\": 200,\n    \"content_id\": \"220_147.jpeg\",\n    \"cas_responses\": [\n        {\n            \"status\": 200,\n            \"analyzer_id\": \"Feature:salient-masking:Service-91453abfc65a4a778f07792961127708\",\n            \"content_id\": \"220_147.jpeg\",\n            \"result\": {\n                \"response_type\": \"feature\",\n                \"response\": [\n                    {\n                        \"feature_name\": \"content:base64\",\n                        \"feature_value\": \"(base64 string)\"\n                    }\n                ]\n            }\n        }\n    ],\n    \"error\": []\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "docs-src/prod/post-image-cutout_v1.js",
+    "groupTitle": "Sensei"
+  },
+  {
+    "type": "post",
+    "url": "https://image.adobe.io/sensei/cutout",
+    "title": "cutout create",
+    "description": "<p>Initiate an asynchronous job to generate a PNG file in 4 channel RGBA format with the generated cutout mask applied to the input image</p>",
+    "version": "1.0.0",
+    "name": "cutout",
+    "group": "Sensei",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "string",
+            "optional": false,
+            "field": "Content-Type",
+            "description": "<p>&quot;application/json&quot;</p>"
+          },
+          {
+            "group": "Header",
+            "type": "string",
+            "optional": false,
+            "field": "authorization",
+            "description": "<p>Authorization value.</p>"
+          },
+          {
+            "group": "Header",
+            "type": "string",
+            "optional": false,
+            "field": "x-api-key",
+            "description": "<p>a client id</p>"
+          }
+        ]
+      }
+    },
+    "parameter": {
+      "fields": {
+        "Request": [
+          {
+            "group": "Request",
+            "type": "object",
+            "optional": false,
+            "field": "input",
+            "description": "<p>Supported input file formats are JPEG and PNG</p>"
+          },
+          {
+            "group": "Request",
+            "type": "string",
+            "allowedValues": [
+              "\"adobe\"",
+              "\"external\"",
+              "\"azure\"",
+              "\"dropbox\""
+            ],
+            "optional": false,
+            "field": "input.storage",
+            "description": "<p>is the asset stored on Adobe's cloud or an external service (like AWS S3, Azure, Dropbox)</p>"
+          },
+          {
+            "group": "Request",
+            "type": "string",
+            "optional": false,
+            "field": "input.href",
+            "description": "<p>Either an href to a single Creative Cloud asset for storage='adobe' OR a presignedGETURL for other external services.  Only png and jpg files are supported</p>"
+          },
+          {
+            "group": "Request",
+            "type": "object",
+            "optional": false,
+            "field": "output",
+            "description": "<p>A PNG file</p>"
+          },
+          {
+            "group": "Request",
+            "type": "string",
+            "optional": false,
+            "field": "output.href",
+            "description": "<p>The output path and file name for your mask. Either a Creative Cloud assets path for storage='adobe' OR a presignedGETURL for other external services.</p>"
+          },
+          {
+            "group": "Request",
+            "type": "string",
+            "allowedValues": [
+              "\"adobe\"",
+              "\"external\"",
+              "\"azure\"",
+              "\"dropbox\""
+            ],
+            "optional": false,
+            "field": "output.storage",
+            "description": "<p>will the output png be stored on Adobe's cloud or an external service (like AWS S3, Azure, Dropbox).</p>"
+          },
+          {
+            "group": "Request",
+            "type": "object",
+            "optional": false,
+            "field": "output.mask",
+            "description": ""
+          },
+          {
+            "group": "Request",
+            "type": "string",
+            "allowedValues": [
+              "\"binary\"",
+              "\"soft\""
+            ],
+            "optional": false,
+            "field": "output.mask.format",
+            "description": "<p>soft mask or binary mask</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request",
+          "content": "POST https://image.adobe.io/sensei/cutout HTTP/1.1\nHost: image.adobe.io\nAuthorization: Bearer $token\nX-Api-Key: $api_key\n{\n   \"input\":{\n      \"storage\":\"external\",\n      \"href\":\"https://some-bucket-us-east-1.amazonaws.com/s3_presigned_getObject...\"\n   },\n   \"output\":{\n      \"storage\":\"adobe\",\n      \"href\":\"/files/cutout/output/cutout.png\",\n      \"mask\":{\n         \"format\":\"soft\"\n      }\n   }\n}",
+          "type": "http"
+        },
+        {
+          "title": "Request (CURL command)",
+          "content": "curl https://image.adobe.io/sensei/cutout \\\n-H \"Authorization: Bearer $token\" \\\n-H \"x-api-key: $api_key\" \\\n-d '{\n   \"input\":{\n      \"href\":\"https://some-bucket-us-east-1.amazonaws.com/s3_presigned_getObject...\"\n   },\n   \"output\":{\n      \"storage\":\"adobe\",\n      \"href\":\"/files/cutout/output/cutout.png\",\n      \"mask\":{\n         \"format\":\"soft\"\n      }\n   }\n}'",
+          "type": "http"
+        }
+      ]
+    },
+    "filename": "docs-src/prod/post-image-cutout-cutout.js",
+    "groupTitle": "Sensei",
+    "success": {
+      "fields": {
+        "Success 202": [
+          {
+            "group": "Success 202",
+            "type": "object",
+            "optional": false,
+            "field": "_links",
+            "description": "<p>any link the client follow, described by their relationship</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Response: Success Templated",
+          "content": "HTTP/1.1 202 ACCEPTED\nContent-Type: application/json\nContent-Length: <nonNegativeInteger>\n{\n  \"_links\": {\n      \"self\" :{ \"href\" : \"https://image.adobe.io/sensei/status/<:jobID>\" }\n  }\n}",
+          "type": "object"
+        },
+        {
+          "title": "Response: Success Example",
+          "content": "HTTP/1.1 202 ACCEPTED\nContent-Type: application/json\nContent-Length: 682\n{\n  \"_links\": {\n      \"self\" :{ \"href\" : \"https://image.adobe.io/sensei/status/f54e0fcb-260b-47c3-b520-de0d17dc2b67\" }\n  }\n}",
+          "type": "object"
+        }
+      ]
+    }
+  },
+  {
+    "type": "get",
+    "url": "https://image.adobe.io/sensei/isitup",
+    "title": "service health",
+    "description": "<p>Check if the service is up and healthy</p>",
+    "version": "1.0.0",
+    "name": "isitup",
+    "group": "Sensei",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request (CURL command)",
+          "content": "curl -H \"x-api-key: $api_key\" \\\nhttps://image.adobe.io/sensei/isitup",
+          "type": "http"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Response",
+          "content": "si",
+          "type": "string"
+        }
+      ]
+    },
+    "filename": "docs-src/prod/get-imagecutout-health.js",
+    "groupTitle": "Sensei"
+  },
+  {
+    "type": "post",
+    "url": "https://image.adobe.io/sensei/mask",
+    "title": "mask create",
+    "description": "<p>Initiate an asynchronous job to generate a mask PNG</p>",
+    "version": "1.0.0",
+    "name": "mask",
+    "group": "Sensei",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "string",
+            "optional": false,
+            "field": "Content-Type",
+            "description": "<p>&quot;application/json&quot;</p>"
+          },
+          {
+            "group": "Header",
+            "type": "string",
+            "optional": false,
+            "field": "authorization",
+            "description": "<p>Authorization value.</p>"
+          },
+          {
+            "group": "Header",
+            "type": "string",
+            "optional": false,
+            "field": "x-api-key",
+            "description": "<p>a client id</p>"
+          }
+        ]
+      }
+    },
+    "parameter": {
+      "fields": {
+        "Request": [
+          {
+            "group": "Request",
+            "type": "object",
+            "optional": false,
+            "field": "input",
+            "description": "<p>Supported input file formats are JPEG and PNG</p>"
+          },
+          {
+            "group": "Request",
+            "type": "string",
+            "allowedValues": [
+              "\"adobe\"",
+              "\"external\"",
+              "\"azure\"",
+              "\"dropbox\""
+            ],
+            "optional": false,
+            "field": "input.storage",
+            "description": "<p>is the asset stored on Adobe's cloud or an external service (like AWS S3, Azure, Dropbox)</p>"
+          },
+          {
+            "group": "Request",
+            "type": "string",
+            "optional": false,
+            "field": "input.href",
+            "description": "<p>Either an href to a single Creative Cloud asset for storage='adobe' OR a presignedGETURL for other external services.  Only png and jpg files are supported</p>"
+          },
+          {
+            "group": "Request",
+            "type": "object",
+            "optional": false,
+            "field": "output",
+            "description": "<p>A PNG file</p>"
+          },
+          {
+            "group": "Request",
+            "type": "string",
+            "optional": false,
+            "field": "output.href",
+            "description": "<p>The output path and file name for your mask. Either a Creative Cloud assets path for storage='adobe' OR a presignedGETURL for other external services.</p>"
+          },
+          {
+            "group": "Request",
+            "type": "string",
+            "allowedValues": [
+              "\"adobe\"",
+              "\"external\"",
+              "\"azure\"",
+              "\"dropbox\""
+            ],
+            "optional": false,
+            "field": "output.storage",
+            "description": "<p>will the output png be stored on Adobe's cloud or an external service (like AWS S3, Azure, Dropbox).</p>"
+          },
+          {
+            "group": "Request",
+            "type": "object",
+            "optional": false,
+            "field": "output.mask",
+            "description": ""
+          },
+          {
+            "group": "Request",
+            "type": "string",
+            "allowedValues": [
+              "\"binary\"",
+              "\"soft\""
+            ],
+            "optional": false,
+            "field": "output.mask.format",
+            "description": "<p>soft mask or binary mask</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request",
+          "content": "POST https://image.adobe.io/sensei/mask HTTP/1.1\nHost: image.adobe.io\nAuthorization: Bearer $token\nX-Api-Key: $api_key\n{\n   \"input\":{\n      \"storage\":\"external\",\n      \"href\":\"https://some-bucket-us-east-1.amazonaws.com/s3_presigned_getObject...\"\n   },\n   \"output\":{\n      \"storage\":\"adobe\",\n      \"href\":\"/files/cutout/output/mask.png\",\n      \"mask\":{\n         \"format\":\"binary\"\n      }\n   }\n}",
+          "type": "http"
+        },
+        {
+          "title": "Request (CURL command)",
+          "content": "curl https://image.adobe.io/sensei/mask \\\n-H \"Authorization: Bearer $token\" \\\n-H \"x-api-key: $api_key\" \\\n-d '{\n   \"input\":{\n      \"storage\":\"external\",\n      \"href\":\"https://some-bucket-us-east-1.amazonaws.com/s3_presigned_getObject...\"\n   },\n   \"output\":{\n      \"storage\":\"adobe\",\n      \"href\":\"/files/cutout/output/mask.png\",\n      \"mask\":{\n         \"format\":\"soft\"\n      }\n   }\n}'",
+          "type": "http"
+        }
+      ]
+    },
+    "filename": "docs-src/prod/post-image-cutout-mask.js",
+    "groupTitle": "Sensei",
+    "success": {
+      "fields": {
+        "Success 202": [
+          {
+            "group": "Success 202",
+            "type": "object",
+            "optional": false,
+            "field": "_links",
+            "description": "<p>any link the client follow, described by their relationship</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Response: Success Templated",
+          "content": "HTTP/1.1 202 ACCEPTED\nContent-Type: application/json\nContent-Length: <nonNegativeInteger>\n{\n  \"_links\": {\n      \"self\" :{ \"href\" : \"https://image.adobe.io/sensei/status/<:jobID>\" }\n  }\n}",
+          "type": "object"
+        },
+        {
+          "title": "Response: Success Example",
+          "content": "HTTP/1.1 202 ACCEPTED\nContent-Type: application/json\nContent-Length: 682\n{\n  \"_links\": {\n      \"self\" :{ \"href\" : \"https://image.adobe.io/sensei/status/f54e0fcb-260b-47c3-b520-de0d17dc2b67\" }\n  }\n}",
+          "type": "object"
+        }
+      ]
+    }
+  },
+  {
+    "type": "get",
+    "url": "https://image.adobe.io/sensei/status/<:jobID>",
+    "title": "job status",
+    "description": "<p>Get the status for an asynchronous cutout/mask job</p>",
+    "version": "1.0.0",
+    "name": "status",
+    "group": "Sensei",
+    "success": {
+      "fields": {
+        "URL Param": [
+          {
+            "group": "URL Param",
+            "type": "string",
+            "optional": false,
+            "field": "jobID",
+            "description": "<p>The job to get status for.</p>"
+          }
+        ],
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "jobID",
+            "description": "<p>the job's id requested</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "created",
+            "description": "<p>&quot;YYYY-DD-MMThh:mm:ss.mmmmmZ&quot; created timestamp of the job</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "modified",
+            "description": "<p>&quot;YYYY-DD-MMThh:mm:ss.mmmmmZ&quot;  modified timestamp of the job</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "allowedValues": [
+              "\"pending\"",
+              "\"running\"",
+              "\"succeeded\"",
+              "\"failed\""
+            ],
+            "optional": false,
+            "field": "status",
+            "description": "<p>the job status</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "object",
+            "optional": false,
+            "field": "input",
+            "description": "<p>the original input href</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "object",
+            "optional": false,
+            "field": "output",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "output.storage",
+            "description": "<p>The type of storage where the output asset is location</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "optional": false,
+            "field": "output.href",
+            "description": "<p>The href to the output asset</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "object",
+            "optional": false,
+            "field": "output.mask",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "allowedValues": [
+              "\"binary\"",
+              "\"soft\""
+            ],
+            "optional": false,
+            "field": "output.mask.format",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "object",
+            "optional": false,
+            "field": "_links",
+            "description": "<p>any link the client follow, described by their relationship</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Response: Pending (or Running)",
+          "content": "HTTP/1.1 200\nContent-Type: application/json\nContent-Length: <nonNegativeInteger>\nLocation: \"https://image.adobe.io/sensei/status/<:jobID>\"\n{\n   \"jobID\":\"c900e70c-03b2-43dc-b6f0-b0db16333b4b\",\n   \"status\":\"pending\",\n   \"_links\":{\n      \"self\":{\n         \"href\":\"https://image.adobe.io/sensei/status/c900e70c-03b2-43dc-b6f0-b0db16333b4b\"\n      }\n   }\n}",
+          "type": "object"
+        },
+        {
+          "title": "Response: Succeeded",
+          "content": "HTTP/1.1 200\nContent-Type: application/json\nContent-Length: <nonNegativeInteger>\nLocation: \"https://image.adobe.io/sensei/status/<:jobID>\"\n{\n   \"jobID\":\"c900e70c-03b2-43dc-b6f0-b0db16333b4b\",\n   \"status\":\"succeeded\",\n   \"output\":{\n      \"storage\":\"adobe\",\n      \"href\":\"/files/cutout/output/mask.png\",\n      \"mask\":{\n         \"format\":\"binary\"\n      },\n      \"color\":{\n         \"space\":\"rgb\"\n      }\n   },\n   \"_links\":{\n      \"self\":{\n         \"href\":\"https://image.adobe.io/sensei/status/c900e70c-03b2-43dc-b6f0-b0db16333b4b\"\n      }\n   }\n}",
+          "type": "object"
+        },
+        {
+          "title": "Response: Job Failed",
+          "content": "HTTP/1.1 200\nContent-Type: application/json\nContent-Length: <nonNegativeInteger>\nLocation: \"https://image.adobe.io/sensei/status/<:jobID>\"\n{\n   \"jobID\":\"c900e70c-03b2-43dc-b6f0-b0db16333b4b\",\n   \"status\":\"failed\",\n   \"errors\":{\n      \"type\":\"<errorType>\",\n      \"code\":\"<errorCode>\",\n      \"title\":\"<errorDescription>\",\n      \"<errorDetails>\":[\n         {\n            \"name\":\"<paramName>\",\n            \"reason\":\"<error>\"\n         }\n      ]\n   },\n   \"_links\":{\n      \"self\":{\n         \"href\":\"https://image.adobe.io/sensei/status/c900e70c-03b2-43dc-b6f0-b0db16333b4b\"\n      }\n   }\n}",
+          "type": "object"
+        },
+        {
+          "title": "Request: HTTP Example",
+          "content": "GET /sensei/status/<:jobID> HTTP/1.1\nHost: image.adobe.io\nAuthorization: Bearer $token\nX-Api-Key: $api_key",
+          "type": "http"
+        },
+        {
+          "title": "Request: CURL Templated",
+          "content": "curl -H \"Authorization: Bearer $token\" -H \"x-api-key: $api_key\" -X GET https://image.adobe.io/sensei/status/<:jobID>",
+          "type": "curl"
+        }
+      ]
+    },
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request (CURL command)",
+          "content": "curl -H \"Authorization: Bearer $token\" \\\n-H \"x-api-key: $api_key\" \\\nhttps://image.adobe.io/sensei/status/c900e70c-03b2-43dc-b6f0-b0db16333b4b",
+          "type": "http"
+        }
+      ]
+    },
+    "filename": "docs-src/prod/get-imagecutout-status.js",
+    "groupTitle": "Sensei",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "string",
+            "optional": false,
+            "field": "authorization",
+            "description": "<p>Authorization value.</p>"
+          },
+          {
+            "group": "Header",
+            "type": "string",
+            "optional": false,
+            "field": "x-api-key",
+            "description": "<p>a client id</p>"
+          }
+        ]
+      }
+    }
   }
 ] });
