@@ -1,6 +1,3 @@
-
-
-
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
@@ -53,6 +50,10 @@
 - [Lightroom APIs](#lightroom-apis)
   - [General Workflow](#general-workflow-2)
   - [How to use the Lightroom API's](#how-to-use-the-lightroom-apis)
+- [Using Webhooks through Adobe I/O Events](#using-webhooks-through-adobe-io-events)
+  - [Registering your application to our Event Provider](#registering-your-application-to-our-event-provider)
+    - [Prerequisites needed to use the Event Provider](#prerequisites-needed-to-use-the-event-provider)
+    - [Registering the Webhook](#registering-the-webhook)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -935,3 +936,20 @@ The typical workflow involves making an API POST call to the endpoint https://im
 ## How to use the Lightroom API's
 
 The API's are documented at [https://github.com/AdobeDocs/lightroom-api-docs](https://github.com/AdobeDocs/lightroom-api-docs/)
+# Using Webhooks through Adobe I/O Events
+Adobe I/O Events offers the possibility to build an event-driven application, based on events originating from Photoshop and Lightroom API's. To start listening for events, your application needs to register a webhook URL, specifying the Event Types to receive. Whenever a matching event gets triggered, your application is notified through an HTTP POST request to the webhook URL.
+The Event Provider for Photoshop and Lightroom API's is `Imaging API Events`.
+This event provider has two event types:
+1. `Photoshop API events`
+2. `Lightroom API events`
+
+As the names indicate, these event types represent events triggered by the individual APIs.
+## Registering your application to our Event Provider
+### Prerequisites needed to use the Event Provider
+1. Only supported for a Service Integration: To learn how to create a Service Integration, please refer to [this](https://github.com/AdobeDocs/photoshop-api-docs#service-token-workflow-adobe-etla-users) section of the document.
+2. Make sure that the integration is created under your own Organization Role in https://console.adobe.io and this will ensure that you have a unique `Organization ID`. A typical ID would look something like this: `ABCDEF123B6CCB7B0A495E2E@AdobeOrg` and can be found in the overview section of the details of the integration.
+3. Create a Webhook application. [This](https://www.adobe.io/apis/experienceplatform/events/docs.html#!adobedocs/adobeio-events/master/intro/webhook_docs_intro.md#your-first-webhook) page gives all the details of what the skeleton of a basic application would look like. You can find a sample NodeJS application [here](https://github.com/AdobeDocs/photoshop-api-docs/tree/master/sample_code/webhook-sample-app)
+
+### Registering the Webhook
+Once the above prerequisites are met, you can now proceed to register the webhook to the service integration. The steps to do that can be found  [here](https://www.adobe.io/apis/experienceplatform/events/docs.html#!adobedocs/adobeio-events/master/intro/webhook_docs_intro.md#registering-the-webhook).
+After the webhook has been successfully registered, you will start to receive the events for any submitted job that either succeeded or failed, from the Event Types selected. This eliminates the need for your application to poll for the status of the job using the jobID.
