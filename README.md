@@ -254,14 +254,11 @@ This is a list of currently supported features.
 
 The Photoshop APIs currently support creating and editing of Embedded Smart Objects.
 
-- If the replacement image is of same size as of the original, the replaced smart object is placed in the bounding box of the original.
-If the replacement image is bigger or smaller than the original image, it fits into the original bounding box maintaining the aspect ratio.
-You can change the bounds of the replacement image by passing bounds parameters in the API call.
+- In order to update an embedded smart object that is referenced by multiple layers you only need to update one of those layers, the effect will be reflected in all layers referencing the same smart object.
 
-- In order to replace an embedded smart object that is referenced by multiple layers you need to update all of those layers with the replacement image. Currently only same size image replacement is supported for this scenario.
+- The replaced smart object is placed within the bounding box of the original image. If the new image is bigger or smaller than the original image, it fits into the original bounding box maintaining the aspect ratio. You can change the bounds of the replacement image by passing bounds parameters in the API call.
 
-- Smart Object replacement is supported for file types, `psd`, `tif`, `jpeg` and `png`. We don't support `pdf` and `ai` files yet.
-
+- If your document contains transparent pixels (e.g some .png) for the smart object layer, you may not get consistent bounds.
 
 The API's are documented [here](https://adobedocs.github.io/photoshop-api-docs/#api-Photoshop-document_operations)
 
