@@ -76,6 +76,7 @@ In `config.json`, provide an AWS S3 bucket and prefix for the sample Photoshop f
 ```json
     "sample_file": {
         "s3_bucket": "<your bucket>",
+        "s3_region": "<your bucket region e.g., us-east-1, eu-west-1>",
         "s3_prefix": "<your sample file, e.g., test/Sunflower.psd>",
         "s3_rendition_prefix": "<location for rendition output,e.g., test/Sunflower-out-200.jpg>",
         "rendition_type": "<rendition type, e.g., image/jpeg>",

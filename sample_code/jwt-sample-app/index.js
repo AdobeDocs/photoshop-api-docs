@@ -26,7 +26,8 @@ const renditionCreateUrl = `${config.services.psdService}/renditionCreate`
 const documentOperationsUrl = `${config.services.psdService}/documentOperations`
 
 /* Initialize S3 object -- we must use signatureVersion: 'v4' for presigned PUT urls */
-const S3 = new AWS.S3({ apiVersion: '2006-03-01', signatureVersion: 'v4' })
+const region = config.sample_file.s3_region || "us-east-1"
+const S3 = new AWS.S3({ apiVersion: '2006-03-01', signatureVersion: 'v4', region })
 
 /* Check job status every x milliseconds for up to y times */
 const statusRetryMillis = 200
