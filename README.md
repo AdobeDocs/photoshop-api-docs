@@ -266,6 +266,8 @@ We also have an example of replacing a Smart Object within a layer.
 
 [Smart Object Example Code](https://github.com/AdobeDocs/photoshop-api-docs#example-6-swapping-the-image-in-a-smart-object-layer)
 
+For better performance, we rasterize our smart objects that are bigger than  2000 pixels * 2000 pixels.
+
 ### Compatibility with Photoshop versions
 
 1. The API’s will open any PSD created with Photoshop 1.0 through the current release and this will always be true.
