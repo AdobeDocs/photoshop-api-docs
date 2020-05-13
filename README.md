@@ -63,9 +63,11 @@ The Adobe Photoshop APIs enable you to make creative edits to your images and Ps
 
 The API documentation is published at
 
-[Photoshop API Documentation](https://adobedocs.github.io/photoshop-api-docs/)
+[Photoshop API Documentation](https://adobedocs.github.io/photoshop-api-docs/#api-Photoshop)
 
-[Lightroom API Documentation](https://adobedocs.github.io/lightroom-api-docs/)
+[Lightroom API Documentation](https://adobedocs.github.io/photoshop-api-docs/#api-Lightroom)
+
+[Image Cutout API Documentation](https://adobedocs.github.io/photoshop-api-docs-pre-release/#api-Sensei)
 
 
 
@@ -933,4 +935,4 @@ The typical workflow involves making an API POST call to the endpoint https://im
 
 ## How to use the Lightroom API's
 
-The API's are documented at [https://github.com/AdobeDocs/lightroom-api-docs](https://github.com/AdobeDocs/lightroom-api-docs/)
+The API's are documented at [https://github.com/AdobeDocs/lightroom-api-docs]((https://adobedocs.github.io/photoshop-api-docs/#api-Lightroom))
