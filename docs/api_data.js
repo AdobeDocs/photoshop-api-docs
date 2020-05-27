@@ -5555,7 +5555,7 @@ define({ "api": [
             "type": "object",
             "optional": false,
             "field": "options.layers.layer.input",
-            "description": "<p>An object describing the input file to add or replace for the Embedded Smart Object layer. Supported image types are PNG or JPEG or SVG or PSD. </br> Added images are always placed at (top,left = 0,0) and bounds are ignored </br> Edited images are replaced for exact pixel size</p>"
+            "description": "<p>An object describing the input file to add or replace for the Embedded Smart Object layer. Supported image types are</p> <ul>   <li>ai</li>   <li>jpeg</li>   <li>pdf</li>   <li>png</li>   <li>psb</li>   <li>psd</li>   <li>svg</li> </ul> Added images are always placed at (top,left = 0,0) and bounds are ignored Edited images are replaced for exact pixel size"
           },
           {
             "group": "Request",
