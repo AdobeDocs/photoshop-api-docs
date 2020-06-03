@@ -270,6 +270,9 @@ We also have an example of replacing a Smart Object within a layer.
 
 For better performance, we rasterize our smart objects that are bigger than  2000 pixels * 2000 pixels.
 
+Limitations :
+- We don't support smart object replacement for a PSD with an embedded smart object name in foreign language.  
+
 ### Compatibility with Photoshop versions
 
 1. The API’s will open any PSD created with Photoshop 1.0 through the current release and this will always be true.
