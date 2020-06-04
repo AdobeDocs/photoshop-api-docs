@@ -270,8 +270,7 @@ We also have an example of replacing a Smart Object within a layer.
 
 For better performance, we rasterize our smart objects that are bigger than  2000 pixels * 2000 pixels.
 
-Limitations :
-- We don't support smart object replacement for a PSD with an embedded smart object name in foreign language.  
+For optimal processing, please make sure the embedded smart object, that you want to replace do not contain alphanumeric characters in it's name.  
 
 ### Compatibility with Photoshop versions
 
