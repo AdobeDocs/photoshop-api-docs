@@ -310,7 +310,7 @@ define({ "api": [
             "optional": true,
             "field": "outputs.overwrite",
             "defaultValue": "true",
-            "description": "<p>If the output file already exists should it be overwritten. Will eventually support eTags. Only applies to CC Storage</p>"
+            "description": "<p>If the file already exists, indicates if the output file should be overwritten. Will eventually support eTags. Only applies to CC Storage</p>"
           }
         ]
       }
@@ -743,7 +743,7 @@ define({ "api": [
             "optional": true,
             "field": "outputs.overwrite",
             "defaultValue": "true",
-            "description": "<p>If the output file already exists should it be overwritten. Will eventually support eTags. Only applies to CC Storage</p>"
+            "description": "<p>If the file already exists, indicates if the output file should be overwritten. Will eventually support eTags. Only applies to CC Storage</p>"
           }
         ]
       }
@@ -1366,7 +1366,7 @@ define({ "api": [
             "optional": true,
             "field": "outputs.overwrite",
             "defaultValue": "true",
-            "description": "<p>If the output file already exists should it be overwritten. Will eventually support eTags. Only applies to CC Storage</p>"
+            "description": "<p>If the file already exists, indicates if the output file should be overwritten. Will eventually support eTags. Only applies to CC Storage</p>"
           }
         ]
       },
@@ -1834,7 +1834,7 @@ define({ "api": [
             "optional": true,
             "field": "outputs.overwrite",
             "defaultValue": "true",
-            "description": "<p>If the output file already exists should it be overwritten. Will eventually support eTags. Only applies to CC Storage</p>"
+            "description": "<p>If the file already exists, indicates if the output file should be overwritten. Will eventually support eTags. Only applies to CC Storage</p>"
           }
         ]
       },
@@ -2288,7 +2288,7 @@ define({ "api": [
             "optional": true,
             "field": "outputs.overwrite",
             "defaultValue": "true",
-            "description": "<p>If the output file already exists should it be overwritten. Will eventually support eTags. Only applies to CC Storage</p>"
+            "description": "<p>If the file already exists, indicates if the output file should be overwritten. Will eventually support eTags. Only applies to CC Storage</p>"
           }
         ]
       },
@@ -2540,7 +2540,7 @@ define({ "api": [
             "optional": true,
             "field": "outputs.output.overwrite",
             "defaultValue": "true",
-            "description": "<p>If the output file already exists should it be overwritten. Will eventually support eTags. Only applies to CC Storage</p>"
+            "description": "<p>If the file already exists, indicates if the output file should be overwritten. Will eventually support eTags. Only applies to CC Storage</p>"
           },
           {
             "group": "Request",
@@ -4330,7 +4330,7 @@ define({ "api": [
             "optional": true,
             "field": "outputs.output.overwrite",
             "defaultValue": "true",
-            "description": "<p>If the output file already exists should it be overwritten. Will eventually support eTags. Only applies to CC Storage</p>"
+            "description": "<p>If the file already exists, indicates if the output file should be overwritten. Will eventually support eTags. Only applies to CC Storage</p>"
           },
           {
             "group": "Request",
@@ -5739,7 +5739,7 @@ define({ "api": [
             "optional": true,
             "field": "outputs.output.overwrite",
             "defaultValue": "true",
-            "description": "<p>If the output file already exists should it be overwritten. Will eventually support eTags. Only applies to CC Storage</p>"
+            "description": "<p>If the file already exists, indicates if the output file should be overwritten. Will eventually support eTags. Only applies to CC Storage</p>"
           },
           {
             "group": "Request",
@@ -6013,7 +6013,7 @@ define({ "api": [
             "optional": true,
             "field": "output.overwrite",
             "defaultValue": "true",
-            "description": "<p>If the output file already exists should it be overwritten. Will eventually support eTags. Only applies to CC Storage</p>"
+            "description": "<p>If the file already exists, indicates if the output file should be overwritten. Will eventually support eTags. Only applies to CC Storage</p>"
           }
         ]
       },
@@ -6512,7 +6512,7 @@ define({ "api": [
             "optional": true,
             "field": "output.overwrite",
             "defaultValue": "true",
-            "description": "<p>If the output file already exists should it be overwritten. Will eventually support eTags. Only applies to CC Storage</p>"
+            "description": "<p>If the file already exists, indicates if the output file should be overwritten. Will eventually support eTags. Only applies to CC Storage</p>"
           }
         ]
       },
