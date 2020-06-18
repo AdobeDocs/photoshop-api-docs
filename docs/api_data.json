@@ -306,15 +306,11 @@
           },
           {
             "group": "Request",
-            "type": "boolean",
-            "allowedValues": [
-              "true",
-              "false"
-            ],
+            "type": "bool",
             "optional": true,
             "field": "outputs.overwrite",
             "defaultValue": "true",
-            "description": "<p>outputs.overwrite=true if the output file already exists should it be overwritten. Will eventually support eTags</p>"
+            "description": "<p>If the file already exists, indicates if the output file should be overwritten. Will eventually support eTags. Only applies to CC Storage</p>"
           }
         ]
       }
@@ -743,15 +739,11 @@
           },
           {
             "group": "Request",
-            "type": "boolean",
-            "allowedValues": [
-              "true",
-              "false"
-            ],
+            "type": "bool",
             "optional": true,
             "field": "outputs.overwrite",
             "defaultValue": "true",
-            "description": "<p>outputs.overwrite=true if the output file already exists should it be overwritten. Will eventually support eTags</p>"
+            "description": "<p>If the file already exists, indicates if the output file should be overwritten. Will eventually support eTags. Only applies to CC Storage</p>"
           }
         ]
       }
@@ -1370,15 +1362,11 @@
           },
           {
             "group": "Request",
-            "type": "boolean",
-            "allowedValues": [
-              "true",
-              "false"
-            ],
+            "type": "bool",
             "optional": true,
             "field": "outputs.overwrite",
             "defaultValue": "true",
-            "description": "<p>outputs.overwrite=true if the output file already exists should it be overwritten. Will eventually support eTags</p>"
+            "description": "<p>If the file already exists, indicates if the output file should be overwritten. Will eventually support eTags. Only applies to CC Storage</p>"
           }
         ]
       },
@@ -1842,15 +1830,11 @@
           },
           {
             "group": "Request",
-            "type": "boolean",
-            "allowedValues": [
-              "true",
-              "false"
-            ],
+            "type": "bool",
             "optional": true,
             "field": "outputs.overwrite",
             "defaultValue": "true",
-            "description": "<p>outputs.overwrite=true if the output file already exists should it be overwritten. Will eventually support eTags</p>"
+            "description": "<p>If the file already exists, indicates if the output file should be overwritten. Will eventually support eTags. Only applies to CC Storage</p>"
           }
         ]
       },
@@ -2300,15 +2284,11 @@
           },
           {
             "group": "Request",
-            "type": "boolean",
-            "allowedValues": [
-              "true",
-              "false"
-            ],
+            "type": "bool",
             "optional": true,
             "field": "outputs.overwrite",
             "defaultValue": "true",
-            "description": "<p>outputs.overwrite=true if the output file already exists should it be overwritten. Will eventually support eTags</p>"
+            "description": "<p>If the file already exists, indicates if the output file should be overwritten. Will eventually support eTags. Only applies to CC Storage</p>"
           }
         ]
       },
@@ -2556,15 +2536,11 @@
           },
           {
             "group": "Request",
-            "type": "string",
-            "allowedValues": [
-              "\"true\"",
-              "\"false\""
-            ],
+            "type": "bool",
             "optional": true,
             "field": "outputs.output.overwrite",
             "defaultValue": "true",
-            "description": "<p>CURRENTLY_UNSUPPORTED (defaults to 'true') if the output file already exists should it be overwritten. Will eventually support eTags</p>"
+            "description": "<p>If the file already exists, indicates if the output file should be overwritten. Will eventually support eTags. Only applies to CC Storage</p>"
           },
           {
             "group": "Request",
@@ -4350,15 +4326,11 @@
           },
           {
             "group": "Request",
-            "type": "string",
-            "allowedValues": [
-              "\"true\"",
-              "\"false\""
-            ],
+            "type": "bool",
             "optional": true,
             "field": "outputs.output.overwrite",
             "defaultValue": "true",
-            "description": "<p>CURRENTLY_UNSUPPORTED (defaults to 'true') if the output file already exists should it be overwritten. Will eventually support eTags</p>"
+            "description": "<p>If the file already exists, indicates if the output file should be overwritten. Will eventually support eTags. Only applies to CC Storage</p>"
           },
           {
             "group": "Request",
@@ -4424,7 +4396,7 @@
         },
         {
           "title": "Request: CURL Templated",
-          "content": "curl -H \"Authorization: Bearer $token\" -H \"x-api-key: $api_key\" -X POST -d '{\"inputs\":[{\"href\":\"<href>\",\"storage\":\"<storage>\"}],\"options\":{\"layers\":[{<layer_info>}]},\"outputs\":[{\"href\":\"<href>\",\"storage\":\"<storage>\",\"type\":\"<type>\",\"width\":<width>,\"overwrite\":<boolean>},{\"external\":<presigned_putURL>\",\"type\":\"<type>\",\"width\":<width>,\"overwrite\":\"<overwrite>\"}]}' https://image.adobe.io/pie/psdService/documentOperations",
+          "content": "curl -H \"Authorization: Bearer $token\" -H \"x-api-key: $api_key\" -X POST -d '{\"inputs\":[{\"href\":\"<href>\",\"storage\":\"<storage>\"}],\"options\":{\"layers\":[{<layer_info>}]},\"outputs\":[{\"href\":\"<href>\",\"storage\":\"<storage>\",\"type\":\"<type>\",\"width\":<width>,\"overwrite\":<bool>},{\"external\":<presigned_putURL>\",\"type\":\"<type>\",\"width\":<width>,\"overwrite\":\"<overwrite>\"}]}' https://image.adobe.io/pie/psdService/documentOperations",
           "type": "curl"
         }
       ]
@@ -4548,7 +4520,7 @@
     "type": "get",
     "url": "https://image.adobe.io/pie/psdService/status/<:jobId>",
     "title": "document operations status",
-    "description": "<p>Returns the status of a File job.  Will return 202 as long as there are child jobs still running and 200 once all children are complete</p>",
+    "description": "<p>Returns the status of a File job. Will return 202 as long as there are child jobs still running and 200 once all children are complete</p>",
     "version": "1.0.0",
     "name": "get-file-job-status",
     "group": "Photoshop",
@@ -4867,7 +4839,7 @@
     "type": "get",
     "url": "https://image.adobe.io/pie/psdService/status/<:jobId>",
     "title": "smart object status",
-    "description": "<p>Returns the status of a smart object create or edit job.  Will return 202 as long as there are child jobs still running and 200 once all children are complete</p>",
+    "description": "<p>Returns the status of a smart object create or edit job. Will return 202 as long as there are child jobs still running and 200 once all children are complete</p>",
     "version": "1.0.0",
     "name": "get-smart-object-job-status",
     "group": "Photoshop",
@@ -5763,6 +5735,14 @@
           },
           {
             "group": "Request",
+            "type": "bool",
+            "optional": true,
+            "field": "outputs.output.overwrite",
+            "defaultValue": "true",
+            "description": "<p>If the file already exists, indicates if the output file should be overwritten. Will eventually support eTags. Only applies to CC Storage</p>"
+          },
+          {
+            "group": "Request",
             "type": "string",
             "allowedValues": [
               "\"adobe\"",
@@ -6026,18 +6006,26 @@
             "optional": false,
             "field": "output.mask.format",
             "description": "<p>soft mask or binary mask</p>"
+          },
+          {
+            "group": "Request",
+            "type": "bool",
+            "optional": true,
+            "field": "output.overwrite",
+            "defaultValue": "true",
+            "description": "<p>If the file already exists, indicates if the output file should be overwritten. Will eventually support eTags. Only applies to CC Storage</p>"
           }
         ]
       },
       "examples": [
         {
           "title": "Request",
-          "content": "POST https://image.adobe.io/sensei/cutout HTTP/1.1\nHost: image.adobe.io\nAuthorization: Bearer $token\nX-Api-Key: $api_key\n{\n   \"input\":{\n      \"storage\":\"external\",\n      \"href\":\"https://some-bucket-us-east-1.amazonaws.com/s3_presigned_getObject...\"\n   },\n   \"output\":{\n      \"storage\":\"adobe\",\n      \"href\":\"/files/cutout/output/cutout.png\",\n      \"mask\":{\n         \"format\":\"soft\"\n      }\n   }\n}",
+          "content": "POST https://image.adobe.io/sensei/cutout HTTP/1.1\nHost: image.adobe.io\nAuthorization: Bearer $token\nX-Api-Key: $api_key\n{\n   \"input\":{\n      \"storage\":\"external\",\n      \"href\":\"https://some-bucket-us-east-1.amazonaws.com/s3_presigned_getObject...\"\n   },\n   \"output\":{\n      \"storage\":\"adobe\",\n      \"href\":\"/files/cutout/output/cutout.png\",\n      \"mask\":{\n         \"format\":\"soft\"\n      },\n      \"overwrite\":true\n   }\n}",
           "type": "http"
         },
         {
           "title": "Request (CURL command)",
-          "content": "curl https://image.adobe.io/sensei/cutout \\\n-H \"Authorization: Bearer $token\" \\\n-H \"x-api-key: $api_key\" \\\n-d '{\n   \"input\":{\n      \"href\":\"https://some-bucket-us-east-1.amazonaws.com/s3_presigned_getObject...\"\n   },\n   \"output\":{\n      \"storage\":\"adobe\",\n      \"href\":\"/files/cutout/output/cutout.png\",\n      \"mask\":{\n         \"format\":\"soft\"\n      }\n   }\n}'",
+          "content": "curl https://image.adobe.io/sensei/cutout \\\n-H \"Authorization: Bearer $token\" \\\n-H \"x-api-key: $api_key\" \\\n-d '{\n   \"input\":{\n      \"href\":\"https://some-bucket-us-east-1.amazonaws.com/s3_presigned_getObject...\"\n   },\n   \"output\":{\n      \"storage\":\"adobe\",\n      \"href\":\"/files/cutout/output/cutout.png\",\n      \"mask\":{\n         \"format\":\"soft\"\n      },\n      \"overwrite\":true\n   }\n}'",
           "type": "http"
         }
       ]
@@ -6187,12 +6175,12 @@
         },
         {
           "title": "Response: Succeeded",
-          "content": "HTTP/1.1 200\nContent-Type: application/json\nContent-Length: <nonNegativeInteger>\nLocation: \"https://image.adobe.io/sensei/status/<:jobID>\"\n{\n   \"jobID\":\"c900e70c-03b2-43dc-b6f0-b0db16333b4b\",\n   \"status\":\"succeeded\",\n   \"output\":{\n      \"storage\":\"adobe\",\n      \"href\":\"/files/cutout/output/mask.png\",\n      \"mask\":{\n         \"format\":\"binary\"\n      },\n      \"color\":{\n         \"space\":\"rgb\"\n      }\n   },\n   \"_links\":{\n      \"self\":{\n         \"href\":\"https://image.adobe.io/sensei/status/c900e70c-03b2-43dc-b6f0-b0db16333b4b\"\n      }\n   }\n}",
+          "content": "HTTP/1.1 200\nContent-Type: application/json\nContent-Length: <nonNegativeInteger>\nLocation: \"https://image.adobe.io/sensei/status/<:jobID>\"\n{\n   \"jobID\":\"c900e70c-03b2-43dc-b6f0-b0db16333b4b\",\n   \"status\":\"succeeded\",\n   \"input\": \"/files/images/input.jpg\",\n   \"output\":{\n      \"storage\":\"adobe\",\n      \"href\":\"/files/cutout/output/mask.png\",\n      \"mask\":{\n         \"format\":\"binary\"\n      },\n      \"color\":{\n         \"space\":\"rgb\"\n      }\n   },\n   \"_links\":{\n      \"self\":{\n         \"href\":\"https://image.adobe.io/sensei/status/c900e70c-03b2-43dc-b6f0-b0db16333b4b\"\n      }\n   }\n}",
           "type": "object"
         },
         {
           "title": "Response: Job Failed",
-          "content": "HTTP/1.1 200\nContent-Type: application/json\nContent-Length: <nonNegativeInteger>\nLocation: \"https://image.adobe.io/sensei/status/<:jobID>\"\n{\n   \"jobID\":\"c900e70c-03b2-43dc-b6f0-b0db16333b4b\",\n   \"status\":\"failed\",\n   \"errors\":{\n      \"type\":\"<errorType>\",\n      \"code\":\"<errorCode>\",\n      \"title\":\"<errorDescription>\",\n      \"<errorDetails>\":[\n         {\n            \"name\":\"<paramName>\",\n            \"reason\":\"<error>\"\n         }\n      ]\n   },\n   \"_links\":{\n      \"self\":{\n         \"href\":\"https://image.adobe.io/sensei/status/c900e70c-03b2-43dc-b6f0-b0db16333b4b\"\n      }\n   }\n}",
+          "content": "HTTP/1.1 200\nContent-Type: application/json\nContent-Length: <nonNegativeInteger>\nLocation: \"https://image.adobe.io/sensei/status/<:jobID>\"\n{\n   \"jobID\":\"c900e70c-03b2-43dc-b6f0-b0db16333b4b\",\n   \"status\":\"failed\",\n   \"input\": \"/files/images/input.jpg\",\n   \"errors\":{\n      \"type\":\"<errorType>\",\n      \"code\":\"<errorCode>\",\n      \"title\":\"<errorDescription>\",\n      \"<errorDetails>\":[\n         {\n            \"name\":\"<paramName>\",\n            \"reason\":\"<error>\"\n         }\n      ]\n   },\n   \"_links\":{\n      \"self\":{\n         \"href\":\"https://image.adobe.io/sensei/status/c900e70c-03b2-43dc-b6f0-b0db16333b4b\"\n      }\n   }\n}",
           "type": "object"
         },
         {
@@ -6356,12 +6344,12 @@
         },
         {
           "title": "Response: Succeeded",
-          "content": "HTTP/1.1 200\nContent-Type: application/json\nContent-Length: <nonNegativeInteger>\nLocation: \"https://image.adobe.io/sensei/status/<:jobID>\"\n{\n   \"jobID\":\"c900e70c-03b2-43dc-b6f0-b0db16333b4b\",\n   \"status\":\"succeeded\",\n   \"output\":{\n      \"storage\":\"adobe\",\n      \"href\":\"/files/cutout/output/mask.png\",\n      \"mask\":{\n         \"format\":\"binary\"\n      },\n      \"color\":{\n         \"space\":\"rgb\"\n      }\n   },\n   \"_links\":{\n      \"self\":{\n         \"href\":\"https://image.adobe.io/sensei/status/c900e70c-03b2-43dc-b6f0-b0db16333b4b\"\n      }\n   }\n}",
+          "content": "HTTP/1.1 200\nContent-Type: application/json\nContent-Length: <nonNegativeInteger>\nLocation: \"https://image.adobe.io/sensei/status/<:jobID>\"\n{\n   \"jobID\":\"c900e70c-03b2-43dc-b6f0-b0db16333b4b\",\n   \"status\":\"succeeded\",\n   \"input\": \"/files/images/input.jpg\",\n   \"output\":{\n      \"storage\":\"adobe\",\n      \"href\":\"/files/cutout/output/mask.png\",\n      \"mask\":{\n         \"format\":\"binary\"\n      },\n      \"color\":{\n         \"space\":\"rgb\"\n      }\n   },\n   \"_links\":{\n      \"self\":{\n         \"href\":\"https://image.adobe.io/sensei/status/c900e70c-03b2-43dc-b6f0-b0db16333b4b\"\n      }\n   }\n}",
           "type": "object"
         },
         {
           "title": "Response: Job Failed",
-          "content": "HTTP/1.1 200\nContent-Type: application/json\nContent-Length: <nonNegativeInteger>\nLocation: \"https://image.adobe.io/sensei/status/<:jobID>\"\n{\n   \"jobID\":\"c900e70c-03b2-43dc-b6f0-b0db16333b4b\",\n   \"status\":\"failed\",\n   \"errors\":{\n      \"type\":\"<errorType>\",\n      \"code\":\"<errorCode>\",\n      \"title\":\"<errorDescription>\",\n      \"<errorDetails>\":[\n         {\n            \"name\":\"<paramName>\",\n            \"reason\":\"<error>\"\n         }\n      ]\n   },\n   \"_links\":{\n      \"self\":{\n         \"href\":\"https://image.adobe.io/sensei/status/c900e70c-03b2-43dc-b6f0-b0db16333b4b\"\n      }\n   }\n}",
+          "content": "HTTP/1.1 200\nContent-Type: application/json\nContent-Length: <nonNegativeInteger>\nLocation: \"https://image.adobe.io/sensei/status/<:jobID>\"\n{\n   \"jobID\":\"c900e70c-03b2-43dc-b6f0-b0db16333b4b\",\n   \"status\":\"failed\",\n   \"input\": \"/files/images/input.jpg\",\n   \"errors\":{\n      \"type\":\"<errorType>\",\n      \"code\":\"<errorCode>\",\n      \"title\":\"<errorDescription>\",\n      \"<errorDetails>\":[\n         {\n            \"name\":\"<paramName>\",\n            \"reason\":\"<error>\"\n         }\n      ]\n   },\n   \"_links\":{\n      \"self\":{\n         \"href\":\"https://image.adobe.io/sensei/status/c900e70c-03b2-43dc-b6f0-b0db16333b4b\"\n      }\n   }\n}",
           "type": "object"
         },
         {
@@ -6517,18 +6505,26 @@
             "optional": false,
             "field": "output.mask.format",
             "description": "<p>soft mask or binary mask</p>"
+          },
+          {
+            "group": "Request",
+            "type": "bool",
+            "optional": true,
+            "field": "output.overwrite",
+            "defaultValue": "true",
+            "description": "<p>If the file already exists, indicates if the output file should be overwritten. Will eventually support eTags. Only applies to CC Storage</p>"
           }
         ]
       },
       "examples": [
         {
           "title": "Request",
-          "content": "POST https://image.adobe.io/sensei/mask HTTP/1.1\nHost: image.adobe.io\nAuthorization: Bearer $token\nX-Api-Key: $api_key\n{\n   \"input\":{\n      \"storage\":\"external\",\n      \"href\":\"https://some-bucket-us-east-1.amazonaws.com/s3_presigned_getObject...\"\n   },\n   \"output\":{\n      \"storage\":\"adobe\",\n      \"href\":\"/files/cutout/output/mask.png\",\n      \"mask\":{\n         \"format\":\"binary\"\n      }\n   }\n}",
+          "content": "POST https://image.adobe.io/sensei/mask HTTP/1.1\nHost: image.adobe.io\nAuthorization: Bearer $token\nX-Api-Key: $api_key\n{\n   \"input\":{\n      \"storage\":\"external\",\n      \"href\":\"https://some-bucket-us-east-1.amazonaws.com/s3_presigned_getObject...\"\n   },\n   \"output\":{\n      \"storage\":\"adobe\",\n      \"href\":\"/files/cutout/output/mask.png\",\n      \"mask\":{\n         \"format\":\"binary\"\n      },\n      \"overwrite\":true\n   }\n}",
           "type": "http"
         },
         {
           "title": "Request (CURL command)",
-          "content": "curl https://image.adobe.io/sensei/mask \\\n-H \"Authorization: Bearer $token\" \\\n-H \"x-api-key: $api_key\" \\\n-d '{\n   \"input\":{\n      \"storage\":\"external\",\n      \"href\":\"https://some-bucket-us-east-1.amazonaws.com/s3_presigned_getObject...\"\n   },\n   \"output\":{\n      \"storage\":\"adobe\",\n      \"href\":\"/files/cutout/output/mask.png\",\n      \"mask\":{\n         \"format\":\"soft\"\n      }\n   }\n}'",
+          "content": "curl https://image.adobe.io/sensei/mask \\\n-H \"Authorization: Bearer $token\" \\\n-H \"x-api-key: $api_key\" \\\n-d '{\n   \"input\":{\n      \"storage\":\"external\",\n      \"href\":\"https://some-bucket-us-east-1.amazonaws.com/s3_presigned_getObject...\"\n   },\n   \"output\":{\n      \"storage\":\"adobe\",\n      \"href\":\"/files/cutout/output/mask.png\",\n      \"mask\":{\n         \"format\":\"soft\"\n      },\n      \"overwrite\":true\n   }\n}'",
           "type": "http"
         }
       ]
