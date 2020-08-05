@@ -102,7 +102,7 @@ If your workflow falls outside of these please contact us at psdservices@adobe.c
 After you've been accepted to the PreRelease program you will be emailed your credentials (your client ID and client Secret) required for API authentication.
 
 2. Test out your credentials.
-This will allow you to verify that your credentials work and show you want an OAuth token looks like for when you eventually do this programmatically.
+This will allow you to verify that your credentials work and show you what an OAuth token looks like for when you eventually do this programmatically.
   - Browse to https://ps-prerelease-us-east-1.cloud.adobe.io
   - Enter the client id and secret
   - Follow through the login process
