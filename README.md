@@ -23,8 +23,10 @@
     - [Tracking document changes](#tracking-document-changes)
   - [Supported Features](#supported-features)
     - [Layer level edits](#layer-level-edits)
-    - [Rendering / Conversions](#rendering--conversions)
     - [SmartObject](#smartobject)
+    - [Text layers](#text-layers)
+      - [Fonts](#fonts)
+    - [Rendering / Conversions](#rendering--conversions)
     - [Compatibility with Photoshop versions](#compatibility-with-photoshop-versions)
   - [How to use the Photoshop APIs](#how-to-use-the-photoshop-apis)
     - [Example 1: /smartObject (Replacing smartobject)](#example-1-smartobject-replacing-smartobject)
@@ -243,19 +245,20 @@ This is a list of currently supported features.
 
 ### Layer level edits
 - Add or replace a Smart Object Layer in a document
-- Add or Edit Text Layer (`New!`)
+- Text layers (`New!`)
+  - Edit the text
+  - Change the font (See the `Fonts` section for more info)
+  - Edit the font size
+  - Edit the text decoration (bold, italic, etc)
+  - Edit the text orientation (horizontal/vertical)
+  - Edit the paragraph alignment (centered, justified, etc)
+  - Edit the font weight
 - General layer edits
   - Edit the layer name/id
   - Toggle the layer locked state
   - Toggle layer visibility
   - Apply bounds
-- Add or edit a Fill layer in a document along with Blend modes  
-
-### Rendering / Conversions
-- Create a new PSD document
-- Create a JPEG, TIFF or PNG rendition of various sizes
-- Request thumbnail previews of all renderable layers
-- Convert between any of the supported filetypes (PSD, JPEG, TIFF, PNG)
+- Add or edit a Fill layer in a document along with Blend modes
 
 ### SmartObject
 
@@ -269,11 +272,42 @@ The API's are documented [here](https://adobedocs.github.io/photoshop-api-docs/#
 
 We also have an example of replacing a Smart Object within a layer.
 
-[Smart Object Example Code](https://github.com/AdobeDocs/photoshop-api-docs#example-6-swapping-the-image-in-a-smart-object-layer)
+[Smart Object Example Code](https://github.com/AdobeDocs/photoshop-api-docs#sample-1-replacing-a-smartobject)
 
 For better performance, we rasterize our smart objects that are bigger than  2000 pixels * 2000 pixels.
 
 For optimal processing, please make sure the embedded smart object that you want to replace only contains alphanumeric characters in it's name.
+
+### Text layers
+
+The Photoshop APIs currently support creating and editing of Text Layer with different fonts, character styles and paragraph styles.
+
+The API's are documented [here](https://adobedocs.github.io/photoshop-api-docs/#api-Photoshop-document_operations)
+
+We also have an example of making a simple text layer edit.
+
+[Text layer Example Code](https://github.com/AdobeDocs/photoshop-api-docs#sample-21-making-a-text-layer-edit)
+
+#### Fonts
+
+The APIs all use Postscript names.
+
+The Photoshop APIs supports using fonts from two locations:
+- [Currently Installed Fonts](SupportedFonts.md)
+- Fonts that the user is authorized to access via [Typekit](https://fonts.adobe.com/fonts). (Currently only available for OAuth tokens, service token support is forthcoming...)
+
+If your font is not included in either of these locations you must include an href to the font in your request. Look at the `options.fonts` section of the API docs for more information.
+More details and an example usage of a custom font can be found [here](https://github.com/AdobeDocs/photoshop-api-docs#font-handling)
+
+You can also control the behavior of the API if there are fonts missing when the request is being processed. Please have a look at `options.globalFont` and `options.manageMissingFonts` sections of the API docs for more information.
+
+More details and an example usage of handling missing fonts can be found [here](https://github.com/AdobeDocs/photoshop-api-docs#font-handling-continued-handling-missing-fonts-in-the-document)
+
+### Rendering / Conversions
+- Create a new PSD document
+- Create a JPEG, TIFF or PNG rendition of various sizes
+- Request thumbnail previews of all renderable layers
+- Convert between any of the supported filetypes (PSD, JPEG, TIFF, PNG)
 
 ### Compatibility with Photoshop versions
 
@@ -493,8 +527,8 @@ The API provides two options to dictate the behavior when there are fonts that w
 For any textLayer edit/add operation, if the font used specifically for that layer is missing, this font will be used as the default. If this font itself is missing, then the action to be taken will be dictated by the `manageMissingFonts` options as explained here in the next bullet point.
 **Note**: If using an OAuth integration, Adobe Fonts can be specified here as well. If this is a custom font, please upload the font to one of the cloud storage types that is supported and specify the `href` and `storage` type in the `options.fonts` section of the request.
 - Specify the action to be taken if one or more fonts required for one or more textLayer add/edit operation(s) are missing: The `manageMissingFonts` field in the `options` section of the request can be used to specify this action. I can accept one of the following 2 values:
--- `fail` to force the request/job to fail
--- `useDefault` to use our system designated defaullt font, which is: `LiberationSansNarrow-Italic`
+  - `fail` to force the request/job to fail
+  - `useDefault` to use our system designated defaullt font, which is: `LiberationSansNarrow-Italic`
 
 The following sample illustrates the usage of these options.
 ##### Sample 2.3: Dictating actions for missing fonts
