@@ -1107,5 +1107,5 @@ The typical workflow involves making an API POST call to the endpoint https://im
 
 ## How to use the Lightroom API's
 
-The API's are documented at [Lightroom API documentation](https://adobedocs.github.io/photoshop-api-docs#api-Lightroom)
-For more details and examples of using the APIs, please look at [Lightroom API usage details and examples](https://github.com/AdobeDocs/lightroom-api-docs)
+- The API's are documented at [Lightroom API documentation](https://adobedocs.github.io/photoshop-api-docs#api-Lightroom)
+- For more details and examples of using the APIs, please look at [Lightroom API usage details and examples](https://github.com/AdobeDocs/lightroom-api-docs)
