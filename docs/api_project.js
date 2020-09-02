@@ -1,15 +1,1 @@
-define({
-  "name": "Photoshop API Docs",
-  "version": "1.0.0",
-  "description": "Your interface to Adobe Photoshop and Imaging API's",
-  "title": "Photoshop API Docs",
-  "sampleUrl": false,
-  "defaultVersion": "0.0.0",
-  "apidoc": "0.3.0",
-  "generator": {
-    "name": "apidoc",
-    "time": "2020-08-11T02:51:30.197Z",
-    "url": "http://apidocjs.com",
-    "version": "0.24.0"
-  }
-});
+define({  "name": "Photoshop API Docs",  "version": "1.0.0",  "description": "Your interface to Adobe Photoshop and Imaging API's",  "title": "Photoshop API Docs",  "sampleUrl": false,  "defaultVersion": "0.0.0",  "apidoc": "0.3.0",  "generator": {    "name": "apidoc",    "time": "2020-09-01T20:20:07.162Z",    "url": "http://apidocjs.com",    "version": "0.17.7"  }});
