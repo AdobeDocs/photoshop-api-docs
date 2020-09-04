@@ -241,24 +241,7 @@ If you are making multiple edits to a PSD during the course of a user session it
 
 ## Supported Features
 
-This is a list of currently supported features.
-
-### Layer level edits
-- Add or replace a Smart Object Layer in a document
-- Text layers (`New!`)
-  - Edit the text
-  - Change the font (See the `Fonts` section for more info)
-  - Edit the font size
-  - Edit the text decoration (bold, italic, etc)
-  - Edit the text orientation (horizontal/vertical)
-  - Edit the paragraph alignment (centered, justified, etc)
-  - Edit the font weight
-- General layer edits
-  - Edit the layer name/id
-  - Toggle the layer locked state
-  - Toggle layer visibility
-  - Apply bounds
-- Add or edit a Fill layer in a document along with Blend modes
+This is a list of currently supported features through our APIs.
 
 ### SmartObject
 
@@ -278,9 +261,16 @@ For better performance, we rasterize our smart objects that are bigger than  200
 
 For optimal processing, please make sure the embedded smart object that you want to replace only contains alphanumeric characters in it's name.
 
-### Text layers
+### Text layers (`New!`)
 
-The Photoshop APIs currently support creating and editing of Text Layer with different fonts, character styles and paragraph styles.
+The Photoshop APIs currently support creating and editing of Text Layer with different fonts, character styles and paragraph styles. The set of text attributes that can be edited is listed below:
+- Edit the text
+- Change the font (See the `Fonts` section for more info)
+- Edit the font size
+- Edit the text decoration (bold, italic, etc)
+- Edit the text orientation (horizontal/vertical)
+- Edit the paragraph alignment (centered, justified, etc)
+- Edit the font weight
 
 The API's are documented [here](https://adobedocs.github.io/photoshop-api-docs/#api-Photoshop-document_operations)
 
@@ -297,7 +287,7 @@ The Photoshop APIs supports using fonts from two locations:
 - Fonts that the user is authorized to access via [Typekit](https://fonts.adobe.com/fonts). (Currently only available for OAuth tokens, service token support is forthcoming...)
 
 If your font is not included in either of these locations you must include an href to the font in your request. Look at the `options.fonts` section of the API docs for more information.
-More details and an example usage of a custom font can be found [here](https://github.com/AdobeDocs/photoshop-api-docs#font-handling)
+More details and an example usage of a custom font can be found [here](#font-handling)
 
 You can also control the behavior of the API if there are fonts missing when the request is being processed. Please have a look at `options.globalFont` and `options.manageMissingFonts` sections of the API docs for more information.
 
@@ -308,6 +298,14 @@ More details and an example usage of handling missing fonts can be found [here](
 - Create a JPEG, TIFF or PNG rendition of various sizes
 - Request thumbnail previews of all renderable layers
 - Convert between any of the supported filetypes (PSD, JPEG, TIFF, PNG)
+
+### Layer level edits
+- General layer edits
+  - Edit the layer name/id
+  - Toggle the layer locked state
+  - Toggle layer visibility
+  - Apply bounds
+- Add or edit a Fill layer in a document along with Blend modes
 
 ### Compatibility with Photoshop versions
 
