@@ -355,7 +355,7 @@ The API's are documented at https://adobedocs.github.io/photoshop-api-docs/
 The `/smartObject` endpoint can take an input PSD file with an embedded smartobject and can replace with another smartobject.
 This API is a simple API developed to ease the smartObject replacement workflow for an user.
 
-##### Sample 1: Replacing a SmartObject
+#### Sample 1: Replacing a SmartObject
 This example shows how you can replace an embedded smart object
 
 ``` shell
@@ -388,7 +388,7 @@ https: //image.adobe.io/pie/psdService/smartObject \
 ]}'
 ```
 
-##### Sample 2: Creating a SmartObject
+#### Sample 2: Creating a SmartObject
 This example shows how you can create an embedded smart object
 
 ``` shell
@@ -423,6 +423,8 @@ https: //image.adobe.io/pie/psdService/smartObject
   }
 ]}'
 ```
+
+This initiates an asynchronous job and returns a response containing an href. Use the value in the href to poll for the status of the job. This is illustrated in [Example 6](#example-6-fetch-the-status-of-the-job-after-successfully-submitting-a-request).
 
 ### Example 2: Using /documentOperations to edit TextLayer(s)
 
@@ -591,6 +593,8 @@ curl -X POST \
 }'
 ```
 
+This initiates an asynchronous job and returns a response containing an href. Use the value in the href to poll for the status of the job. This is illustrated in [Example 6](#example-6-fetch-the-status-of-the-job-after-successfully-submitting-a-request).
+
 ### Example 3: /documentOperations (Making PSD edits and renders)
 
 The `/documentOperations` API can be used to make layer and/or document level edits to your PSD and then generate new renditions with the changes. You can pass in a flat array of only the layers that you wish to act upon, in the request body's `options.layers` argument.
@@ -700,6 +704,8 @@ curl -X POST \
 }'
 ```
 
+This initiates an asynchronous job and returns a response containing an href. Use the value in the href to poll for the status of the job. This is illustrated in [Example 6](#example-6-fetch-the-status-of-the-job-after-successfully-submitting-a-request).
+
 ### Example 4: /renditionCreate (Generating New Renditions)
 
 The `/renditionsCreate` endpoint can take a number of input PSD files and generate new image renditions or a new PSD
@@ -739,11 +745,16 @@ curl -X POST \
   ]
 }'
 ```
+
+This initiates an asynchronous job and returns a response containing an href. Use the value in the href to poll for the status of the job. This is illustrated in [Example 6](#example-6-fetch-the-status-of-the-job-after-successfully-submitting-a-request).
+
 ### Example 5: /documentManifest (Retrieving a PSD manifest)
+
+The `/documentManifest` api can take one or more input PSD's to generate JSON manifest files from. The JSON manifest is the tree representation of all of the layer objects contained in the PSD document. 
 
 #### Sample 5.1: Initiate a job to retrieve a PSD's JSON manifest
 
-The `/documentManifest` api can take one or more input PSD's to generate JSON manifest files from. The JSON manifest is the tree representation of all of the layer objects contained in the PSD document. Using Example.psd, with the use case of a document stored in Adobe's Creative Cloud, a typical curl call might look like this:
+Using Example.psd, with the use case of a document stored in Adobe's Creative Cloud, a typical curl call might look like this:
 
 ```shell
 curl -X POST \
@@ -760,7 +771,7 @@ curl -X POST \
   ]
 }'
 ```
-**Note**: This initiates an asynchronous job and returns a response containing an href. Use the value in the href to poll for the status of the job and the same response will also contain the JSON manifest. This is illustrated in the next section (Sample 6.1 in Example 6).
+This initiates an asynchronous job and returns a response containing an href. Use the value in the href to poll for the status of the job and the same response will also contain the JSON manifest. This is illustrated in [Example 6](#example-6-fetch-the-status-of-the-job-after-successfully-submitting-a-request) below.
 
 ###  Example 6: Fetch the status of the job after successfully submitting a request 
 Each of our Photoshop APIs, when invoked, initiates an asynchronous job and returns a response body that contains the href to poll for status of the job.
