@@ -345,9 +345,6 @@ The `add` and `move` blocks must also supply one of the attributes `insertAbove`
 
 **Note**: Adding a new layer does not require the ID to be included, the service will generate a new layer id for you.
 
-Here is an example of making a simple text layer edit.
-[Layer level editing Example Code](#sample-31-making-a-simple-edit)
-
 ### Compatibility with Photoshop versions
 
 1. The API’s will open any PSD created with Photoshop 1.0 through the current release and this will always be true.
