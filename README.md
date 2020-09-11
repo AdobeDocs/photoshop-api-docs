@@ -298,7 +298,8 @@ The Photoshop APIs supports using the following category of fonts:
   }
   ```
 
-Please look at [Sample 2.2](#sample-22-using-a-custom-font-in-a-text-layer) below in this page for an example usage of a custom font.
+Here is an example usage of a custom font
+[Custom font](#sample-22-using-a-custom-font-in-a-text-layer)
 
 #### Handle missing fonts in the document.
 
@@ -344,6 +345,9 @@ The `add`, `edit`, `move` and `delete` blocks indicate the action you would like
 The `add` and `move` blocks must also supply one of the attributes `insertAbove`, `insertBelow`, `insertInto`, `insertTop` or `insertBottom` to indicate where you want to move the layer to. More details on this can be found in the API documentation.
 
 **Note**: Adding a new layer does not require the ID to be included, the service will generate a new layer id for you.
+
+Here is an example of making a layer edit.
+[Layer level editing](#sample-31-making-a-simple-edit)
 
 ### Compatibility with Photoshop versions
 
