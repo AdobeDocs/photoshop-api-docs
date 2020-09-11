@@ -25,7 +25,7 @@
     - [SmartObject](#smartobject)
     - [Text layers (`New!`)](#text-layers-new)
       - [Font handling](#font-handling)
-      - [Font handling continued: Handling missing fonts in the document.](#font-handling-continued-handling-missing-fonts-in-the-document)
+      - [Handle missing fonts in the document.](#handle-missing-fonts-in-the-document)
       - [Limitations](#limitations)
     - [Rendering / Conversions](#rendering--conversions)
     - [Layer level edits](#layer-level-edits)
@@ -33,8 +33,8 @@
     - [Compatibility with Photoshop versions](#compatibility-with-photoshop-versions)
   - [How to use the Photoshop APIs](#how-to-use-the-photoshop-apis)
     - [Example 1: /smartObject (Replacing smartobject)](#example-1-smartobject-replacing-smartobject)
-        - [Sample 1: Replacing a SmartObject](#sample-1-replacing-a-smartobject)
-        - [Sample 2: Creating a SmartObject](#sample-2-creating-a-smartobject)
+      - [Sample 1: Replacing a SmartObject](#sample-1-replacing-a-smartobject)
+      - [Sample 2: Creating a SmartObject](#sample-2-creating-a-smartobject)
     - [Example 2: Using /documentOperations to edit TextLayer(s)](#example-2-using-documentoperations-to-edit-textlayers)
       - [Sample 2.1: Making a text layer edit](#sample-21-making-a-text-layer-edit)
       - [Sample 2.2: Using a custom font in a text layer](#sample-22-using-a-custom-font-in-a-text-layer)
@@ -284,13 +284,13 @@ In order to be able to correctly operate on text layers in the PSD, the correspo
 
 While referencing fonts in the API request, please ensure that the correct Postscript name for that font is used. Referencing to that font with any other name will result in the API treating this as a missing font.
 
-The Photoshop APIs supports using fonts from two locations by default:
-- [Currently Installed Fonts](SupportedFonts.md)
-- Fonts that the user is authorized to access via [Typekit](https://fonts.adobe.com/fonts).
-**Note**: Currently only available for OAuth tokens, JWT service token support is forthcoming.
-
-If your font is not available in either of these locations you must include an href to the font in your request. Look at the `options.fonts` section of the API docs for more information.
-For including an href to the font in your request, please ensure the font file name to be in this format: `<font_postscript_name>.<ext>`, when it is being uploaded in your choice of storage. A sample `options.fonts` section will look like so:
+The Photoshop APIs supports using the following category of fonts:
+- Currently Installed Fonts on the server, listed [here](SupportedFonts.md)
+- Fonts that you are authorized to access via [Adobe Fonts](https://fonts.adobe.com/fonts).
+  **Note**: Currently only available for OAuth tokens, JWT service token support is forthcoming.
+- Custom Fonts: These are the fonts that are either owned by you or the ones that only you are authorized to use.
+  To use a custom font you must include an href to the font in your request. Look at the `options.fonts` section of the API docs for more information.
+  For including an href to the font in your request, please ensure the font file name to be in this format: `<font_postscript_name>.<ext>`, when it is being uploaded in your choice of storage. A sample `options.fonts` section will look like so:
   ```json
   {
     "storage": "adobe",
@@ -300,28 +300,32 @@ For including an href to the font in your request, please ensure the font file n
 
 Please look at [Sample 2.2](#sample-22-using-a-custom-font-in-a-text-layer) below in this page for an example usage of a custom font.
 
-#### Font handling continued: Handling missing fonts in the document.
+#### Handle missing fonts in the document.
 
 The API provides two options to control the behavior when there are missing fonts, as the request is being processed:
 - Specify a global font which would act as a default font for the current request: The `globalFont` field in the `options` section of the request can be used to specify the full postscript name of this font.
 For any textLayer edit/add operation, if the font used specifically for that layer is missing, this font will be used as the default. If the global font itself is missing, then the action to be taken will be dictated by the `manageMissingFonts` options as explained here in the next bullet point.
 **Note**: If using an OAuth integration, Adobe Fonts can be used as a global font as well. If the global font is a custom font, please upload the font to one of the cloud storage types that is supported and specify the `href` and `storage` type in the `options.fonts` section of the request.
-- Specify the action to be taken if one or more fonts required for one or more textLayer add/edit operation(s) are missing: The `manageMissingFonts` field in the `options` section of the request can be used to specify this action. It can accept one of the following 2 values:
+- Specify the action to be taken if one or more fonts required for the add/edit operation(s) are missing: The `manageMissingFonts` field in the `options` section of the request can be used to specify this action. It can accept one of the following 2 values:
   - `fail` to force the request/job to fail
   - `useDefault` to use our system designated default font, which is: `LiberationSansNarrow-Italic`
 
-An example usage of handling missing fonts can be found [here](#font-handling-continued-handling-missing-fonts-in-the-document)
+An example usage of handling missing fonts can be found [here](#sample-23-dictating-actions-for-missing-fonts)
 
 #### Limitations
 - Most of the text attributes that are not editable through the API retain their respective original values.
   Exceptions to this behavior is (and not limited) for the following attributes: tracking, leading, kerning
-- Thai and Burmese unicode character types are not supported
 
 ### Rendering / Conversions
 - Create a new PSD document
 - Create a JPEG, TIFF or PNG rendition of various sizes
 - Request thumbnail previews of all renderable layers
 - Convert between any of the supported filetypes (PSD, JPEG, TIFF, PNG)
+
+Here is an example of creating JPEG and PNG rendtions of a PSD document.
+
+[Render PSD document](#sample-41-a-single-file-input)
+
 
 ### Layer level edits
 - General layer edits
@@ -332,7 +336,15 @@ An example usage of handling missing fonts can be found [here](#font-handling-co
   - Blend options of a layer, including opacity and blend mode
 - Add or edit a Fill layer in a document along with Blend modes
 
+Here is an example of making a simple text layer edit.
+
+[Layer level editing Example Code](#sample-31-making-a-simple-edit)
+
+
 #### The add, edit and delete objects
+
+The `/documentOperations` API should primarily be used to make layer and/or document level edits to your PSD and then generate new renditions with the changes. You can pass in a flat array of only the layers that you wish to act upon, in the `options.layers` argument of the request body.
+The layer name (or the layer id) will be used by the service to identify the correct layer to operation upon in your PSD.
 
 The `add`, `edit`, `move` and `delete` blocks indicate the action you would like to be taken on a particular layer object. Any layer block passed into the API that is missing one of these attributes will be ignored.
 The `add` and `move` blocks must also supply one of the attributes `insertAbove`, `insertBelow`, `insertInto`, `insertTop` or `insertBottom` to indicate where you want to move the layer to. More details on this can be found in the API documentation.
@@ -428,11 +440,8 @@ A call to this API initiates an asynchronous job and returns a response containi
 
 ### Example 2: Using /documentOperations to edit TextLayer(s)
 
-The `/documentOperations` API can primarily be used to make layer and/or document level edits to your PSD and then generate new renditions with the changes. You can pass in a flat array of only the layers that you wish to act upon, in the `options.layers` argument of the request body.
-The layer name (or the layer id) will be used by the service to identify the correct layer to operation upon in your PSD.
-Please refer to the [The add, edit and delete objects](#the-add-edit-and-delete-objects) section for more information on how to apply these operations on a layer.
-
 This example section will provide information and samples to demonstrate the use of `/documentOperations` API to work with Text Layers in particular.
+Please refer to the [The add, edit and delete objects](#the-add-edit-and-delete-objects) section for more information on how to apply these operations on a text layer.
 
 #### Sample 2.1: Making a text layer edit
 
