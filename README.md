@@ -311,11 +311,11 @@ For any textLayer edit/add operation, if the font used specifically for that lay
   - `fail` to force the request/job to fail
   - `useDefault` to use our system designated default font, which is: `LiberationSansNarrow-Italic`
 
-An example usage of handling missing fonts can be found [here](#sample-23-dictating-actions-for-missing-fonts)
+Here is an example usage of `manageMissingFonts` and `globalFont`
+[Handle missing fonts](#sample-23-dictating-actions-for-missing-fonts)
 
 #### Limitations
-- Most of the text attributes that are not editable through the API retain their respective original values.
-  Exceptions to this behavior is (and not limited) for the following attributes: tracking, leading, kerning
+- Most of the text attributes retain their respective original values. There are some attributes however that do not retain their original values. For example (and not limited to): tracking, leading, kerning
 
 ### Rendering / Conversions
 - Create a new PSD document
@@ -324,9 +324,7 @@ An example usage of handling missing fonts can be found [here](#sample-23-dictat
 - Convert between any of the supported filetypes (PSD, JPEG, TIFF, PNG)
 
 Here is an example of creating JPEG and PNG rendtions of a PSD document.
-
 [Render PSD document](#sample-41-a-single-file-input)
-
 
 ### Layer level edits
 - General layer edits
@@ -337,11 +335,6 @@ Here is an example of creating JPEG and PNG rendtions of a PSD document.
   - Blend options of a layer, including opacity and blend mode
 - Add or edit a Fill layer in a document along with Blend modes
 
-Here is an example of making a simple text layer edit.
-
-[Layer level editing Example Code](#sample-31-making-a-simple-edit)
-
-
 #### The add, edit and delete objects
 
 The `/documentOperations` API should primarily be used to make layer and/or document level edits to your PSD and then generate new renditions with the changes. You can pass in a flat array of only the layers that you wish to act upon, in the `options.layers` argument of the request body.
@@ -351,6 +344,9 @@ The `add`, `edit`, `move` and `delete` blocks indicate the action you would like
 The `add` and `move` blocks must also supply one of the attributes `insertAbove`, `insertBelow`, `insertInto`, `insertTop` or `insertBottom` to indicate where you want to move the layer to. More details on this can be found in the API documentation.
 
 **Note**: Adding a new layer does not require the ID to be included, the service will generate a new layer id for you.
+
+Here is an example of making a simple text layer edit.
+[Layer level editing Example Code](#sample-31-making-a-simple-edit)
 
 ### Compatibility with Photoshop versions
 
