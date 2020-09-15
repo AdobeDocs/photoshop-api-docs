@@ -287,8 +287,8 @@ While referencing fonts in the API request, please ensure that the correct Posts
 The Photoshop APIs supports using the following category of fonts:
 - Currently Installed Fonts on the server listed [here](SupportedFonts.md)
 - Fonts that you are authorized to access via [Adobe Fonts](https://fonts.adobe.com/fonts).
-  **Note**: Currently only available for OAuth tokens, JWT service token support is forthcoming.
-- Custom Fonts: These are the fonts that are either owned by you or the ones that only you are authorized to use.
+  **Note:** Currently only available for OAuth tokens, JWT service token support is forthcoming.
+- Custom/Other Fonts: These are the fonts that are either owned by you or the ones that only you are authorized to use.
   To use a custom font you must include an href to the font in your request. Look at the `options.fonts` section of the API docs for more information.
   For including an href to the font in your request, please ensure the font file name to be in this format: `<font_postscript_name>.<ext>`, when it is being uploaded in your choice of storage. A sample `options.fonts` section will look like so:
   ```json
@@ -297,6 +297,7 @@ The Photoshop APIs supports using the following category of fonts:
     "href": "/files/OpenSansCondensed-Light.ttf"
   }
   ```
+  **Note:** This also applies to any other font present in the document which is not to be found in the first 2 categories above.
 
 Here is an example usage of a custom font
 [Custom font](#sample-22-using-a-custom-font-in-a-text-layer)
