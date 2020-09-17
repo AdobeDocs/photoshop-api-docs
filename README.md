@@ -311,7 +311,7 @@ For any textLayer edit/add operation, if the font used specifically for that lay
   **Note**: If using an OAuth integration, Adobe Fonts can be used as a global font as well. If the global font is a custom font, please upload the font to one of the cloud storage types that is supported and specify the `href` and `storage` type in the `options.fonts` section of the request.
 - Specify the action to be taken if one or more fonts required for the add/edit operation(s) are missing: The `manageMissingFonts` field in the `options` section of the request can be used to specify this action. It can accept one of the following 2 values:
   - `fail` to force the request/job to fail
-  - `useDefault` to use our system designated default font, which is: `LiberationSansNarrow-Italic`
+  - `useDefault` to use our system designated default font, which is: `ArialMT`
 
 Here is an example usage of `manageMissingFonts` and `globalFont`
 [Handle missing fonts](#sample-23-dictating-actions-for-missing-fonts)
@@ -548,7 +548,7 @@ curl -X POST \
 ```
 
 #### Sample 2.3: Dictating actions for missing fonts
-In this request for example, if `MySampleFont` is not found while processing the request, the system default font (`LiberationSansNarrow-Italic`) will be used as `manageMissingFonts` is set to `useDefault`
+In this request for example, if `MySampleFont` is not found while processing the request, the system default font (`ArialMT`) will be used as `manageMissingFonts` is set to `useDefault`
 ```shell
 curl -X POST \
   https://image.adobe.io/pie/psdService/documentOperations \
