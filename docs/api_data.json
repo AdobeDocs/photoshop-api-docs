@@ -3958,7 +3958,7 @@
             "optional": false,
             "field": "options.manageMissingFonts",
             "defaultValue": "useDefault",
-            "description": "<p>action to take if there are one or more missing fonts in the document</p> <ul>   <li>fail - The job will not succeed and the status will be set to \"failed\", with the details of the error provided in the \"details\" section in the status</li>   <li>useDefault - The job will succeed, however, by default all the missing fonts will be replaced with this font: LiberationSansNarrow-Italic</li> </ul>"
+            "description": "<p>action to take if there are one or more missing fonts in the document</p> <ul>   <li>fail - The job will not succeed and the status will be set to \"failed\", with the details of the error provided in the \"details\" section in the status</li>   <li>useDefault - The job will succeed, however, by default all the missing fonts will be replaced with this font: ArialMT</li> </ul>"
           },
           {
             "group": "Request",
