@@ -5,7 +5,7 @@
     "title": "autostraighten status",
     "version": "1.0.0",
     "description": "<p>Returns the status of a job.</p>",
-    "name": "auto-straighten-job-get",
+    "name": "auto_straighten_job_get",
     "group": "Lightroom",
     "parameter": {
       "fields": {
@@ -208,7 +208,7 @@
     "title": "autostraighten",
     "version": "1.0.0",
     "description": "<p>Initiates an asynchronous job to auto straighten an image</p>",
-    "name": "auto-straighten-post",
+    "name": "auto_straighten_post",
     "group": "Lightroom",
     "parameter": {
       "examples": [
@@ -438,7 +438,7 @@
     "title": "autotone status",
     "version": "1.0.0",
     "description": "<p>Returns the status of a job.</p>",
-    "name": "auto-tone-job-get",
+    "name": "auto_tone_job_get",
     "group": "Lightroom",
     "parameter": {
       "fields": {
@@ -641,7 +641,7 @@
     "title": "autotone",
     "version": "1.0.0",
     "description": "<p>Initiates an asynchronous job to auto tone an image</p>",
-    "name": "auto-tone-post",
+    "name": "auto_tone_post",
     "group": "Lightroom",
     "parameter": {
       "examples": [
@@ -871,7 +871,7 @@
     "title": "edit status",
     "version": "1.0.0",
     "description": "<p>Returns the status of a job.</p>",
-    "name": "edit-job-get",
+    "name": "edit_job_get",
     "group": "Lightroom",
     "parameter": {
       "fields": {
@@ -1074,7 +1074,7 @@
     "title": "edit",
     "version": "1.0.0",
     "description": "<p>Initiates an asynchronous job to apply a set of edit parameters on an image</p>",
-    "name": "edit-post",
+    "name": "edit_post",
     "group": "Lightroom",
     "parameter": {
       "fields": {
@@ -1516,7 +1516,7 @@
     "title": "presets status",
     "version": "1.0.0",
     "description": "<p>Returns the status of a job.</p>",
-    "name": "presets-job-get",
+    "name": "presets_job_get",
     "group": "Lightroom",
     "parameter": {
       "fields": {
@@ -1719,7 +1719,7 @@
     "title": "presets",
     "version": "1.0.0",
     "description": "<p>Initiates an asynchronous job to apply a preset on an image</p>",
-    "name": "presets-post",
+    "name": "presets_post",
     "group": "Lightroom",
     "parameter": {
       "fields": {
@@ -1984,7 +1984,7 @@
     "title": "xmp status",
     "version": "1.0.0",
     "description": "<p>Returns the status of a job.</p>",
-    "name": "xmp-job-get",
+    "name": "xmp_job_get",
     "group": "Lightroom",
     "parameter": {
       "fields": {
@@ -2187,7 +2187,7 @@
     "title": "xmp",
     "version": "1.0.0",
     "description": "<p>Initiates an asynchronous job to apply an XMP setting to an image</p>",
-    "name": "xmp-post",
+    "name": "xmp_post",
     "group": "Lightroom",
     "parameter": {
       "fields": {
@@ -2520,7 +2520,7 @@
               "\"image/jpeg\"",
               "\"image/png\"",
               "\"image/tiff\"",
-              "\"vnd.adobe.photoshop\""
+              "\"image/vnd.adobe.photoshop\""
             ],
             "optional": false,
             "field": "outputs.output.type",
@@ -2601,7 +2601,7 @@
         },
         {
           "title": "HTTP Single File Example",
-          "content": "POST https://image.adobe.io/pie/psdService/renditionCreate HTTP/1.1\nHost: image.adobe.io\nContent-Type: application/json\nAuthorization: Bearer $token\nX-Api-Key: $api_key\n{\n   \"inputs\":[\n      {\n         \"href\":\"https://some-bucket-us-east-1.amazonaws.com/s3_presigned_getObject...\",\n         \"storage\":\"external\"\n      }\n   ],\n   \"outputs\":[\n      {\n         \"href\":\"/files/some_project/renders/design_$ReqID_$FileName.jpeg\",\n         \"storage\":\"adobe\",\n         \"type\":\"image/jpeg\",\n         \"width\":0,\n         \"overwrite\":true,\n         \"quality\":1\n      },\n      {\n         \"href\":\"/files/some_project/renders/design_$ReqID_$FileName.png\",\n         \"storage\":\"adobe\",\n         \"type\":\"image/png\",\n         \"width\":0,\n         \"overwrite\":true,\n         \"compression\":\"small\",\n         \"layers\":[\n            {\n               \"id\":77\n            },\n            {\n               \"id\":72\n            }\n         ]\n      },\n      {\n         \"href\":\"https://some-bucket-us-east-1.amazonaws.com/s3_presigned_putObject..\",\n         \"storage\":\"external\",\n         \"type\":\"image/jpeg\",\n         \"width\":512,\n         \"overwrite\":true,\n         \"quality\":2\n      },\n      {\n         \"href\":\"/files/some_project/renders/design_$ReqID_$FileName.psd\",\n         \"storage\":\"adobe\",\n         \"type\":\"vnd.adobe.photoshop\",\n         \"overwrite\":true\n      }\n   ]\n}",
+          "content": "POST https://image.adobe.io/pie/psdService/renditionCreate HTTP/1.1\nHost: image.adobe.io\nContent-Type: application/json\nAuthorization: Bearer $token\nX-Api-Key: $api_key\n{\n   \"inputs\":[\n      {\n         \"href\":\"https://some-bucket-us-east-1.amazonaws.com/s3_presigned_getObject...\",\n         \"storage\":\"external\"\n      }\n   ],\n   \"outputs\":[\n      {\n         \"href\":\"/files/some_project/renders/design_$ReqID_$FileName.jpeg\",\n         \"storage\":\"adobe\",\n         \"type\":\"image/jpeg\",\n         \"width\":0,\n         \"overwrite\":true,\n         \"quality\":1\n      },\n      {\n         \"href\":\"/files/some_project/renders/design_$ReqID_$FileName.png\",\n         \"storage\":\"adobe\",\n         \"type\":\"image/png\",\n         \"width\":0,\n         \"overwrite\":true,\n         \"compression\":\"small\",\n         \"layers\":[\n            {\n               \"id\":77\n            },\n            {\n               \"id\":72\n            }\n         ]\n      },\n      {\n         \"href\":\"https://some-bucket-us-east-1.amazonaws.com/s3_presigned_putObject..\",\n         \"storage\":\"external\",\n         \"type\":\"image/jpeg\",\n         \"width\":512,\n         \"overwrite\":true,\n         \"quality\":2\n      },\n      {\n         \"href\":\"/files/some_project/renders/design_$ReqID_$FileName.psd\",\n         \"storage\":\"adobe\",\n         \"type\":\"image/vnd.adobe.photoshop\",\n         \"overwrite\":true\n      }\n   ]\n}",
           "type": "http"
         },
         {
@@ -2611,7 +2611,7 @@
         },
         {
           "title": "HTTP Batch Example",
-          "content": "POST https://image.adobe.io/pie/psdService/renditionCreate HTTP/1.1\nHost: image.adobe.io\nContent-Type: application/json\nAuthorization: Bearer $token\nX-Api-Key: $api_key\n{\n   \"inputs\":[\n      {\n         \"href\":\"files/project_files\",\n         \"storage\":\"adobe\"\n      }\n   ],\n   \"outputs\":[\n      {\n         \"href\":\"/files/outputs\",\n         \"storage\":\"adobe\",\n         \"type\":\"image/jpeg\",\n         \"width\":0,\n         \"overwrite\":true,\n         \"quality\":3\n      },\n      {\n         \"href\":\"/files/outputs\",\n         \"storage\":\"adobe\",\n         \"type\":\"image/png\",\n         \"width\":0,\n         \"overwrite\":true,\n         \"compression\":\"medium\"\n      },\n      {\n         \"href\":\"/files/outputs\",\n         \"storage\":\"adobe\",\n         \"type\":\"vnd.adobe.photoshop\",\n         \"overwrite\":true\n      }\n   ]\n}",
+          "content": "POST https://image.adobe.io/pie/psdService/renditionCreate HTTP/1.1\nHost: image.adobe.io\nContent-Type: application/json\nAuthorization: Bearer $token\nX-Api-Key: $api_key\n{\n   \"inputs\":[\n      {\n         \"href\":\"files/project_files\",\n         \"storage\":\"adobe\"\n      }\n   ],\n   \"outputs\":[\n      {\n         \"href\":\"/files/outputs\",\n         \"storage\":\"adobe\",\n         \"type\":\"image/jpeg\",\n         \"width\":0,\n         \"overwrite\":true,\n         \"quality\":3\n      },\n      {\n         \"href\":\"/files/outputs\",\n         \"storage\":\"adobe\",\n         \"type\":\"image/png\",\n         \"width\":0,\n         \"overwrite\":true,\n         \"compression\":\"medium\"\n      },\n      {\n         \"href\":\"/files/outputs\",\n         \"storage\":\"adobe\",\n         \"type\":\"image/vnd.adobe.photoshop\",\n         \"overwrite\":true\n      }\n   ]\n}",
           "type": "http"
         },
         {
@@ -2735,7 +2735,7 @@
     "title": "document manifest",
     "description": "<p>Initiates an asynchronous job to extract and return a psd file's layer information</p>",
     "version": "1.0.0",
-    "name": "document-manifest",
+    "name": "document_manifest",
     "group": "Photoshop",
     "parameter": {
       "fields": {
@@ -2945,7 +2945,7 @@
     "title": "document manifest status",
     "description": "<p>Returns status and layer info for a psd file created by POST /psdService/status. Will return 202 as long as there are child jobs still running and 200 once all children are complete</p>",
     "version": "1.0.0",
-    "name": "document-manifest-status",
+    "name": "document_manifest_status",
     "group": "Photoshop",
     "success": {
       "fields": {
@@ -3943,6 +3943,68 @@
           },
           {
             "group": "Request",
+            "type": "object",
+            "optional": false,
+            "field": "options",
+            "description": "<p>available options to apply to all input files</p>"
+          },
+          {
+            "group": "Request",
+            "type": "string",
+            "allowedValues": [
+              "\"useDefault\"",
+              "\"fail\""
+            ],
+            "optional": false,
+            "field": "options.manageMissingFonts",
+            "defaultValue": "useDefault",
+            "description": "<p>action to take if there are one or more missing fonts in the document</p> <ul>   <li>fail - The job will not succeed and the status will be set to \"failed\", with the details of the error provided in the \"details\" section in the status</li>   <li>useDefault - The job will succeed, however, by default all the missing fonts will be replaced with this font: ArialMT</li> </ul>"
+          },
+          {
+            "group": "Request",
+            "type": "string",
+            "optional": true,
+            "field": "options.globalFont",
+            "defaultValue": "nil",
+            "description": "<p>options.globalFont The full postscript name of the font to be used as the global default for the document. This font will be used for any text layer which has a missing font and no other font has been specifically provided for that layer.<br/>If this font itself is missing, the option specified for <code>manageMissingFonts</code> from above will take effect.</p>"
+          },
+          {
+            "group": "Request",
+            "type": "font[]",
+            "optional": true,
+            "field": "options.fonts",
+            "description": "<p>array of custom fonts needed in this document</p>"
+          },
+          {
+            "group": "Request",
+            "type": "object",
+            "optional": false,
+            "field": "options.fonts.font",
+            "description": "<p>An object describing the input font to add or replace for a Text layer. Filename should be &lt;font_postscript_name&gt;.otf </br> If the font filename is not in the specified format above, font substitution will occur.</p>"
+          },
+          {
+            "group": "Request",
+            "type": "string",
+            "allowedValues": [
+              "\"adobe\"",
+              "\"external\"",
+              "\"azure\"",
+              "\"dropbox\""
+            ],
+            "optional": false,
+            "field": "options.fonts.font.storage",
+            "defaultValue": "adobe",
+            "description": "<p>storage platforms supported</p>"
+          },
+          {
+            "group": "Request",
+            "type": "string",
+            "optional": false,
+            "field": "options.fonts.font.href",
+            "description": "<p>Either a Creative Cloud assets path for storage=&quot;adobe&quot; OR a presignedGETURL</p>"
+          },
+          {
+            "group": "Request",
             "type": "layer[]",
             "optional": true,
             "field": "options.layers",
@@ -4198,6 +4260,264 @@
             "group": "Request",
             "type": "object",
             "optional": true,
+            "field": "options.layers.layer.text",
+            "description": "<p>text settings</p>"
+          },
+          {
+            "group": "Request",
+            "type": "string",
+            "optional": false,
+            "field": "options.layers.layer.text.content",
+            "description": "<p>the text string</p>"
+          },
+          {
+            "group": "Request",
+            "type": "charactersStyle[]",
+            "optional": true,
+            "field": "options.layers.layer.text.characterStyles",
+            "description": "<p>characterStyle settings. If the same supported attributes apply to all characters in the layer than this will be an array of one item, otherwise each characterStyle object will have a 'from' and 'to' value indicating the range of characters that the style applies to.</p>"
+          },
+          {
+            "group": "Request",
+            "type": "object",
+            "optional": true,
+            "field": "options.layers.layer.text.characterStyles.characterStyle",
+            "description": ""
+          },
+          {
+            "group": "Request",
+            "type": "int",
+            "optional": true,
+            "field": "options.layers.layer.text.characterStyles.characterStyle.from",
+            "description": "<p>The beginning of the range of characters that this characterStyle applies to. Based on initial index of 0. For example a style applied to only the first two characters would be from=0 and to=1</p>"
+          },
+          {
+            "group": "Request",
+            "type": "int",
+            "optional": true,
+            "field": "options.layers.layer.text.characterStyles.characterStyle.to",
+            "description": "<p>The ending of the range of characters that this characterStyle applies to. Based on initial index of 0. For example a style applied to only the first two characters would be from=0 and to=1</p>"
+          },
+          {
+            "group": "Request",
+            "type": "float",
+            "optional": true,
+            "field": "options.layers.layer.text.characterStyles.characterStyle.fontSize",
+            "description": "<p>in points</p>"
+          },
+          {
+            "group": "Request",
+            "type": "string",
+            "optional": true,
+            "field": "options.layers.layer.text.characterStyles.characterStyle.fontName",
+            "description": "<p>the font's postscript name.  The list of supported fonts is at https://github.com/AdobeDocs/photoshop-api-docs/blob/master/SupportedFonts.md</p>"
+          },
+          {
+            "group": "Request",
+            "type": "string",
+            "allowedValues": [
+              "\"horizontal\"",
+              "\"vertical\""
+            ],
+            "optional": true,
+            "field": "options.layers.layer.text.characterStyles.characterStyle.orientation",
+            "defaultValue": "horizontal",
+            "description": "<p>the text orientation</p>"
+          },
+          {
+            "group": "Request",
+            "type": "object",
+            "optional": true,
+            "field": "options.layers.layer.text.characterStyles.characterStyle.fontColor",
+            "description": "<p>the font color settings.It can be in one of the formats</p> <ul>   <li>rgb</li>   <li>cmyk</li>   <li>gray</li>   <li>lab</li> </ul>"
+          },
+          {
+            "group": "Request",
+            "type": "object",
+            "optional": true,
+            "field": "options.layers.layer.text.characterStyles.characterStyle.fontColor.rgb",
+            "description": "<p>the font color settings for rgb mode in 16bit repesentation</p>"
+          },
+          {
+            "group": "Request",
+            "type": "int",
+            "allowedValues": [
+              "0..32768"
+            ],
+            "optional": false,
+            "field": "options.layers.layer.text.characterStyles.characterStyle.fontColor.rgb.red",
+            "description": ""
+          },
+          {
+            "group": "Request",
+            "type": "int",
+            "allowedValues": [
+              "0..32768"
+            ],
+            "optional": false,
+            "field": "options.layers.layer.text.characterStyles.characterStyle.fontColor.rgb.green",
+            "description": ""
+          },
+          {
+            "group": "Request",
+            "type": "int",
+            "allowedValues": [
+              "0..32768"
+            ],
+            "optional": false,
+            "field": "options.layers.layer.text.characterStyles.characterStyle.fontColor.rgb.blue",
+            "description": ""
+          },
+          {
+            "group": "Request",
+            "type": "object",
+            "optional": true,
+            "field": "options.layers.layer.text.characterStyles.characterStyle.fontColor.cmyk",
+            "description": "<p>the font color settings for cmyk mode in 16bit repesentation.</p>"
+          },
+          {
+            "group": "Request",
+            "type": "int",
+            "allowedValues": [
+              "0..32768"
+            ],
+            "optional": false,
+            "field": "options.layers.layer.text.characterStyles.characterStyle.fontColor.cmyk.cyan",
+            "description": ""
+          },
+          {
+            "group": "Request",
+            "type": "int",
+            "allowedValues": [
+              "0..32768"
+            ],
+            "optional": false,
+            "field": "options.layers.layer.text.characterStyles.characterStyle.fontColor.cmyk.magenta",
+            "description": ""
+          },
+          {
+            "group": "Request",
+            "type": "int",
+            "allowedValues": [
+              "0..32768"
+            ],
+            "optional": false,
+            "field": "options.layers.layer.text.characterStyles.characterStyle.fontColor.cmyk.yellowColor",
+            "description": ""
+          },
+          {
+            "group": "Request",
+            "type": "int",
+            "allowedValues": [
+              "0..32768"
+            ],
+            "optional": false,
+            "field": "options.layers.layer.text.characterStyles.characterStyle.fontColor.cmyk.black",
+            "description": ""
+          },
+          {
+            "group": "Request",
+            "type": "object",
+            "optional": true,
+            "field": "options.layers.layer.text.characterStyles.characterStyle.fontColor.gray",
+            "description": "<p>the font color settings for gray mode in 16bit repesentation.</p>"
+          },
+          {
+            "group": "Request",
+            "type": "int",
+            "allowedValues": [
+              "0..32768"
+            ],
+            "optional": false,
+            "field": "options.layers.layer.text.characterStyles.characterStyle.fontColor.gray.gray",
+            "description": ""
+          },
+          {
+            "group": "Request",
+            "type": "object",
+            "optional": true,
+            "field": "options.layers.layer.text.characterStyles.characterStyle.fontColor.lab",
+            "description": "<p>the font color settings for lab mode in 16bit repesentation.</p>"
+          },
+          {
+            "group": "Request",
+            "type": "int",
+            "allowedValues": [
+              "0..32768"
+            ],
+            "optional": false,
+            "field": "options.layers.layer.text.characterStyles.characterStyle.fontColor.lab.luminance",
+            "description": ""
+          },
+          {
+            "group": "Request",
+            "type": "int",
+            "allowedValues": [
+              "0..32768"
+            ],
+            "optional": false,
+            "field": "options.layers.layer.text.characterStyles.characterStyle.fontColor.lab.a",
+            "description": ""
+          },
+          {
+            "group": "Request",
+            "type": "int",
+            "allowedValues": [
+              "0..32768"
+            ],
+            "optional": false,
+            "field": "options.layers.layer.text.characterStyles.characterStyle.fontColor.lab.b",
+            "description": ""
+          },
+          {
+            "group": "Request",
+            "type": "paragraphStyle[]",
+            "optional": true,
+            "field": "options.layers.layer.text.paragrapStyles",
+            "description": "<p>paragrapStyles settings. If the same supported attributes apply to all characters in the layer than this will be an array of one item, otherwise each paragraphStyle object will have a 'from' and 'to' value indicating the range of characters that the style applies to.</p>"
+          },
+          {
+            "group": "Request",
+            "type": "object",
+            "optional": true,
+            "field": "options.layers.layer.text.paragrapStyles.paragraphStyle",
+            "description": "<p>paragraph style settings</p>"
+          },
+          {
+            "group": "Request",
+            "type": "string",
+            "allowedValues": [
+              "\"left\"",
+              "\"center\"",
+              "\"right\"",
+              "\"justify\"",
+              "\"justifyLeft\"",
+              "\"justifyCenter\"",
+              "\"justifyRight\""
+            ],
+            "optional": true,
+            "field": "options.layers.layer.text.paragrapStyles.paragraphStyle.alignment",
+            "defaultValue": "left",
+            "description": "<p>the paragraph alignment</p>"
+          },
+          {
+            "group": "Request",
+            "type": "int",
+            "optional": true,
+            "field": "options.layers.layer.text.paragrapStyles.paragraphStyle.from",
+            "description": "<p>The beginning of the range of characters that this paragraphStyle applies to. Based on initial index of 0. For example a style applied to only the first two characters would be from=0 and to=1</p>"
+          },
+          {
+            "group": "Request",
+            "type": "int",
+            "optional": true,
+            "field": "options.layers.layer.text.paragrapStyles.paragraphStyle.to",
+            "description": "<p>The ending of the range of characters that this characterStyle applies to. Based on initial index of 0. For example a style applied to only the first two characters would be from=0 and to=1</p>"
+          },
+          {
+            "group": "Request",
+            "type": "object",
+            "optional": true,
             "field": "options.layers.layer.blendOptions",
             "description": "<p>Blend options of a layer, including opacity and blend mode</p>"
           },
@@ -4310,7 +4630,7 @@
               "\"image/jpeg\"",
               "\"image/png\"",
               "\"image/tiff\"",
-              "\"vnd.adobe.photoshop\""
+              "\"image/vnd.adobe.photoshop\""
             ],
             "optional": false,
             "field": "outputs.output.type",
@@ -4386,12 +4706,12 @@
       "examples": [
         {
           "title": "Request: HTTP Templated",
-          "content": "POST https://image.adobe.io/pie/psdService/documentOperations HTTP/1.1\nHost: image.adobe.io\nContent-Type: application/json\nContent-Length: <nonNegativeInteger>\nAuthorization: Bearer $token\nX-Api-Key: $api_key\n{\n  \"inputs\":[\n    {\n      \"href\":\"<presigned_getURL> or <cc_storage_location>\",\n      \"storage\":\"<storage>\"\n    }\n  ],\n  \"options\":{\n      \"layers\":[\n          {\n              \"id\":<layerId>,\n              \"index\":<index>,\n              \"type\":\"<type>\",\n              \"name\":\"<name>\",\n              \"locked\":<bool>,\n              \"visible\":<bool>,\n              \"children\":[\n\n              ],\n              \"edit\":{},\n              \"add\":{\n                  \"insertAbove\":{\n                      \"id\":<id>,\n                      \"name\":\"<name>\"\n                  },\n                  \"insertBelow\":{\n                      \"id\":<id>,\n                      \"name\":\"<name>\"\n                  },\n                  \"insertInto\":{\n                      \"id\":<id>,\n                      \"name\":\"<name>\"\n                  },\n                  \"insertTop\":<bool>,\n                  \"insertBottom\":<bool>\n              },\n              \"smartObject\":{\n                \"linked\":<bool>\n              }\n              \"bounds\":{\n                  \"top\":<top>,\n                  \"left\":<left>,\n                  \"width\":<width>,\n                  \"height\":<height>\n              },\n              \"fill\":{\n                \"solidColor\":{\n                  \"rgb\" : {\n                    \"red\":<8 bit int>,\n                    \"green\":<8 bit int>,\n                    \"blue\":<8 bit int>\n                  }\n                }\n              },\n              \"blendOptions\": {\n                  \"opacity\":<int>,\n                  \"blendMode\": \"<blendMode>\"\n              }\n          }\n      ]\n  },\n  \"outputs\":[\n      {\n        \"href\":\"<cc_storage_location>\",\n        \"storage\":\"adobe\",\n        \"type\":\"<type>\",\n        \"width\":<width>,\n        \"overwrite\":<bool>,\n        \"trimToCanvas\":<bool>,\n        \"layers\":[\n            {\n                \"id\":<id>,\n                \"name\":<name>\n            }\n        ]\n      },\n      {\n        \"href\":\"https://some-bucket-us-east-1.amazonaws.com/s3_presigned_putObject..\",\n        \"storage\":\"external\",\n        \"type\":\"vnd.adobe.photoshop\",\n        \"overwrite\":false\n      }\n  ]\n}",
+          "content": "POST https://image.adobe.io/pie/psdService/documentOperations HTTP/1.1\nHost: image.adobe.io\nContent-Type: application/json\nContent-Length: <nonNegativeInteger>\nAuthorization: Bearer $token\nX-Api-Key: $api_key\n{\n  \"inputs\":[\n    {\n      \"href\":\"<presigned_getURL> or <cc_storage_location>\",\n      \"storage\":\"<storage>\"\n    }\n  ],\n  \"options\":{\n      \"manageMissingFonts\": \"<fail> or <useDefault>\",\n      \"globalFont\": \"<global_font_postscript_name>\",\n      \"fonts\": [\n        {\n          \"href\":\"<presigned_getURL> or <cc_storage_location>\",\n          \"storage\":\"<storage>\"\n        }\n      ],\n      \"layers\":[\n          {\n              \"id\":<layerId>,\n              \"index\":<index>,\n              \"type\":\"<type>\",\n              \"name\":\"<name>\",\n              \"locked\":<bool>,\n              \"visible\":<bool>,\n              \"children\":[\n\n              ],\n              \"edit\":{},\n              \"add\":{\n                  \"insertAbove\":{\n                      \"id\":<id>,\n                      \"name\":\"<name>\"\n                  },\n                  \"insertBelow\":{\n                      \"id\":<id>,\n                      \"name\":\"<name>\"\n                  },\n                  \"insertInto\":{\n                      \"id\":<id>,\n                      \"name\":\"<name>\"\n                  },\n                  \"insertTop\":<bool>,\n                  \"insertBottom\":<bool>\n              },\n              \"smartObject\":{\n                \"linked\":<bool>\n              }\n              \"bounds\":{\n                  \"top\":<top>,\n                  \"left\":<left>,\n                  \"width\":<width>,\n                  \"height\":<height>\n              },\n              \"fill\":{\n                \"solidColor\":{\n                  \"rgb\" : {\n                    \"red\":<8 bit int>,\n                    \"green\":<8 bit int>,\n                    \"blue\":<8 bit int>\n                  }\n                }\n              },\n              \"text\":{\n                  \"content\":\"<text>\",\n                  \"characterStyles\":[\n                      {\n                          \"from\":<int>,\n                          \"to\":<int>,\n                          \"fontSize\":<fontSize>,\n                          \"fontName\":\"<fontName>\",\n                          \"orientation\":\"<orientation>\",\n                          \"fontColor\":{\n                              \"rgb\":{\n                                  \"red\":<16 bit integer>,\n                                  \"green\":<16 bit integer>,\n                                  \"blue\":<16 bit integer>\n                              }\n                          }\n                      }\n                  ],\n                  \"paragraphStyles\":[\n                      {\n                          \"from\":<int>,\n                          \"to\":<int>,\n                          \"alignment\":\"<alignment>\"\n                      }\n                  ]\n              },\n              \"blendOptions\": {\n                  \"opacity\":<int>,\n                  \"blendMode\": \"<blendMode>\"\n              }\n          }\n      ]\n  },\n  \"outputs\":[\n      {\n        \"href\":\"<cc_storage_location>\",\n        \"storage\":\"adobe\",\n        \"type\":\"<type>\",\n        \"width\":<width>,\n        \"overwrite\":<bool>,\n        \"trimToCanvas\":<bool>,\n        \"layers\":[\n            {\n                \"id\":<id>,\n                \"name\":<name>\n            }\n        ]\n      },\n      {\n        \"href\":\"https://some-bucket-us-east-1.amazonaws.com/s3_presigned_putObject..\",\n        \"storage\":\"external\",\n        \"type\":\"image/vnd.adobe.photoshop\",\n        \"overwrite\":false\n      }\n  ]\n}",
           "type": "http"
         },
         {
           "title": "Request: HTTP Example",
-          "content": "POST https://image.adobe.io/pie/psdService/documentOperations HTTP/1.1\nHost: image.adobe.io\nContent-Type: application/json\nContent-Length: <nonNegativeInteger>\nAuthorization: Bearer $token\nX-Api-Key: $api_key\n{\n   \"inputs\":[\n      {\n         \"href\":\"https://some-bucket-us-east-1.amazonaws.com/s3_presigned_getObject...\",\n         \"storage\":\"external\"\n      }\n   ],\n   \"options\":{\n      \"layers\":[\n         {\n           \"add\":{\n             \"insertBottom\":true\n           },\n           \"name\":\"new content layer\",\n           \"type\":\"fillLayer\",\n           \"visible\":true,\n           \"fill\":{\n             \"solidColor\":{\n               \"rgb\" : {\n                 \"red\":0,\n                 \"green\":255,\n                 \"blue\":255\n               }\n             }\n           },\n           \"blendOptions\":{\n             \"opacity\":90,\n             \"blendMode\":\"normal\"\n           }\n         },\n         {\n            \"index\":8,\n            \"locked\":false,\n            \"name\":\"SO Layer\",\n            \"type\":\"smartObject\",\n            \"visible\":true,\n            \"add\":{\n               \"insertTop\":true\n            },\n            \"input\":{\n               \"href\":\"files/input/Simple.psd\",\n               \"storage\":\"adobe\"\n            },\n            \"smartObject\":{\n               \"linked\":false\n            }\n         }\n      ]\n   },\n   \"outputs\":[\n      {\n         \"href\":\"/files/some_project/output/design_$ReqID_$FileName.psd\",\n         \"storage\":\"adobe\",\n         \"type\":\"image/jpeg\",\n         \"width\":500,\n         \"overwrite\":true,\n         \"trimToCanvas\":false,\n         \"layers\":[\n            {\n               \"id\":77\n            }\n         ]\n      },\n      {\n         \"href\":\"https://some-bucket-us-east-1.amazonaws.com/s3_presigned_putObject..\",\n         \"storage\":\"external\",\n         \"type\":\"vnd.adobe.photoshop\",\n         \"overwrite\":false\n      }\n   ]\n}",
+          "content": "POST https://image.adobe.io/pie/psdService/documentOperations HTTP/1.1\nHost: image.adobe.io\nContent-Type: application/json\nContent-Length: <nonNegativeInteger>\nAuthorization: Bearer $token\nX-Api-Key: $api_key\n{\n   \"inputs\":[\n      {\n         \"href\":\"https://some-bucket-us-east-1.amazonaws.com/s3_presigned_getObject...\",\n         \"storage\":\"external\"\n      }\n   ],\n   \"options\":{\n      \"manageMissingFonts\": \"useDefault\",\n      \"globalFont\": \"MyriadPro-Bold\",\n      \"fonts\": [\n        {\n           \"href\":\"https://some-bucket-us-east-1.amazonaws.com/s3_presigned_getObject...\",\n           \"storage\":\"external\"\n        }\n      ],\n      \"layers\":[\n         {\n           \"add\":{\n             \"insertBottom\":true\n           },\n           \"name\":\"new content layer\",\n           \"type\":\"fillLayer\",\n           \"visible\":true,\n           \"fill\":{\n             \"solidColor\":{\n               \"rgb\" : {\n                 \"red\":0,\n                 \"green\":255,\n                 \"blue\":255\n               }\n             }\n           },\n           \"blendOptions\":{\n             \"opacity\":90,\n             \"blendMode\":\"normal\"\n           }\n         },\n         {\n            \"index\":8,\n            \"locked\":false,\n            \"name\":\"SO Layer\",\n            \"type\":\"smartObject\",\n            \"visible\":true,\n            \"add\":{\n               \"insertTop\":true\n            },\n            \"input\":{\n               \"href\":\"files/input/Simple.psd\",\n               \"storage\":\"adobe\"\n            },\n            \"smartObject\":{\n               \"linked\":false\n            }\n         },\n         {\n            \"id\":33,\n            \"edit\":{\n\n            },\n            \"index\":6,\n            \"type\":\"textLayer\",\n            \"name\":\"my text layer\",\n            \"locked\":true,\n            \"visible\":true,\n            \"bounds\":{\n               \"top\":50,\n               \"left\":100,\n               \"width\":500,\n               \"height\":450\n            },\n            \"text\":{\n               \"content\":\"NEW TEXT CHANGES\",\n               \"characterStyles\":[\n                  {\n                     \"fontSize\":12.5,\n                     \"fontName\":\"Arial-BoldMT\",\n                     \"orientation\":\"horizontal\",\n                     \"fontColor\":{\n                        \"rgb\":{\n                           \"red\":26086,\n                           \"green\":23002,\n                           \"blue\":8224\n                        }\n                     }\n                  }\n               ],\n               \"paragraphStyles\":[\n                  {\n                     \"alignment\":\"left\"\n                  }\n               ]\n            },\n            \"blendOptions\":{\n               \"opacity\":90,\n               \"blendMode\":\"normal\"\n            }\n         }\n      ]\n   },\n   \"outputs\":[\n      {\n         \"href\":\"/files/some_project/output/design_$ReqID_$FileName.psd\",\n         \"storage\":\"adobe\",\n         \"type\":\"image/jpeg\",\n         \"width\":500,\n         \"overwrite\":true,\n         \"trimToCanvas\":false,\n         \"layers\":[\n            {\n               \"id\":77\n            }\n         ]\n      },\n      {\n         \"href\":\"https://some-bucket-us-east-1.amazonaws.com/s3_presigned_putObject..\",\n         \"storage\":\"external\",\n         \"type\":\"image/vnd.adobe.photoshop\",\n         \"overwrite\":false\n      }\n   ]\n}",
           "type": "http"
         },
         {
@@ -4522,7 +4842,7 @@
     "title": "document operations status",
     "description": "<p>Returns the status of a File job. Will return 202 as long as there are child jobs still running and 200 once all children are complete</p>",
     "version": "1.0.0",
-    "name": "get-file-job-status",
+    "name": "get_file_job_status",
     "group": "Photoshop",
     "parameter": {
       "fields": {
@@ -4695,7 +5015,7 @@
               "\"image/jpeg\"",
               "\"image/png\"",
               "\"image/tiff\"",
-              "\"vnd.adobe.photoshop\""
+              "\"image/vnd.adobe.photoshop\""
             ],
             "optional": false,
             "field": "outputs.output._links.renditions.rendition.type",
@@ -4841,7 +5161,7 @@
     "title": "smart object status",
     "description": "<p>Returns the status of a smart object create or edit job. Will return 202 as long as there are child jobs still running and 200 once all children are complete</p>",
     "version": "1.0.0",
-    "name": "get-smart-object-job-status",
+    "name": "get_smart_object_job_status",
     "group": "Photoshop",
     "parameter": {
       "fields": {
@@ -4860,7 +5180,7 @@
       "examples": [
         {
           "title": "Response: Success Example",
-          "content": "HTTP/1.1 202\nContent-Type: application/json\nContent-Length: 1082\nLocation: \"https://image.adobe.io/pie/psdService/status/f4c423e4-34af-4c95-acf2-a8fdc54dad69\"\n{\n   \"jobId\":\"f4c423e4-34af-4c95-acf2-a8fdc54dad69\",\n   \"outputs\":[\n      {\n         \"input\":\"files/SO.psd\",\n         \"status\":\"succeeded\",\n         \"created\":\"2019-11-14T19:47:11.97Z\",\n         \"modified\":\"2019-11-14T19:47:17.366Z\",\n         \"_links\": {\n           \"renditions\": [\n             {\n               \"href\": \"files/SOedit.psd\",\n               \"storage\": \"adobe\",\n               \"type\": \"vnd.adobe.photoshop\"\n             }\n           ]\n         }\n      }\n   ],\n   \"_links\":{\n      \"self\":{\n         \"href\":\"https://image.adobe.io/pie/psdService/status/f4c423e4-34af-4c95-acf2-a8fdc54dad69\"\n      }\n   }\n}",
+          "content": "HTTP/1.1 202\nContent-Type: application/json\nContent-Length: 1082\nLocation: \"https://image.adobe.io/pie/psdService/status/f4c423e4-34af-4c95-acf2-a8fdc54dad69\"\n{\n   \"jobId\":\"f4c423e4-34af-4c95-acf2-a8fdc54dad69\",\n   \"outputs\":[\n      {\n         \"input\":\"files/SO.psd\",\n         \"status\":\"succeeded\",\n         \"created\":\"2019-11-14T19:47:11.97Z\",\n         \"modified\":\"2019-11-14T19:47:17.366Z\",\n         \"_links\": {\n           \"renditions\": [\n             {\n               \"href\": \"files/SOedit.psd\",\n               \"storage\": \"adobe\",\n               \"type\": \"image/vnd.adobe.photoshop\"\n             }\n           ]\n         }\n      }\n   ],\n   \"_links\":{\n      \"self\":{\n         \"href\":\"https://image.adobe.io/pie/psdService/status/f4c423e4-34af-4c95-acf2-a8fdc54dad69\"\n      }\n   }\n}",
           "type": "object"
         },
         {
@@ -4985,7 +5305,7 @@
               "\"image/jpeg\"",
               "\"image/png\"",
               "\"image/tiff\"",
-              "\"vnd.adobe.photoshop\""
+              "\"image/vnd.adobe.photoshop\""
             ],
             "optional": false,
             "field": "outputs.output._links.renditions.rendition.type",
@@ -5160,7 +5480,7 @@
     "title": "rendition create status",
     "description": "<p>Returns the status of a create rendition job. Will return 202 as long as there are child jobs still running and 200 once all children are complete</p>",
     "version": "1.0.0",
-    "name": "rendition-create-status",
+    "name": "rendition_create_status",
     "group": "Photoshop",
     "parameter": {
       "fields": {
@@ -5282,7 +5602,7 @@
               "\"image/jpeg\"",
               "\"image/png\"",
               "\"image/tiff\"",
-              "\"vnd.adobe.photoshop\""
+              "\"image/vnd.adobe.photoshop\""
             ],
             "optional": false,
             "field": "outputs.output._links.renditions.rendition.type",
@@ -5328,7 +5648,7 @@
       "examples": [
         {
           "title": "Response: Success Example Single File:",
-          "content": "HTTP/1.1 202 ACCEPTED\nContent-Type: application/json\nContent-Length: 233\nLocation: \"https://image.adobe.io/pie/psdService/status/<:jobID>\"\n{\n   \"jobID\":\"0d6029b8-1159-4b6e-b4c3-25816f91f030\",\n   \"outputs\":[\n      {\n         \"input\":\"/files/project/input.psd\",\n         \"status\":\"running\",\n         \"created\":\"2018-01-04T12:57:15.12345:Z\",\n         \"modified\":\"2018-01-04T12:58:36.12345:Z\"\n      },\n      {\n         \"input\":\"https://some-bucket-us-east-1.amazonaws.com/s3_presigned_getObject...\",\n         \"status\":\"succeeded\",\n         \"created\":\"2018-01-04T12:57:15.12345:Z\",\n         \"modified\":\"2018-01-04T12:58:36.12345:Z\",\n         \"_links\":{\n            \"renditions\":[\n               {\n                  \"href\":\"https://some-bucket-us-east-1.amazonaws.com/s3_presigned_getObject...\",\n                  \"storage\":\"external\",\n                  \"width\":512,\n                  \"type\":\"image/jpeg\"\n               },\n               {\n                  \"href\":\"https://some-bucket-us-east-1.amazonaws.com/s3_presigned_getObject...\",\n                  \"storage\":\"external\",\n                  \"width\":0,\n                  \"type\":\"image/png\"\n               },\n               {\n                  \"href\":\"https://some-bucket-us-east-1.amazonaws.com/s3_presigned_getObject...\",\n                  \"storage\":\"external\",\n                  \"width\":0,\n                  \"type\":\"image/tiff\"\n               },\n               {\n                  \"href\":\"https://some-bucket-us-east-1.amazonaws.com/s3_presigned_getObject...\",\n                  \"storage\":\"external\",\n                  \"type\":\"vnd.adobe.photoshop\"\n               }\n            ]\n         }\n      },\n      {\n         \"input\":\"/files/project/input_with_errors.psd\",\n         \"status\":\"failed\",\n         \"created\":\"2018-01-04T12:57:15.12345:Z\",\n         \"modified\":\"2018-01-04T12:58:36.12345:Z\",\n         \"errors\":{\n            \"input\":\"https://some-bucket-us-east-1.amazonaws.com/s3_presigned_getObject...\",\n            \"status\":\"failed\",\n            \"code\":\"404\",\n            \"error\":{\n               \"type\":\"FileExistsError\",\n               \"title\":\"input file does not exist\"\n            }\n         }\n      }\n   ],\n   \"_links\":{\n      \"self\":{\n         \"href\":\"https://image.adobe.io/pie/psdService/status/f54e0fcb-260b-47c3-b520-de0d17dc2b67\"\n      }\n   }\n}",
+          "content": "HTTP/1.1 202 ACCEPTED\nContent-Type: application/json\nContent-Length: 233\nLocation: \"https://image.adobe.io/pie/psdService/status/<:jobID>\"\n{\n   \"jobID\":\"0d6029b8-1159-4b6e-b4c3-25816f91f030\",\n   \"outputs\":[\n      {\n         \"input\":\"/files/project/input.psd\",\n         \"status\":\"running\",\n         \"created\":\"2018-01-04T12:57:15.12345:Z\",\n         \"modified\":\"2018-01-04T12:58:36.12345:Z\"\n      },\n      {\n         \"input\":\"https://some-bucket-us-east-1.amazonaws.com/s3_presigned_getObject...\",\n         \"status\":\"succeeded\",\n         \"created\":\"2018-01-04T12:57:15.12345:Z\",\n         \"modified\":\"2018-01-04T12:58:36.12345:Z\",\n         \"_links\":{\n            \"renditions\":[\n               {\n                  \"href\":\"https://some-bucket-us-east-1.amazonaws.com/s3_presigned_getObject...\",\n                  \"storage\":\"external\",\n                  \"width\":512,\n                  \"type\":\"image/jpeg\"\n               },\n               {\n                  \"href\":\"https://some-bucket-us-east-1.amazonaws.com/s3_presigned_getObject...\",\n                  \"storage\":\"external\",\n                  \"width\":0,\n                  \"type\":\"image/png\"\n               },\n               {\n                  \"href\":\"https://some-bucket-us-east-1.amazonaws.com/s3_presigned_getObject...\",\n                  \"storage\":\"external\",\n                  \"width\":0,\n                  \"type\":\"image/tiff\"\n               },\n               {\n                  \"href\":\"https://some-bucket-us-east-1.amazonaws.com/s3_presigned_getObject...\",\n                  \"storage\":\"external\",\n                  \"type\":\"image/vnd.adobe.photoshop\"\n               }\n            ]\n         }\n      },\n      {\n         \"input\":\"/files/project/input_with_errors.psd\",\n         \"status\":\"failed\",\n         \"created\":\"2018-01-04T12:57:15.12345:Z\",\n         \"modified\":\"2018-01-04T12:58:36.12345:Z\",\n         \"errors\":{\n            \"input\":\"https://some-bucket-us-east-1.amazonaws.com/s3_presigned_getObject...\",\n            \"status\":\"failed\",\n            \"code\":\"404\",\n            \"error\":{\n               \"type\":\"FileExistsError\",\n               \"title\":\"input file does not exist\"\n            }\n         }\n      }\n   ],\n   \"_links\":{\n      \"self\":{\n         \"href\":\"https://image.adobe.io/pie/psdService/status/f54e0fcb-260b-47c3-b520-de0d17dc2b67\"\n      }\n   }\n}",
           "type": "object"
         },
         {
@@ -5703,7 +6023,7 @@
               "\"image/jpeg\"",
               "\"image/png\"",
               "\"image/tiff\"",
-              "\"vnd.adobe.photoshop\""
+              "\"image/vnd.adobe.photoshop\""
             ],
             "optional": false,
             "field": "outputs.output.type",
@@ -5772,12 +6092,12 @@
         },
         {
           "title": "Request: HTTP Example",
-          "content": "POST https://image.adobe.io/pie/psdService/smartObject HTTP/1.1\nHost: image.adobe.io\nContent-Type: application/json\nContent-Length: <nonNegativeInteger>\nAuthorization: Bearer $token\nX-Api-Key: $api_key\n{\n  \"inputs\": [{\n    \"href\": \"files/SO.psd\",\n    \"storage\": \"adobe\"\n  }],\n  \"options\": {\n    \"layers\": [{\n      \"name\": \"New\",\n      \"input\": {\n        \"href\": \"files/jt-guitar.jpeg\",\n        \"storage\": \"adobe\"\n      },\n      \"bounds\" : {\n        \"width\" : 602,\n        \"height\" : 400\n      }\n    }]\n  },\n  \"outputs\": [{\n    \"storage\": \"adobe\",\n    \"href\": \"files/SOedit.psd\",\n    \"type\": \"vnd.adobe.photoshop\"\n  }]\n}",
+          "content": "POST https://image.adobe.io/pie/psdService/smartObject HTTP/1.1\nHost: image.adobe.io\nContent-Type: application/json\nContent-Length: <nonNegativeInteger>\nAuthorization: Bearer $token\nX-Api-Key: $api_key\n{\n  \"inputs\": [{\n    \"href\": \"files/SO.psd\",\n    \"storage\": \"adobe\"\n  }],\n  \"options\": {\n    \"layers\": [{\n      \"name\": \"New\",\n      \"input\": {\n        \"href\": \"files/jt-guitar.jpeg\",\n        \"storage\": \"adobe\"\n      },\n      \"bounds\" : {\n        \"width\" : 602,\n        \"height\" : 400\n      }\n    }]\n  },\n  \"outputs\": [{\n    \"storage\": \"adobe\",\n    \"href\": \"files/SOedit.psd\",\n    \"type\": \"image/vnd.adobe.photoshop\"\n  }]\n}",
           "type": "http"
         },
         {
           "title": "Request: CURL Templated",
-          "content": "curl -H \"Authorization: Bearer $token\" -H \"x-api-key: $api_key\" -X POST -d '{\"inputs\": [{\"href\": \"files/SOCreate.psd\",\"storage\": \"adobe\"}],\"options\": {\"layers\": [{\"locked\": false,\"name\": \"New\",\"input\": {\"href\": \"files/output/jt-guitar.jpeg\",\"storage\": \"adobe\"},\"visible\": true}]},\"outputs\": [{\"storage\": \"adobe\",\"href\": \"files/SOedit.psd\",\"type\": \"vnd.adobe.photoshop\"}]}' https://image.adobe.io/pie/psdService/smartObject",
+          "content": "curl -H \"Authorization: Bearer $token\" -H \"x-api-key: $api_key\" -X POST -d '{\"inputs\": [{\"href\": \"files/SOCreate.psd\",\"storage\": \"adobe\"}],\"options\": {\"layers\": [{\"locked\": false,\"name\": \"New\",\"input\": {\"href\": \"files/output/jt-guitar.jpeg\",\"storage\": \"adobe\"},\"visible\": true}]},\"outputs\": [{\"storage\": \"adobe\",\"href\": \"files/SOedit.psd\",\"type\": \"image/vnd.adobe.photoshop\"}]}' https://image.adobe.io/pie/psdService/smartObject",
           "type": "curl"
         }
       ]
@@ -6072,7 +6392,7 @@
     "title": "cutout status",
     "description": "<p>Get the status for an asynchronous cutout/mask job</p>",
     "version": "1.0.0",
-    "name": "get-cutout-job-status",
+    "name": "get_cutout_job_status",
     "group": "Sensei",
     "success": {
       "fields": {
@@ -6249,7 +6569,7 @@
     "title": "mask status",
     "description": "<p>Get the status for an asynchronous cutout/mask job</p>",
     "version": "1.0.0",
-    "name": "get-mask-job-status",
+    "name": "get_mask_job_status",
     "group": "Sensei",
     "success": {
       "fields": {
