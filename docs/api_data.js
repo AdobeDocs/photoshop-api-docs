@@ -5,7 +5,7 @@ define({ "api": [
     "title": "autostraighten status",
     "version": "1.0.0",
     "description": "<p>Returns the status of a job.</p>",
-    "name": "auto_straighten_job_get",
+    "name": "auto-straighten-job-get",
     "group": "Lightroom",
     "parameter": {
       "fields": {
@@ -208,7 +208,7 @@ define({ "api": [
     "title": "autostraighten",
     "version": "1.0.0",
     "description": "<p>Initiates an asynchronous job to auto straighten an image</p>",
-    "name": "auto_straighten_post",
+    "name": "auto-straighten-post",
     "group": "Lightroom",
     "parameter": {
       "examples": [
@@ -438,7 +438,7 @@ define({ "api": [
     "title": "autotone status",
     "version": "1.0.0",
     "description": "<p>Returns the status of a job.</p>",
-    "name": "auto_tone_job_get",
+    "name": "auto-tone-job-get",
     "group": "Lightroom",
     "parameter": {
       "fields": {
@@ -641,7 +641,7 @@ define({ "api": [
     "title": "autotone",
     "version": "1.0.0",
     "description": "<p>Initiates an asynchronous job to auto tone an image</p>",
-    "name": "auto_tone_post",
+    "name": "auto-tone-post",
     "group": "Lightroom",
     "parameter": {
       "examples": [
@@ -871,7 +871,7 @@ define({ "api": [
     "title": "edit status",
     "version": "1.0.0",
     "description": "<p>Returns the status of a job.</p>",
-    "name": "edit_job_get",
+    "name": "edit-job-get",
     "group": "Lightroom",
     "parameter": {
       "fields": {
@@ -1074,7 +1074,7 @@ define({ "api": [
     "title": "edit",
     "version": "1.0.0",
     "description": "<p>Initiates an asynchronous job to apply a set of edit parameters on an image</p>",
-    "name": "edit_post",
+    "name": "edit-post",
     "group": "Lightroom",
     "parameter": {
       "fields": {
@@ -1516,7 +1516,7 @@ define({ "api": [
     "title": "presets status",
     "version": "1.0.0",
     "description": "<p>Returns the status of a job.</p>",
-    "name": "presets_job_get",
+    "name": "presets-job-get",
     "group": "Lightroom",
     "parameter": {
       "fields": {
@@ -1719,7 +1719,7 @@ define({ "api": [
     "title": "presets",
     "version": "1.0.0",
     "description": "<p>Initiates an asynchronous job to apply a preset on an image</p>",
-    "name": "presets_post",
+    "name": "presets-post",
     "group": "Lightroom",
     "parameter": {
       "fields": {
@@ -1984,7 +1984,7 @@ define({ "api": [
     "title": "xmp status",
     "version": "1.0.0",
     "description": "<p>Returns the status of a job.</p>",
-    "name": "xmp_job_get",
+    "name": "xmp-job-get",
     "group": "Lightroom",
     "parameter": {
       "fields": {
@@ -2187,7 +2187,7 @@ define({ "api": [
     "title": "xmp",
     "version": "1.0.0",
     "description": "<p>Initiates an asynchronous job to apply an XMP setting to an image</p>",
-    "name": "xmp_post",
+    "name": "xmp-post",
     "group": "Lightroom",
     "parameter": {
       "fields": {
@@ -2735,7 +2735,7 @@ define({ "api": [
     "title": "document manifest",
     "description": "<p>Initiates an asynchronous job to extract and return a psd file's layer information</p>",
     "version": "1.0.0",
-    "name": "document_manifest",
+    "name": "document-manifest",
     "group": "Photoshop",
     "parameter": {
       "fields": {
@@ -2945,7 +2945,7 @@ define({ "api": [
     "title": "document manifest status",
     "description": "<p>Returns status and layer info for a psd file created by POST /psdService/status. Will return 202 as long as there are child jobs still running and 200 once all children are complete</p>",
     "version": "1.0.0",
-    "name": "document_manifest_status",
+    "name": "document-manifest-status",
     "group": "Photoshop",
     "success": {
       "fields": {
@@ -4842,7 +4842,7 @@ define({ "api": [
     "title": "document operations status",
     "description": "<p>Returns the status of a File job. Will return 202 as long as there are child jobs still running and 200 once all children are complete</p>",
     "version": "1.0.0",
-    "name": "get_file_job_status",
+    "name": "get-file-job-status",
     "group": "Photoshop",
     "parameter": {
       "fields": {
@@ -5161,7 +5161,7 @@ define({ "api": [
     "title": "smart object status",
     "description": "<p>Returns the status of a smart object create or edit job. Will return 202 as long as there are child jobs still running and 200 once all children are complete</p>",
     "version": "1.0.0",
-    "name": "get_smart_object_job_status",
+    "name": "get-smart-object-job-status",
     "group": "Photoshop",
     "parameter": {
       "fields": {
@@ -5480,7 +5480,7 @@ define({ "api": [
     "title": "rendition create status",
     "description": "<p>Returns the status of a create rendition job. Will return 202 as long as there are child jobs still running and 200 once all children are complete</p>",
     "version": "1.0.0",
-    "name": "rendition_create_status",
+    "name": "rendition-create-status",
     "group": "Photoshop",
     "parameter": {
       "fields": {
@@ -6288,7 +6288,7 @@ define({ "api": [
             "type": "string",
             "optional": false,
             "field": "input.href",
-            "description": "<p>Either an href to a single Creative Cloud asset for storage='adobe' OR a presignedGETURL for other external services.  Only png and jpg files are supported</p>"
+            "description": "<p>Either an href to a single Creative Cloud asset for storage='adobe' OR a presignedGETURL for other external services. Supported input file types include png, jpg and tif.</p>"
           },
           {
             "group": "Request",
@@ -6392,7 +6392,7 @@ define({ "api": [
     "title": "cutout status",
     "description": "<p>Get the status for an asynchronous cutout/mask job</p>",
     "version": "1.0.0",
-    "name": "get_cutout_job_status",
+    "name": "get-cutout-job-status",
     "group": "Sensei",
     "success": {
       "fields": {
@@ -6569,7 +6569,7 @@ define({ "api": [
     "title": "mask status",
     "description": "<p>Get the status for an asynchronous cutout/mask job</p>",
     "version": "1.0.0",
-    "name": "get_mask_job_status",
+    "name": "get-mask-job-status",
     "group": "Sensei",
     "success": {
       "fields": {
@@ -6811,7 +6811,7 @@ define({ "api": [
             "type": "string",
             "optional": false,
             "field": "input.href",
-            "description": "<p>Either an href to a single Creative Cloud asset for storage='adobe' OR a presignedGETURL for other external services.  Only png and jpg files are supported</p>"
+            "description": "<p>Either an href to a single Creative Cloud asset for storage='adobe' OR a presignedGETURL for other external services. Supported input file types include png, jpg and tif.</p>"
           },
           {
             "group": "Request",
