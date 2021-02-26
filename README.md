@@ -1127,7 +1127,7 @@ The workflow is exactly the same as [creating an image cutout](#example-1-initia
 This section will demonstrate how to make a 'customized workflow' by chaining different APIs. 
 
 ### Example 3: (Generate ImageCutOut result as Photoshop path)
-This workflow is ONLY for users who'd like to generate cutout result as Photoshop path instead of regular mask or cutout in above example 1([link](https://github.com/AdobeDocs/photoshop-api-docs#example-1-initiate-a-job-to-create-an-image-cutout)) and example 2([link](https://github.com/AdobeDocs/photoshop-api-docs#example-2-initiate-a-job-to-create-an-image-mask)). You will need to chain API calls to ImageCutOut service and Photoshop Service to achieve this goal. 
+This workflow is ONLY for users who'd like to generate cutout result as Photoshop path instead of regular mask or cutout in above [example 1](https://github.com/AdobeDocs/photoshop-api-docs#example-1-initiate-a-job-to-create-an-image-cutout) and [example 2](https://github.com/AdobeDocs/photoshop-api-docs#example-2-initiate-a-job-to-create-an-image-mask). You will need to chain API calls to ImageCutOut service and Photoshop Service to achieve this goal. 
 
 #### Sample Input/Output
 Sample input from [here](assets/ic_customized_workflow/input.jpg).
@@ -1136,8 +1136,8 @@ Sample output from [here](assets/ic_customized_workflow/result_with_path.jpg) (N
 #### Instructions
 
 1. Download the make-file.atn file from [here](assets/ic_customized_workflow/make-path.atn) (this file will be used in the Photoshop action API call)
-2. Make the first API call one to ImageCutOut service to generate intermediate result as RGBA cutout (https://adobedocs.github.io/photoshop-api-docs/#api-Sensei-cutout)
-3. Make the second API call to Photoshop action service to use above intermediate result as well as the make-file.atn file to generate final JPEG format result with desired PS path embedded (https://adobedocs.github.io/photoshop-api-docs/#api-Photoshop-photoshopActions)
+2. Make the first API call one to ImageCutOut service to generate intermediate result as RGBA cutout
+3. Make the second API call to Photoshop action service to use above intermediate result as well as the make-file.atn file to generate final JPEG format result with desired PS path embedded
 4. Open the final result with Photoshop Desktop app to check generated path in path panel 
 
 
