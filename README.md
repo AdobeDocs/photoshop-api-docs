@@ -168,9 +168,9 @@ You system admin will need to give you developer access in the [Adobe Admin Cons
 2. Go to https://console.adobe.io and create a service integration and follow the instructions at [Service Token Instructions](https://www.adobe.io/authentication/auth-methods.html#!AdobeDocs/adobeio-auth/master/AuthenticationOverview/ServiceAccountIntegration.md)
 
 On Step 1 of the Service Integration docs, ‘Subscribe to an Adobe Service’ you will select the following
-  1. Photoshop
-  2. Lightroom / Camera Raw API
-  3. Image Cutout
+    1. Photoshop - Creative Cloud Automation Services
+    2. Lightroom - Creative Cloud Automation Services
+    3. Image Cutout - Creative Cloud Automation Services
 
 3. Create a JSON Web Token (JWT) and exchange it for an access token
 Take the information from your integration, plus your private key that you created when you created your integration and follow the instructions at [JWT Instructions:](https://www.adobe.io/authentication/auth-methods.html#!AdobeDocs/adobeio-auth/master/JWT/JWT.md)
