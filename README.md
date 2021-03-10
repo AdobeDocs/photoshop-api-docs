@@ -10,7 +10,7 @@
   - [Authentication](#authentication)
     - [Overview](#overview)
     - [Workflow and Use Cases](#workflow-and-use-cases)
-    - [Individual users](#individual-users)
+    - [Internal Adobe Users Only](#internal-adobe-users-only)
       - [Additional OAuth 2.0 and IMS Information](#additional-oauth-20-and-ims-information)
     - [Service Token Workflow (Adobe ETLA users)](#service-token-workflow-adobe-etla-users)
       - [Additional Service Token and JWT Information](#additional-service-token-and-jwt-information)
@@ -109,24 +109,19 @@ Here are the workflows we currently support.  You are…
 
 If your workflow falls outside of these please contact us at psdservices@adobe.com so we can help meet your needs.
 
-### Individual users
-1. Get your client id and client secret.
-After you've been accepted to the PreRelease program you will be emailed your credentials (your client ID and client Secret) required for API authentication.
-
+### Internal Adobe Users Only
+1. Get your client id and client secret from the CIS team.
 2. Test out your credentials.
-This will allow you to verify that your credentials work and show you what an OAuth token looks like for when you eventually do this programmatically.
   - Browse to https://ps-prerelease-us-east-1.cloud.adobe.io
   - Enter the client id and secret
   - Follow through the login process
   - If your credentials work you should see an authorization token appear on your screen
-This is the OAuth token that’s required to make calls to the Photoshop API’s and if you’d like you can jump ahead and immediately try them out now.  Eventually you will make this process programmatic (instructions below) but in the meantime the token expires in 24 hours and you can use this workflow during development for as long as you’d like.
-
 3. Make an authenticated call to ensure you can round trip successfully with the API’s
 ```shell
 curl --request GET \
   --url https://image.adobe.io/pie/psdService/hello  \
-  --header 'Authorization: Bearer <YOUR_OAUTH_TOKEN>' \
-  --header 'x-api-key: <YOUR_CLIENT_ID>' \
+  --header "Authorization: Bearer <YOUR_OAUTH_TOKEN>" \
+  --header "x-api-key: <YOUR_CLIENT_ID>" \
 ```
   Congrats! You just made your first request to the Photoshop API.
 
@@ -150,15 +145,11 @@ curl --request GET \
   }'
   ```
 
-5. Notes on token retrieval
+5.  Notes on token retrieval
+The access token must never be transmitted as a URI parameter. Doing so would expose it to being captured in-the-clear by intermediaries such as proxy server logs. The API does not allow you to send an access token anywhere except the Authorization header field.
 
-  The access token must never be transmitted as a URI parameter. Doing so would expose it to being captured in-the-clear by intermediaries such as proxy server logs. The API does not allow you to send an access token anywhere except the Authorization header field.
-
-  Your access token will expire typically in 24 hours.  You will receive a ‘refresh_token’ when you initially obtain the access token that you can use to get a new access token.  Be aware that refreshing your token might require a new login event.  Please reference the [OAuth documentation](https://www.adobe.io/authentication/auth-methods.html#!AdobeDocs/adobeio-auth/master/OAuth/OAuth.md) for additional instructions.
-
-6. Automate token retrieval
-
-  Please contact psdservices@adobe.com for more information on how you can automate token generation for your workflow.
+Your access token will expire typically in 24 hours. You will receive a ‘refresh_token’ when you initially obtain the access token that you can use to get a new access token. Be aware that refreshing your token might require a new login event. Please reference the OAuth documentation for additional instructions.
+Please contact psdservices@adobe.com for more information on how you can automate token generation for your workflow.
 
 #### Additional OAuth 2.0 and IMS Information
 
