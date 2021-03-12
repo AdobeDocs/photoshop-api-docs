@@ -226,10 +226,13 @@ Optionally, another call can be made to retrieve the manifest file (a JSON repre
 ### Input and Output file storage
 
 Clients can use assets stored on one of the following storage types:
-1. Adobe: by referencing the path to the files on Creative Cloud
-2. External: (like AWS S3) by using a presigned GET/PUT URL
-3. Azure: By generating a SAS (Shared Access Signature) for upload/download
-4. Dropbox: Generate temporary upload/download links using https://dropbox.github.io/dropbox-api-v2-explorer/
+External:
+AWS S3: By using a presigned GET/PUT URL
+Azure: By generating a SAS (Shared Access Signature) for upload/download
+Dropbox: Generate temporary upload/download links using https://dropbox.github.io/dropbox-api-v2-explorer/
+
+Internal Adobe Employees can use Adobe: by referencing the path to the files in Creative Cloud
+
 
 ### Tracking document changes
 
