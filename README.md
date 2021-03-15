@@ -231,7 +231,7 @@ AWS S3: By using a presigned GET/PUT URL
 Azure: By generating a SAS (Shared Access Signature) for upload/download
 Dropbox: Generate temporary upload/download links using https://dropbox.github.io/dropbox-api-v2-explorer/
 
-Internal Adobe Employees can use Adobe: by referencing the path to the files in Creative Cloud
+Internal Adobe Employees can use Adobe Creative Cloud Storage by referencing the path to the files in Creative Cloud.
 
 
 ### Tracking document changes
