@@ -3487,7 +3487,7 @@
             "type": "string",
             "optional": false,
             "field": "outputs.output.layers.layer.smartObject.instanceId",
-            "description": "<p>Attribute for only Embedded Smart Object. Indicates instance id of this embedded smart object. This id is unique for different smart object instances.</p>"
+            "description": "<p>Attribute for only Embedded Smart Object. Indicates instance id of this embedded smart object. This id is unique for different smart object instances. InstanceId may have value as &quot;unknown&quot;, if the embedded smart object is generated using any other application than adobe applications like PS, Lr etc. We are deriving the value 'InstanceID' from the RAW Data of the document.</p>"
           },
           {
             "group": "Success 202",
