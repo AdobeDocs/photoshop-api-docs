@@ -794,7 +794,7 @@ Each of our Photoshop APIs, when invoked, initiates an asynchronous job and retu
     }
 }
 ```
-Using the job id returned from the response (ass above) of a successfully submitted API call, you can poll on the corresponding value in the `href` field, to get the status of the job.
+Using the job id returned from the response (as above) of a successfully submitted API call, you can poll on the corresponding value in the `href` field, to get the status of the job.
 
 ```shell
 curl -X GET \
