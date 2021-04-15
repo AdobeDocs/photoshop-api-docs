@@ -328,7 +328,7 @@ Here is an example usage of `manageMissingFonts` and `globalFont`
 ### Photoshop Actions (`New!`)
 #### Execute Photoshop Actions
 
-Adobe Photoshop APIs supports playing back Photoshop Actions recorded from Photoshop.  <a href="https://adobedocs.github.io/photoshop-api-docs-pre-release/#api-Photoshop-photoshopActions" target="_blank">Click here to see API documentation</a>
+Adobe Photoshop APIs supports playing back Photoshop Actions recorded from Photoshop.  <a href="https://adobedocs.github.io/photoshop-api-docs/#api-Photoshop-photoshopActions" target="_blank">Click here to see API documentation</a>
 
 An action is a series of tasks that you play back on a single file or a batch of files—menu commands, panel options, tool actions, and so on. For example, you can create an action that changes the size of an image, applies an effect to the image, and then saves the file in the desired format.
 
