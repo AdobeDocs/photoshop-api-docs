@@ -23,10 +23,14 @@
     - [Tracking document changes](#tracking-document-changes)
   - [Supported Features](#supported-features)
     - [SmartObject](#smartobject)
-    - [Text layers (`New!`)](#text-layers-new)
+    - [Text layers](#text-layers)
       - [Font handling](#font-handling)
       - [Handle missing fonts in the document.](#handle-missing-fonts-in-the-document)
       - [Limitations](#limitations)
+    - [Photoshop Actions (`New!`)](#photoshop-actions-new)
+      - [Execute Photoshop Actions](#execute-photoshop-actions)
+      - [Usage Recommendations](#usage-recommendations)
+      - [Known Limitations](#known-limitations)
     - [Rendering / Conversions](#rendering--conversions)
     - [Layer level edits](#layer-level-edits)
       - [The add, edit and delete objects](#the-add-edit-and-delete-objects)
@@ -50,6 +54,9 @@
     - [Example 6: Fetch the status of the job after successfully submitting a request](#example-6-fetch-the-status-of-the-job-after-successfully-submitting-a-request)
       - [Sample 6.1 Poll for job status and get the returned manifest (for the /documentManifest API)](#sample-61-poll-for-job-status-and-get-the-returned-manifest-for-the-documentmanifest-api)
       - [Sample 6.2 Poll for job status and get the results of all other APIs](#sample-62-poll-for-job-status-and-get-the-results-of-all-other-apis)
+    - [Example 7: Execute Photoshop Actions](#example-7-execute-photoshop-actions)
+      - [Sample 7.1 - Play ALL actions in .atn file.](#sample-71---play-all-actions-in-atn-file)
+      - [Sample 7.2 - Play a specific action in an .atn file using `actionName`](#sample-72---play-a-specific-action-in-an-atn-file-using-actionname)
   - [Sample Code](#sample-code)
   - [Current Limitations](#current-limitations)
 - [ImageCutout](#imagecutout)
@@ -260,7 +267,7 @@ For better performance, we rasterize our smart objects that are bigger than  200
 
 For optimal processing, please make sure the embedded smart object that you want to replace only contains alphanumeric characters in it's name.
 
-### Text layers (`New!`)
+### Text layers
 
 The Photoshop APIs currently support creating and editing of Text Layer with different fonts, character styles and paragraph styles. The set of text attributes that can be edited is listed below:
 - Edit the text contents
@@ -317,6 +324,31 @@ Here is an example usage of `manageMissingFonts` and `globalFont`
 
 #### Limitations
 - Most of the text attributes retain their respective original values. There are some attributes however that do not retain their original values. For example (and not limited to): tracking, leading, kerning
+
+### Photoshop Actions (`New!`)
+#### Execute Photoshop Actions
+
+Adobe Photoshop APIs supports playing back Photoshop Actions recorded from Photoshop.  <a href="https://adobedocs.github.io/photoshop-api-docs/#api-Photoshop-photoshopActions" target="_blank">Click here to see API documentation</a>
+
+An action is a series of tasks that you play back on a single file or a batch of files—menu commands, panel options, tool actions, and so on. For example, you can create an action that changes the size of an image, applies an effect to the image, and then saves the file in the desired format.
+
+For more information on how to create Photoshop Actions, see <a href="https://helpx.adobe.com/photoshop/using/actions-actions-panel.html" target="_blank">Adobe Help Center</a>
+
+#### Usage Recommendations
+* Create actions that do not open any operating system dialogs. All Photoshop dialogs are supported, but not operating system dialogs.
+* It is recommended to create Actions that do not require user interactions.
+* Input and Output file format should be any of PSD, JPEG, PNG, or TIFF.
+* Make sure to test your actions on Photoshop, with several different input/images. If it has any errors on Photoshop, it won't run successfully on our servers either.
+
+#### Known Limitations
+The following are known limitations for the Alpha release
+
+* Not supported, 3D and Video features
+* Custom presets (for example color swatches and brushes)
+* The action should operate on one document.  Multiple documents support will be in a future release
+
+Here are examples of submitting and executing Photoshop Actions.
+[Execute Photoshop Actions](#sample-71---play-all-actions-in-atn-file)
 
 ### Rendering / Conversions
 - Create a new PSD document
@@ -1008,6 +1040,69 @@ Once your job completes successfully (no errors/failures reported), this will re
     }
   }
 }
+```
+
+###  Example 7: Execute Photoshop Actions
+
+#### Sample 7.1 - Play ALL actions in .atn file.
+```
+export token=<YOUR_TOKEN>
+export api_key =<YOUR_API_KEY>
+curl -H "Authorization: Bearer $token" -H "x-api-key: $api_key" https://image.adobe.io/pie/psdService/photoshopActions -d '{
+  "inputs": [
+    {
+      "href": "https://as2.ftcdn.net/jpg/02/49/48/49/500_F_249484911_JifPIzjUqzkRhcdMkF9GnsUI9zaqdAsn.jpg",
+      "storage": "external"
+    }
+  ],
+  "options": {
+    "actions": [
+      {
+        "href": "https://raw.githubusercontent.com/johnleetran/ps-actions-samples/master/actions/Oil-paint.atn",
+        "storage": "external"
+      }
+    ]
+  },
+  "outputs": [
+    {
+      "storage": "external",
+      "type": "image/jpeg",
+      "href": "https://some-presigned-url/output.jpeg"
+    }
+  ]
+}'
+```
+#### Sample 7.2 - Play a specific action in an .atn file using `actionName`
+
+By default, Photoshop API will attempt to play all actions in an action set.  If you would like to only playback a specific action, you can specify `actionName` and the name of the action you want to invoke (see example below).
+
+```
+export token=<YOUR_TOKEN>
+export api_key =<YOUR_API_KEY>
+curl -H "Authorization: Bearer $token" -H "x-api-key: $api_key" https://image.adobe.io/pie/psdService/photoshopActions -d '{
+  "inputs": [
+    {
+      "href": "https://as2.ftcdn.net/jpg/02/49/48/49/500_F_249484911_JifPIzjUqzkRhcdMkF9GnsUI9zaqdAsn.jpg",
+      "storage": "external"
+    }
+  ],
+  "options": {
+    "actions": [
+      {
+        "href": "https://raw.githubusercontent.com/johnleetran/ps-actions-samples/master/actions/Oil-paint.atn",
+        "storage": "external",
+        "actionName": "Action 51"
+      }
+    ]
+  },
+  "outputs": [
+    {
+      "storage": "external",
+      "type": "image/jpeg",
+      "href": "https://some-presigned-url/output.jpeg"
+    }
+  ]
+}'
 ```
 
 ## Sample Code
