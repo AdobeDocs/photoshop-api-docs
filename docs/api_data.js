@@ -5205,6 +5205,325 @@ define({ "api": [
   {
     "type": "get",
     "url": "https://image.adobe.io/pie/psdService/status/<:jobId>",
+    "title": "photoshop actions status",
+    "description": "<p>Returns the status of a photoshop actions create request. Will return 202 as long as there are child jobs still running and 200 once all children are complete</p>",
+    "version": "1.0.0",
+    "name": "get-photoshop-actions-job-status",
+    "group": "Photoshop",
+    "parameter": {
+      "fields": {
+        "URL Param": [
+          {
+            "group": "URL Param",
+            "type": "string",
+            "optional": false,
+            "field": "jobId",
+            "description": "<p>The jobId to get status for.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Response: Success Example",
+          "content": "HTTP/1.1 202\nContent-Type: application/json\nContent-Length: 1082\nLocation: \"https://image.adobe.io/pie/psdService/status/f4c423e4-34af-4c95-acf2-a8fdc54dad69\"\n{\n  \"jobId\": \"da79934f-07f3-46d4-82a1-1370175d80bc\",\n  \"outputs\": [\n    {\n      \"input\": \"https://www.some-image.com/image.jpg\",\n      \"status\": \"succeeded\",\n      \"created\": \"2020-09-23T20:55:40.891Z\",\n      \"modified\": \"2020-09-23T20:55:45.627Z\",\n      \"_links\": {\n        \"renditions\": [\n          {\n            \"href\": \"https://www.some-image.com//output.jpeg\",\n            \"storage\": \"external\",\n            \"type\": \"image/jpeg\"\n          }\n        ]\n      }\n    }\n  ],\n  \"_links\": {\n    \"self\": {\n      \"href\": \"https://image.adobe.io/pie/psdService/status/f4c423e4-34af-4c95-acf2-a8fdc54dad69\"\n    }\n  }\n}",
+          "type": "object"
+        },
+        {
+          "title": "Request: HTTP Example",
+          "content": "GET /psdService/status/<:jobId> HTTP/1.1\nHost: image.adobe.io\nAuthorization: Bearer $token\nX-Api-Key: $api_key",
+          "type": "http"
+        },
+        {
+          "title": "Request: CURL Templated",
+          "content": "curl -H \"Authorization: Bearer $token\" -H \"x-api-key: $api_key\" -X GET https://image.adobe.io/pie/psdService/status/<:jobId>",
+          "type": "curl"
+        },
+        {
+          "title": "Response: Success Templated",
+          "content": "HTTP/1.1 202\nContent-Type: application/json\nContent-Length: <nonNegativeInteger>\nLocation: \"/psdService/status/<:jobId>\"\n{\n    \"jobId\":\"<:jobId>\",\n    \"outputs\":[\n        {\n            \"input\":\"<input>\",\n            \"status\":\"<status>\",\n            \"_links\":{\n              \"renditions\":[\n                {\n                  \"href\":\"<href>\",\n                  \"storage\":\"<storage>\",\n                  \"width\":\"<width>\",\n                  \"type\":\"<type>\"\n                }\n              ]\n            }\n        },\n        {\n            \"input\":\"<input>\",\n            \"status\":\"<status>\",\n            \"errors\": {\n              \"type\": \"<errorType>\",\n              \"title\": \"<errorDescription>\",\n              \"code\": \"<errorCode>\",\n              \"<errorDetails>\": [\n                {\n                  \"name\":\"<paramName>\",\n                  \"reason\":\"<error>\"\n                }\n              ]\n            }\n        }\n    ],\n    \"_links\":{\n        \"self\":{\n            \"href\":\"https://image.adobe.io/pie/psdService/status/<:jobId>\"\n        }\n    }\n}",
+          "type": "object"
+        }
+      ],
+      "fields": {
+        "Success 202": [
+          {
+            "group": "Success 202",
+            "type": "string",
+            "optional": false,
+            "field": "jobId",
+            "description": "<p>the job's id requested</p>"
+          },
+          {
+            "group": "Success 202",
+            "type": "string",
+            "optional": false,
+            "field": "outputs.output.created",
+            "description": "<p>&quot;YYYY-DD-MMThh:mm:ss.mmmmmZ&quot; created timestamp of the job</p>"
+          },
+          {
+            "group": "Success 202",
+            "type": "string",
+            "optional": false,
+            "field": "outputs.output.modified",
+            "description": "<p>&quot;YYYY-DD-MMThh:mm:ss.mmmmmZ&quot;  modified timestamp of the job</p>"
+          },
+          {
+            "group": "Success 202",
+            "type": "output[]",
+            "optional": false,
+            "field": "outputs",
+            "description": "<p>array of output objects</p>"
+          },
+          {
+            "group": "Success 202",
+            "type": "array",
+            "optional": false,
+            "field": "outputs.output",
+            "description": "<p>an output object</p>"
+          },
+          {
+            "group": "Success 202",
+            "type": "string",
+            "optional": false,
+            "field": "outputs.output.input",
+            "description": "<p>the original input file path</p>"
+          },
+          {
+            "group": "Success 202",
+            "type": "string",
+            "optional": false,
+            "field": "outputs.output.status",
+            "description": "<p>the child job status</p>  <ul>    <li>pending - request has been accepted and is waiting to start</li>    <li>running - the child job is running</li>    <li>uploading - files have been generated and are uploading to destination</li>    <li>succeeded - the child job has succeeded</li>    <li>failed - the child job has failed</li>  </ul>"
+          },
+          {
+            "group": "Success 202",
+            "type": "object",
+            "optional": false,
+            "field": "outputs.output._links",
+            "description": "<p>the rendition links</p>"
+          },
+          {
+            "group": "Success 202",
+            "type": "rendition[]",
+            "optional": false,
+            "field": "outputs.output._links.renditions",
+            "description": "<p>array off rendition objects</p>"
+          },
+          {
+            "group": "Success 202",
+            "type": "object",
+            "optional": false,
+            "field": "outputs.output._links.renditions.rendition",
+            "description": "<p>rendition object</p>"
+          },
+          {
+            "group": "Success 202",
+            "type": "string",
+            "optional": false,
+            "field": "outputs.output._links.renditions.rendition.href",
+            "description": "<p>the rendition location</p>"
+          },
+          {
+            "group": "Success 202",
+            "type": "string",
+            "allowedValues": [
+              "\"external\"",
+              "\"adobe\"",
+              "\"azure\"",
+              "\"dropbox\""
+            ],
+            "optional": false,
+            "field": "outputs.output._links.renditions.rendition.storage",
+            "description": ""
+          },
+          {
+            "group": "Success 202",
+            "type": "int",
+            "optional": false,
+            "field": "outputs.output._links.renditions.rendition.width",
+            "description": "<p>the requested rendition width in pixels.</p>"
+          },
+          {
+            "group": "Success 202",
+            "type": "string",
+            "allowedValues": [
+              "\"image/jpeg\"",
+              "\"image/png\"",
+              "\"image/tiff\"",
+              "\"image/vnd.adobe.photoshop\""
+            ],
+            "optional": false,
+            "field": "outputs.output._links.renditions.rendition.type",
+            "description": ""
+          },
+          {
+            "group": "Success 202",
+            "type": "string",
+            "allowedValues": [
+              "\"true\"",
+              "\"false\""
+            ],
+            "optional": true,
+            "field": "outputs.output._links.renditions.rendition.trimToCanvas",
+            "description": ""
+          },
+          {
+            "group": "Success 202",
+            "type": "layer[]",
+            "optional": true,
+            "field": "outputs.output._links.renditions.rendition.layers",
+            "description": "<p>an array of layer objects signifying the rendition needed for a document.</p>"
+          },
+          {
+            "group": "Success 202",
+            "type": "int",
+            "optional": false,
+            "field": "outputs.output._links.renditions.rendition.layers.id",
+            "description": "<p>the layer id</p>"
+          },
+          {
+            "group": "Success 202",
+            "type": "string",
+            "optional": false,
+            "field": "outputs.output._links.renditions.rendition.layers.name",
+            "description": "<p>the layer name.</p>"
+          },
+          {
+            "group": "Success 202",
+            "type": "object",
+            "optional": false,
+            "field": "outputs.output.errors",
+            "description": "<p>any errors reported requested output</p>"
+          },
+          {
+            "group": "Success 202",
+            "type": "string",
+            "optional": false,
+            "field": "outputs.output.errors.type",
+            "description": "<p>a machine readable error type</p>"
+          },
+          {
+            "group": "Success 202",
+            "type": "string",
+            "optional": false,
+            "field": "outputs.output.errors.code",
+            "description": "<p>a machine readable error code</p>"
+          },
+          {
+            "group": "Success 202",
+            "type": "string",
+            "optional": false,
+            "field": "outputs.output.errors.title",
+            "description": "<p>a short human readable error summary</p>"
+          },
+          {
+            "group": "Success 202",
+            "type": "array",
+            "optional": true,
+            "field": "outputs.output.errors.errorDetails",
+            "description": "<p>further descriptions of the exact errors where <code>errorDetail</code> is substituted for a specific issue</p>"
+          }
+        ]
+      }
+    },
+    "filename": "docs-src/prod/get-photoshop-actions-create.js",
+    "groupTitle": "Photoshop",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "string",
+            "optional": false,
+            "field": "authorization",
+            "description": "<p>Authorization value.</p>"
+          },
+          {
+            "group": "Header",
+            "type": "string",
+            "optional": false,
+            "field": "Content-Type",
+            "description": "<p>&quot;application/json&quot;</p>"
+          },
+          {
+            "group": "Header",
+            "type": "string",
+            "optional": false,
+            "field": "x-api-key",
+            "description": "<p>a client id</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "Errors": [
+          {
+            "group": "Errors",
+            "type": "string",
+            "optional": false,
+            "field": "type",
+            "description": "<p>a machine-readable error type</p>"
+          },
+          {
+            "group": "Errors",
+            "type": "string",
+            "optional": false,
+            "field": "code",
+            "description": "<p>a machine-readable error code</p>"
+          },
+          {
+            "group": "Errors",
+            "type": "string",
+            "optional": false,
+            "field": "title",
+            "description": "<p>short, human-readable summary of the problem</p>"
+          },
+          {
+            "group": "Errors",
+            "type": "array",
+            "optional": false,
+            "field": "errorDetails",
+            "description": "<p>further descriptions of the exact errors where <code>errorDetail</code> is substituted for a specific issue.</p>"
+          },
+          {
+            "group": "Errors",
+            "type": "details",
+            "optional": false,
+            "field": "errorCodes",
+            "description": "<p>This field does not appear in the response but is a partial list of error codes and types</p>  <ul>    <li>400: InputValidationError</li>    <li>400: PayloadValidationError</li>    <li>400: RequestBodyError</li>    <li>401: MissingAuthTokenError</li>    <li>401: InvalidAuthTokenError</li>    <li>403: AuthForbidden</li>    <li>404: FileExistsErrors</li>    <li>404: InputFileExistsErrors</li>    <li>404: ResourceNotFound</li>    <li>415: InvalidContentTypeError</li>    <li>500: UndefinedError</li>  </ul>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response-Inline Templated",
+          "content": "// This is a templated example for when a requested job has failed\n\nHTTP/1.1 <Status_Code> <Reason>\nContent-Type: application/json\nContent-Length: <nonNegativeInteger>\n{\n  \"jobId\": \"<jobID\",\n  \"outputs\":[\n      {\n        \"input\":\"<href>\",\n        \"status\":\"<status>\",\n        \"created\":\"<YYYY-DD-MMThh:mm:ss.mmmmmZ>\",\n        \"modified\":\"<YYYY-DD-MMThh:mm:ss.mmmmmZ>\",\n        \"errors\":{\n          \"type\":\"<errorType>\",\n          \"title\":\"<errorDescription>\",\n          \"code\": \"\"<errorCode>\",\n          \"<errorDetails>\":[\n            {\n              \"name\":\"<paramName>\",\n              \"reason\":\"<error>\"\n            }\n          ]\n        }\n      }\n   ]\n}",
+          "type": "object"
+        },
+        {
+          "title": "Error-Response-Inline Example",
+          "content": " // In this example the GET call to /status succeeds but one of the initiated jobs has failed\n\n HTTP/1.1 200 OK\n Content-Type: application/json\n Content-Length: {xsd:nonNegativeInteger}\n Location: \"/psdService/status/f54e0fcb-260b-47c3-b520-de0d17dc2b67\"\n {\n   \"jobId\":\"f54e0fcb-260b-47c3-b520-de0d17dc2b67\",\n   \"outputs\":[\n      {\n         \"input\":\"https://some-bucket-us-east-1.amazonaws.com/s3_presigned_getObject...\",\n         \"status\":\"failed\",\n         \"created\":\"2018-01-04T12:57:15.12345Z\",\n         \"modified\":\"2018-01-04T12:58:36.12345Z\",\n         \"error\":{\n            \"type\":\"FileExistsError\",\n            \"title\":\"input file does not exist\",\n            \"code\":\"400\"\n         }\n      }\n   ]\n}",
+          "type": "object"
+        },
+        {
+          "title": "Response: Error Templated",
+          "content": "// This is a templated example for when the call itself fails\n\nHTTP/1.1 <Status_Code> <Reason>\nContent-Type: application/json\nContent-Length: <nonNegativeInteger>\n{\n  \"type\": \"<errorType>\",\n  \"code\": \"<errorCode>\",\n  \"title\": \"<errorDescription>\",\n  \"<errorDetails>\": [\n    {\n      \"name\":\"<paramName>\",\n      \"reason\":\"<error>\"\n    }\n  ]\n}",
+          "type": "object"
+        },
+        {
+          "title": "Response: Error Example",
+          "content": "// This is an example for when the call itself fails\n\nHTTP/1.1 404 OK\nContent-Type: application/json\nContent-Length: 584\nLocation: \"/psdService/status/f54e0fcb-260b-47c3-b520-de0d17dc2b67\"\n{\n    \"type\": \"ResourceNotFound\",\n    \"title\": \"Requested resource was not found\",\n    \"code\": 404\n}",
+          "type": "object"
+        }
+      ]
+    }
+  },
+  {
+    "type": "get",
+    "url": "https://image.adobe.io/pie/psdService/status/<:jobId>",
     "title": "smart object status",
     "description": "<p>Returns the status of a smart object create or edit job. Will return 202 as long as there are child jobs still running and 200 once all children are complete</p>",
     "version": "1.0.0",
@@ -5508,6 +5827,369 @@ define({ "api": [
           "content": " // In this example the GET call to /status succeeds but one of the initiated jobs has failed\n\n HTTP/1.1 200 OK\n Content-Type: application/json\n Content-Length: {xsd:nonNegativeInteger}\n Location: \"/psdService/status/f54e0fcb-260b-47c3-b520-de0d17dc2b67\"\n {\n   \"jobId\":\"f54e0fcb-260b-47c3-b520-de0d17dc2b67\",\n   \"outputs\":[\n      {\n         \"input\":\"https://some-bucket-us-east-1.amazonaws.com/s3_presigned_getObject...\",\n         \"status\":\"failed\",\n         \"created\":\"2018-01-04T12:57:15.12345Z\",\n         \"modified\":\"2018-01-04T12:58:36.12345Z\",\n         \"error\":{\n            \"type\":\"FileExistsError\",\n            \"title\":\"input file does not exist\",\n            \"code\":\"400\"\n         }\n      }\n   ]\n}",
           "type": "object"
         },
+        {
+          "title": "Response: Error Templated",
+          "content": "// This is a templated example for when the call itself fails\n\nHTTP/1.1 <Status_Code> <Reason>\nContent-Type: application/json\nContent-Length: <nonNegativeInteger>\n{\n  \"type\": \"<errorType>\",\n  \"code\": \"<errorCode>\",\n  \"title\": \"<errorDescription>\",\n  \"<errorDetails>\": [\n    {\n      \"name\":\"<paramName>\",\n      \"reason\":\"<error>\"\n    }\n  ]\n}",
+          "type": "object"
+        },
+        {
+          "title": "Response: Error Example",
+          "content": "// This is an example for when the call itself fails\n\nHTTP/1.1 404 OK\nContent-Type: application/json\nContent-Length: 584\nLocation: \"/psdService/status/f54e0fcb-260b-47c3-b520-de0d17dc2b67\"\n{\n    \"type\": \"ResourceNotFound\",\n    \"title\": \"Requested resource was not found\",\n    \"code\": 404\n}",
+          "type": "object"
+        }
+      ]
+    }
+  },
+  {
+    "type": "post",
+    "url": "https://image.adobe.io/pie/psdService/photoshopActions",
+    "title": "photoshop actions",
+    "description": "<p>Initiates an asynchronous job to execute Photoshop Actions on a given image</p>",
+    "version": "1.0.0",
+    "name": "photoshopActions",
+    "group": "Photoshop",
+    "parameter": {
+      "fields": {
+        "Request": [
+          {
+            "group": "Request",
+            "type": "input[]",
+            "optional": false,
+            "field": "inputs",
+            "description": "<p>An array of input objects. We currently only support one input object.</p>"
+          },
+          {
+            "group": "Request",
+            "type": "object",
+            "optional": false,
+            "field": "inputs.input",
+            "description": "<p>An object describing an input PSD file.Current support is for files less than 1000MB.</p>"
+          },
+          {
+            "group": "Request",
+            "type": "object",
+            "optional": false,
+            "field": "options",
+            "description": "<p>available options to apply to all input files</p>"
+          },
+          {
+            "group": "Request",
+            "type": "actions[]",
+            "optional": false,
+            "field": "options.actions",
+            "description": "<p>array of action objects (We currently only support one input object) An array of action objects you wish photoshopActions to execute.</p>"
+          },
+          {
+            "group": "Request",
+            "type": "object",
+            "optional": false,
+            "field": "options.actions.action",
+            "description": "<p>a action object which tells the API where to download the action file</p>"
+          },
+          {
+            "group": "Request",
+            "type": "string",
+            "optional": false,
+            "field": "options.actions.action.href",
+            "description": "<p>Either a Creative Cloud assets path for storage=&quot;adobe&quot; OR a presignedPutURL. The &quot;/files&quot; path directly corresponds to the root of your local &quot;Creative Cloud Files&quot; folder.</p>"
+          },
+          {
+            "group": "Request",
+            "type": "string",
+            "allowedValues": [
+              "\"adobe\"",
+              "\"external\"",
+              "\"azure\"",
+              "\"dropbox\""
+            ],
+            "optional": false,
+            "field": "options.actions.action.storage",
+            "defaultValue": "adobe",
+            "description": "<p>storage platforms supported</p>"
+          },
+          {
+            "group": "Request",
+            "type": "string",
+            "optional": true,
+            "field": "options.actions.action.actionName",
+            "description": "<p>if you only want to execute a particular action, you may specify whcih action to play  in the ActionSet</p>"
+          },
+          {
+            "group": "Request",
+            "type": "patterns[]",
+            "optional": true,
+            "field": "options.patterns",
+            "defaultValue": "false",
+            "description": "<p>array of pattern objects (We currently only support one input object) An array of pattern objects you wish photoshopActions to use when playing an action that requires a custom pattern.</p>"
+          },
+          {
+            "group": "Request",
+            "type": "object",
+            "optional": false,
+            "field": "options.patterns.pattern",
+            "description": "<p>a pattern object which tells the API where to download the pattern file that is needed for your action</p>"
+          },
+          {
+            "group": "Request",
+            "type": "string",
+            "optional": false,
+            "field": "options.patterns.pattern.href",
+            "description": "<p>Either a Creative Cloud assets path for storage=&quot;adobe&quot; OR a presignedPutURL. The &quot;/files&quot; path directly corresponds to the root of your local &quot;Creative Cloud Files&quot; folder.</p>"
+          },
+          {
+            "group": "Request",
+            "type": "string",
+            "allowedValues": [
+              "\"adobe\"",
+              "\"external\"",
+              "\"azure\"",
+              "\"dropbox\""
+            ],
+            "optional": false,
+            "field": "options.patterns.pattern.storage",
+            "defaultValue": "adobe",
+            "description": "<p>storage platforms supported</p>"
+          },
+          {
+            "group": "Request",
+            "type": "fonts[]",
+            "optional": true,
+            "field": "options.fonts",
+            "defaultValue": "false",
+            "description": "<p>options.fonts array of font objects An array of font objects you wish use when executing the action.</p>"
+          },
+          {
+            "group": "Request",
+            "type": "object",
+            "optional": false,
+            "field": "options.fonts.font",
+            "description": "<p>a font object which tells the API where to download the font that is needed for your action</p>"
+          },
+          {
+            "group": "Request",
+            "type": "string",
+            "optional": false,
+            "field": "options.fonts.font.href",
+            "description": "<p>Either a Creative Cloud assets path for storage=&quot;adobe&quot; OR a presignedPutURL. The &quot;/files&quot; path directly corresponds to the root of your local &quot;Creative Cloud Files&quot; folder.</p>"
+          },
+          {
+            "group": "Request",
+            "type": "string",
+            "allowedValues": [
+              "\"adobe\"",
+              "\"external\"",
+              "\"azure\"",
+              "\"dropbox\""
+            ],
+            "optional": false,
+            "field": "options.fonts.font.storage",
+            "defaultValue": "adobe",
+            "description": "<p>storage platforms supported</p>"
+          },
+          {
+            "group": "Request",
+            "type": "output[]",
+            "optional": false,
+            "field": "outputs",
+            "description": "<p>An array of output objects</p>"
+          },
+          {
+            "group": "Request",
+            "type": "output",
+            "optional": false,
+            "field": "outputs.output",
+            "description": "<p>An object describing the requested file output (a new PSD file. right now supports a single output PSD)</p>"
+          },
+          {
+            "group": "Request",
+            "type": "string",
+            "allowedValues": [
+              "\"adobe\"",
+              "\"external\"",
+              "\"azure\"",
+              "\"dropbox\""
+            ],
+            "optional": false,
+            "field": "outputs.output.storage",
+            "defaultValue": "adobe",
+            "description": "<p>storage platforms supported</p>"
+          },
+          {
+            "group": "Request",
+            "type": "string",
+            "optional": false,
+            "field": "outputs.output.href",
+            "description": "<p>Either a Creative Cloud assets path for storage=&quot;adobe&quot; OR a presignedPUTURL..</p>"
+          },
+          {
+            "group": "Request",
+            "type": "string",
+            "allowedValues": [
+              "\"image/jpeg\"",
+              "\"image/png\"",
+              "\"image/tiff\"",
+              "\"image/vnd.adobe.photoshop\""
+            ],
+            "optional": false,
+            "field": "outputs.output.type",
+            "description": "<p>desired image format.</p>"
+          },
+          {
+            "group": "Request",
+            "type": "bool",
+            "optional": true,
+            "field": "outputs.output.overwrite",
+            "defaultValue": "true",
+            "description": "<p>If the file already exists, indicates if the output file should be overwritten. Will eventually support eTags. Only applies to CC Storage</p>"
+          },
+          {
+            "group": "Request",
+            "type": "string",
+            "allowedValues": [
+              "\"adobe\"",
+              "\"external\"",
+              "\"azure\"",
+              "\"dropbox\""
+            ],
+            "optional": false,
+            "field": "inputs.input.storage",
+            "defaultValue": "adobe",
+            "description": "<p>storage platforms supported</p>"
+          },
+          {
+            "group": "Request",
+            "type": "string",
+            "optional": false,
+            "field": "inputs.input.href",
+            "description": "<p>Either a Creative Cloud assets path for storage=&quot;adobe&quot; OR a presignedGETURL.</p>  <ul>    <li>CC Storage path must be prepended with `/files` or `/cloud-content` or `/asset`       <li>The `/files` path directly corresponds to the root of your local `Creative Cloud Files` folder</li>       <li>The `/cloud-content` path directly corresponds to the root of your `Cloud documents` folder in CC</li>    </li>  </ul>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request: HTTP Templated",
+          "content": "POST https://image.adobe.io/pie/psdService/photoshopActions HTTP/1.1\nHost: image.adobe.io\nContent-Type: application/json\nContent-Length: <nonNegativeInteger>\nAuthorization: Bearer $token\nX-Api-Key: $api_key\n{\n  \"inputs\": [\n    {\n      \"href\": \"<presigned_getURL> or <cc_storage_location>\",\n      \"storage\": \"<storage>\"\n    }\n  ],\n  \"options\": {\n    \"actions\": [\n      {\n        \"href\": \"<presigned_getURL> or <cc_storage_location>\",\n        \"storage\": \"<storage>\"\n      }\n    ]\n  },\n  \"outputs\": [\n    {\n      \"storage\": \"<storage>\",\n      \"type\": \"i<type>\",\n      \"overwrite\": <bool>,\n      \"href\": \"<presigned_getURL> or <cc_storage_location>\"\n    }\n  ]\n}",
+          "type": "http"
+        },
+        {
+          "title": "Request: HTTP Example",
+          "content": "POST https://image.adobe.io/pie/psdService/smartObject HTTP/1.1\nHost: image.adobe.io\nContent-Type: application/json\nContent-Length: <nonNegativeInteger>\nAuthorization: Bearer $token\nX-Api-Key: $api_key\n{\n  \"inputs\": [\n    {\n      \"href\": \"https://as2.ftcdn.net/jpg/02/49/48/49/500_F_249484911_JifPIzjUqzkRhcdMkF9GnsUI9zaqdAsn.jpg\",\n      \"storage\": \"external\"\n    }\n  ],\n  \"options\": {\n    \"actions\": [\n      {\n        \"href\": \"https://raw.githubusercontent.com/johnleetran/ps-actions-samples/master/actions/Oil-paint.atn\",\n        \"storage\": \"external\"\n      }\n    ]\n  },\n  \"outputs\": [\n    {\n      \"storage\": \"external\",\n      \"type\": \"image/jpeg\",\n      \"href\": \"https://some-presigned-url.com/output.jpeg\"\n    }\n  ]\n}",
+          "type": "http"
+        },
+        {
+          "title": "Request: HTTP Example With Custom Patterns",
+          "content": "POST https://image.adobe.io/pie/psdService/smartObject HTTP/1.1\nHost: image.adobe.io\nContent-Type: application/json\nContent-Length: <nonNegativeInteger>\nAuthorization: Bearer $token\nX-Api-Key: $api_key\n{\n  \"inputs\": [\n    {\n      \"href\": \"https://as2.ftcdn.net/jpg/02/49/48/49/500_F_249484911_JifPIzjUqzkRhcdMkF9GnsUI9zaqdAsn.jpg\",\n      \"storage\": \"external\"\n    }\n  ],\n  \"options\": {\n    \"actions\": [\n      {\n        \"href\": \"https://raw.githubusercontent.com/johnleetran/ps-actions-samples/master/actions/Oblossoms_pattern.atn\",\n        \"storage\": \"external\"\n      }\n    ],\n    \"patterns\": [\n      {\n        \"href\": \"https://raw.githubusercontent.com/johnleetran/ps-actions-samples/master/patterns/blossoms_pattern.atn\",\n        \"storage\": \"external\"\n      }\n    ]\n  },\n  \"outputs\": [\n    {\n      \"storage\": \"external\",\n      \"type\": \"image/jpeg\",\n      \"href\": \"https://some-presigned-url.com/output.jpeg\"\n    }\n  ]\n}",
+          "type": "http"
+        },
+        {
+          "title": "Request: CURL Templated",
+          "content": "curl -H \"Authorization: Bearer $token\" -H \"x-api-key: $api_key\" -X POST -d '{\n  \"inputs\": [\n    {\n      \"href\": \"https://as2.ftcdn.net/jpg/02/49/48/49/500_F_249484911_JifPIzjUqzkRhcdMkF9GnsUI9zaqdAsn.jpg\",\n      \"storage\": \"external\"\n    }\n  ],\n  \"options\": {\n    \"actions\": [\n      {\n        \"href\": \"https://raw.githubusercontent.com/johnleetran/ps-actions-samples/master/actions/Oil-paint.atn\",\n        \"storage\": \"external\"\n      }\n    ]\n  },\n  \"outputs\": [\n    {\n      \"storage\": \"external\",\n      \"type\": \"image/jpeg\",\n      \"href\": \"https://some-presigned-url.com/output.jpeg\"\n    }\n  ]\n}' https://image.adobe.io/pie/psdService/photoshopActions",
+          "type": "curl"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "Success 202": [
+          {
+            "group": "Success 202",
+            "type": "object",
+            "optional": false,
+            "field": "_links.self",
+            "description": "<p>The link to GET the job status from</p>"
+          },
+          {
+            "group": "Success 202",
+            "type": "object",
+            "optional": false,
+            "field": "_links",
+            "description": "<p>any link the client follow, described by their relationship</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Response: Success Templated",
+          "content": "HTTP/1.1 202 ACCEPTED\nContent-Type: application/json\nContent-Length: <nonNegativeInteger>\n{\n  \"_links\": {\n      \"self\" :{ \"href\" : \"https://image.adobe.io/pie/psdService/status/<:jobId>\" }\n  }\n}",
+          "type": "object"
+        },
+        {
+          "title": "Response: Success Example",
+          "content": "HTTP/1.1 202 ACCEPTED\nContent-Type: application/json\nContent-Length: 682\n{\n  \"_links\": {\n      \"self\" :{ \"href\" : \"https://image.adobe.io/pie/psdService/status/f54e0fcb-260b-47c3-b520-de0d17dc2b67\" }\n  }\n}",
+          "type": "object"
+        }
+      ]
+    },
+    "filename": "docs-src/prod/post-photoshop-actions-create.js",
+    "groupTitle": "Photoshop",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "string",
+            "optional": false,
+            "field": "authorization",
+            "description": "<p>Authorization value.</p>"
+          },
+          {
+            "group": "Header",
+            "type": "string",
+            "optional": false,
+            "field": "Content-Type",
+            "description": "<p>&quot;application/json&quot;</p>"
+          },
+          {
+            "group": "Header",
+            "type": "string",
+            "optional": false,
+            "field": "x-api-key",
+            "description": "<p>a client id</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "Errors": [
+          {
+            "group": "Errors",
+            "type": "string",
+            "optional": false,
+            "field": "type",
+            "description": "<p>a machine-readable error type</p>"
+          },
+          {
+            "group": "Errors",
+            "type": "string",
+            "optional": false,
+            "field": "code",
+            "description": "<p>a machine-readable error code</p>"
+          },
+          {
+            "group": "Errors",
+            "type": "string",
+            "optional": false,
+            "field": "title",
+            "description": "<p>short, human-readable summary of the problem</p>"
+          },
+          {
+            "group": "Errors",
+            "type": "array",
+            "optional": false,
+            "field": "errorDetails",
+            "description": "<p>further descriptions of the exact errors where <code>errorDetail</code> is substituted for a specific issue.</p>"
+          },
+          {
+            "group": "Errors",
+            "type": "details",
+            "optional": false,
+            "field": "errorCodes",
+            "description": "<p>This field does not appear in the response but is a partial list of error codes and types</p>  <ul>    <li>400: InputValidationError</li>    <li>400: PayloadValidationError</li>    <li>400: RequestBodyError</li>    <li>401: MissingAuthTokenError</li>    <li>401: InvalidAuthTokenError</li>    <li>403: AuthForbidden</li>    <li>404: FileExistsErrors</li>    <li>404: InputFileExistsErrors</li>    <li>404: ResourceNotFound</li>    <li>415: InvalidContentTypeError</li>    <li>500: UndefinedError</li>  </ul>"
+          }
+        ]
+      },
+      "examples": [
         {
           "title": "Response: Error Templated",
           "content": "// This is a templated example for when the call itself fails\n\nHTTP/1.1 <Status_Code> <Reason>\nContent-Type: application/json\nContent-Length: <nonNegativeInteger>\n{\n  \"type\": \"<errorType>\",\n  \"code\": \"<errorCode>\",\n  \"title\": \"<errorDescription>\",\n  \"<errorDetails>\": [\n    {\n      \"name\":\"<paramName>\",\n      \"reason\":\"<error>\"\n    }\n  ]\n}",
