@@ -10,7 +10,7 @@
   - [Authentication](#authentication)
     - [Overview](#overview)
     - [Workflow and Use Cases](#workflow-and-use-cases)
-    - [Internal Adobe Users Only](#internal-adobe-users-only)
+    - [Individual users](#individual-users)
       - [Additional OAuth 2.0 and IMS Information](#additional-oauth-20-and-ims-information)
     - [Service Token Workflow (Adobe ETLA users)](#service-token-workflow-adobe-etla-users)
       - [Additional Service Token and JWT Information](#additional-service-token-and-jwt-information)
@@ -27,6 +27,10 @@
       - [Font handling](#font-handling)
       - [Handle missing fonts in the document.](#handle-missing-fonts-in-the-document)
       - [Limitations](#limitations)
+    - [Photoshop Actions](#photoshop-actions)
+      - [Execute Photoshop Actions (`New!`)](#execute-photoshop-actions-new)
+      - [Usage Recommendations](#usage-recommendations)
+      - [Known Limitations](#known-limitations)
     - [Rendering / Conversions](#rendering--conversions)
     - [Layer level edits](#layer-level-edits)
       - [The add, edit and delete objects](#the-add-edit-and-delete-objects)
@@ -50,6 +54,9 @@
     - [Example 6: Fetch the status of the job after successfully submitting a request](#example-6-fetch-the-status-of-the-job-after-successfully-submitting-a-request)
       - [Sample 6.1 Poll for job status and get the returned manifest (for the /documentManifest API)](#sample-61-poll-for-job-status-and-get-the-returned-manifest-for-the-documentmanifest-api)
       - [Sample 6.2 Poll for job status and get the results of all other APIs](#sample-62-poll-for-job-status-and-get-the-results-of-all-other-apis)
+    - [Example 7: Execute Photoshop Actions](#example-7-execute-photoshop-actions)
+      - [Sample 7.1 - Play ALL actions in .atn file.](#sample-71---play-all-actions-in-atn-file)
+      - [Sample 7.2 - Play a specific action in an .atn file using `actionName`](#sample-72---play-a-specific-action-in-an-atn-file-using-actionname)
   - [Sample Code](#sample-code)
   - [Current Limitations](#current-limitations)
 - [ImageCutout](#imagecutout)
@@ -57,11 +64,6 @@
   - [How to use the API's](#how-to-use-the-apis)
     - [Example 1: Initiate a job to create an image cutout](#example-1-initiate-a-job-to-create-an-image-cutout)
     - [Example 2: Initiate a job to create an image mask](#example-2-initiate-a-job-to-create-an-image-mask)
-  - [Customized Workflow](#customized-workflow)
-    - [Example 3: (Generate ImageCutOut result as Photoshop path)](#example-3-generate-imagecutout-result-as-photoshop-path)
-      - [Sample Input/Output](#sample-inputoutput)
-      - [Instructions](#instructions)
-      - [Sample Code](#sample-code-1)
 - [Lightroom APIs](#lightroom-apis)
   - [General Workflow](#general-workflow-2)
   - [How to use the Lightroom API's](#how-to-use-the-lightroom-apis)
@@ -79,7 +81,7 @@ The API documentation is published at
 
 [Lightroom API Documentation](https://adobedocs.github.io/photoshop-api-docs/#api-Lightroom)
 
-[Image Cutout API Documentation](https://adobedocs.github.io/photoshop-api-docs/#api-Sensei)
+[Image Cutout API Documentation](https://adobedocs.github.io/photoshop-api-docs-pre-release/#api-Sensei)
 
 
 
@@ -109,23 +111,28 @@ Here are the workflows we currently support.  You are…
 
 If your workflow falls outside of these please contact us at psdservices@adobe.com so we can help meet your needs.
 
-### Internal Adobe Users Only
-1. Get your client id and client secret from the CIS team.
+### Individual users
+1. Get your client id and client secret.
+After you've been accepted to the PreRelease program you will be emailed your credentials (your client ID and client Secret) required for API authentication.
+
 2. Test out your credentials.
+This will allow you to verify that your credentials work and show you what an OAuth token looks like for when you eventually do this programmatically.
   - Browse to https://ps-prerelease-us-east-1.cloud.adobe.io
   - Enter the client id and secret
   - Follow through the login process
   - If your credentials work you should see an authorization token appear on your screen
+This is the OAuth token that’s required to make calls to the Photoshop API’s and if you’d like you can jump ahead and immediately try them out now.  Eventually you will make this process programmatic (instructions below) but in the meantime the token expires in 24 hours and you can use this workflow during development for as long as you’d like.
+
 3. Make an authenticated call to ensure you can round trip successfully with the API’s
 ```shell
 curl --request GET \
   --url https://image.adobe.io/pie/psdService/hello  \
-  --header "Authorization: Bearer <YOUR_OAUTH_TOKEN>" \
-  --header "x-api-key: <YOUR_CLIENT_ID>" \
+  --header 'Authorization: Bearer <YOUR_OAUTH_TOKEN>' \
+  --header 'x-api-key: <YOUR_CLIENT_ID>' \
 ```
   Congrats! You just made your first request to the Photoshop API.
 
-4. Make a Photoshop API call with real assets
+4.  Make a Photoshop API call with real assets
 
   Now that you can successfully authenticate and talk to the API’s it’s time to make “real” calls…
 
@@ -146,10 +153,14 @@ curl --request GET \
   ```
 
 5. Notes on token retrieval
-The access token must never be transmitted as a URI parameter. Doing so would expose it to being captured in-the-clear by intermediaries such as proxy server logs. The API does not allow you to send an access token anywhere except the Authorization header field.
 
-Your access token will expire typically in 24 hours. You will receive a ‘refresh_token’ when you initially obtain the access token that you can use to get a new access token. Be aware that refreshing your token might require a new login event. Please reference the OAuth documentation for additional instructions.
-Please contact psdservices@adobe.com for more information on how you can automate token generation for your workflow.
+  The access token must never be transmitted as a URI parameter. Doing so would expose it to being captured in-the-clear by intermediaries such as proxy server logs. The API does not allow you to send an access token anywhere except the Authorization header field.
+
+  Your access token will expire typically in 24 hours.  You will receive a ‘refresh_token’ when you initially obtain the access token that you can use to get a new access token.  Be aware that refreshing your token might require a new login event.  Please reference the [OAuth documentation](https://www.adobe.io/authentication/auth-methods.html#!AdobeDocs/adobeio-auth/master/OAuth/OAuth.md) for additional instructions.
+
+6. Automate token retrieval
+
+  Please contact psdservices@adobe.com for more information on how you can automate token generation for your workflow.
 
 #### Additional OAuth 2.0 and IMS Information
 
@@ -167,10 +178,10 @@ Enterprise users will not have access to assets stored in the Creative Cloud so 
 You system admin will need to give you developer access in the [Adobe Admin Console](https://adminconsole.adobe.com/overview)
 2. Go to https://console.adobe.io and create a service integration and follow the instructions at [Service Token Instructions](https://www.adobe.io/authentication/auth-methods.html#!AdobeDocs/adobeio-auth/master/AuthenticationOverview/ServiceAccountIntegration.md)
 
-On Step 1 of the Service Integration docs, ‘Subscribe to an Adobe Service’ you will select the following
-    1. Photoshop - Creative Cloud Automation Services
-    2. Lightroom - Creative Cloud Automation Services
-    3. Image Cutout - Creative Cloud Automation Services
+  On Step 1 of the Service Integration docs, ‘Subscribe to an Adobe Service’ you will select the following
+    1. Photoshop
+    2. Lightroom / Camera Raw API
+    3. Image Cutout
 
 3. Create a JSON Web Token (JWT) and exchange it for an access token
 Take the information from your integration, plus your private key that you created when you created your integration and follow the instructions at [JWT Instructions:](https://www.adobe.io/authentication/auth-methods.html#!AdobeDocs/adobeio-auth/master/JWT/JWT.md)
@@ -226,13 +237,10 @@ Optionally, another call can be made to retrieve the manifest file (a JSON repre
 ### Input and Output file storage
 
 Clients can use assets stored on one of the following storage types:
-External:
-AWS S3: By using a presigned GET/PUT URL
-Azure: By generating a SAS (Shared Access Signature) for upload/download
-Dropbox: Generate temporary upload/download links using https://dropbox.github.io/dropbox-api-v2-explorer/
-
-Internal Adobe Employees can use Adobe Creative Cloud Storage by referencing the path to the files in Creative Cloud.
-
+1. Adobe: by referencing the path to the files on Creative Cloud
+2. External: (like AWS S3) by using a presigned GET/PUT URL
+3. Azure: By generating a SAS (Shared Access Signature) for upload/download
+4. Dropbox: Generate temporary upload/download links using https://dropbox.github.io/dropbox-api-v2-explorer/
 
 ### Tracking document changes
 
@@ -318,6 +326,31 @@ Here is an example usage of `manageMissingFonts` and `globalFont`
 #### Limitations
 - Most of the text attributes retain their respective original values. There are some attributes however that do not retain their original values. For example (and not limited to): tracking, leading, kerning
 
+### Photoshop Actions
+#### Execute Photoshop Actions (`New!`)
+
+Adobe Photoshop APIs supports playing back Photoshop Actions recorded from Photoshop.  <a href="https://adobedocs.github.io/photoshop-api-docs/#api-Photoshop-photoshopActions" target="_blank">Click here to see API documentation</a>
+
+An action is a series of tasks that you play back on a single file or a batch of files—menu commands, panel options, tool actions, and so on. For example, you can create an action that changes the size of an image, applies an effect to the image, and then saves the file in the desired format.
+
+For more information on how to create Photoshop Actions, see <a href="https://helpx.adobe.com/photoshop/using/actions-actions-panel.html" target="_blank">Adobe Help Center</a>
+
+#### Usage Recommendations
+* Create actions that do not open any operating system dialogs. All Photoshop dialogs are supported, but not operating system dialogs.
+* It is recommended to create Actions that do not require user interactions.
+* Input and Output file format should be any of PSD, JPEG, PNG, or TIFF.
+* Make sure to test your actions on Photoshop, with several different input/images. If it has any errors on Photoshop, it won't run successfully on our servers either.
+
+#### Known Limitations
+The following are known limitations for the Alpha release
+
+* Not supported, 3D and Video features
+* Custom presets (for example color swatches and brushes)
+* The action should just operate on one document.  Support for multiple documents will be in future releases  
+
+Here are examples of submitting and executing Photoshop Actions.
+[Execute Photoshop Actions](#sample-71---play-all-actions-in-atn-file)
+
 ### Rendering / Conversions
 - Create a new PSD document
 - Create a JPEG, TIFF or PNG rendition of various sizes
@@ -360,8 +393,6 @@ Here is an example of making a layer edit.
 
 The API's are documented at https://adobedocs.github.io/photoshop-api-docs/
 
-The code snippets are using one of our [sample psd](https://github.com/AdobeDocs/photoshop-api-docs/blob/master/sample_files/Example.psd) files. Please feel free to download and use it for testing. Just remember you will need to have this file stored in one of the accepted external storage. For more information on storage please refer to the [File Storage](https://github.com/AdobeDocs/photoshop-api-docs#input-and-output-file-storage).
-
 ### Example 1: /smartObject (Replacing smartobject)
 
 The `/smartObject` endpoint can take an input PSD file with an embedded smartobject and can replace with another smartobject.
@@ -378,23 +409,23 @@ https: //image.adobe.io/pie/psdService/smartObject \
 - d '{
   "inputs": [
   {
-    "href": "<SIGNED_GET_URL>",
-    "storage": "external"
+    "href": "files/SOCreate.psd",
+    "storage": "adobe"
   }],
   "options": {
     "layers": [{
-      "name": "HeroImage",
+      "name": "New",
       "input": {
-        "href": "<SIGNED_GET_URL>",
-        "storage": "external"
+        "href": "files/jt-guitar.jpeg",
+        "storage": "adobe"
       }
      }
     ]
   },
   "outputs": [
   {
-    "storage": "external",
-    "href": "<SIGNED_PUT_URL>",
+    "storage": "adobe",
+    "href": "files/SOedit.psd",
     "type": "vnd.adobe.photoshop"
   }
 ]}'
@@ -411,8 +442,8 @@ https: //image.adobe.io/pie/psdService/smartObject
 - d '{
   "inputs": [
   {
-    "href": "<SIGNED_GET_URL>",
-    "storage": "external"
+    "href": "files/SO.psd",
+    "storage": "adobe"
   }],
   "options": {
     "layers": [{
@@ -421,16 +452,16 @@ https: //image.adobe.io/pie/psdService/smartObject
         "insertTop": true
       },
       "input": {
-        "href": "<SIGNED_GET_URL>",
-        "storage": "external"
+        "href": "files/jt-drums.jpeg",
+        "storage": "adobe"
        }
       }
     ]
   },
   "outputs": [
   {
-    "storage": "external",
-    "href": "<SIGNED_PUT_URL>",
+    "storage": "adobe",
+    "href": "files/SOCreate.psd",
     "type": "vnd.adobe.photoshop"
   }
 ]}'
@@ -453,8 +484,8 @@ curl -X POST \
   -d '{
   "inputs":[
     {
-      "href":"<SIGNED_GET_URL>",
-      "storage":"external"
+      "href":"files/Example.psd",
+      "storage":"adobe"
     }
   ],
   "options":{
@@ -485,8 +516,8 @@ curl -X POST \
   },
   "outputs":[
     {
-      "href":"<SIGNED_PUT_URL>",
-      "storage":"external",
+      "href":"files/Example_Out.psd",
+      "storage":"adobe",
       "type":"vnd.adobe.photoshop",
       "overwrite":true
     }
@@ -506,14 +537,14 @@ curl -X POST \
   -d '{
   "inputs":[
     {
-      "href":"<SIGNED_GET_URL>",
-      "storage":"external"
+      "href":"files/Example.psd",
+      "storage":"adobe"
     }
   ],
   "options":{
     "fonts": {
-        storage: "external",
-        href: "<SIGNED_GET_URL_TO_VeganStylePersonalUse.ttf>"
+        storage: "adobe",
+        href: "files/pits/input/VeganStylePersonalUse.ttf"
     },
     "layers":[
       {
@@ -539,8 +570,8 @@ curl -X POST \
   },
   "outputs":[
     {
-      "href":"<SIGNED_PUT_URL>",
-      "storage":"external",
+      "href":"files/Example_Out.psd",
+      "storage":"adobe",
       "type":"vnd.adobe.photoshop",
       "overwrite":true
     }
@@ -558,16 +589,16 @@ curl -X POST \
   -d '{
   "inputs":[
     {
-      "href":"<SIGNED_GET_URL>",
-      "storage":"external"
+      "href":"files/Example.psd",
+      "storage":"adobe"
     }
   ],
   "options":{
     "manageMissingFonts": "useDefault",
     "globalFont": "MySampleFont",
     "fonts": {
-        storage: "external",
-        href: "<SIGNED_GET_URL_TO_VeganStylePersonalUse.ttf>"
+        storage: "adobe",
+        href: "files/pits/input/VeganStylePersonalUse.ttf"
     },
     "layers":[
       {
@@ -593,8 +624,8 @@ curl -X POST \
   },
   "outputs":[
     {
-      "href":"<SIGNED_PUT_URL>",
-      "storage":"external",
+      "href":"files/Example_Out.psd",
+      "storage":"adobe",
       "type":"vnd.adobe.photoshop",
       "overwrite":true
     }
@@ -620,8 +651,8 @@ curl -X POST \
   -d '{
   "inputs":[
     {
-      "href":"<SIGNED_GET_URL>",
-      "storage":"external"
+      "href":"files/Example.psd",
+      "storage":"adobe"
     }
   ],
   "options":{
@@ -639,8 +670,8 @@ curl -X POST \
   },
   "outputs":[
     {
-      "href":"<SIGNED_PUT_URL>",
-      "storage":"external",
+      "href":"files/Example_Out.psd",
+      "storage":"adobe",
       "type":"vnd.adobe.photoshop",
       "overwrite":true
     }
@@ -670,8 +701,8 @@ curl -X POST \
   -d '{
   "inputs":[
     {
-      "href":"<SIGNED_GET_URL>",
-      "storage":"external"
+      "href":"files/Example.psd",
+      "storage":"adobe"
     }
   ],
   "options":{
@@ -679,8 +710,8 @@ curl -X POST \
       {
         "edit":{},     
         "input":{                                       
-          "href":"<SIGNED_GET_URL>",  
-          "storage":"external"
+          "href":"files/heroImage.png",  
+          "storage":"adobe"
         },
         "smartObject" : {                
           "type" : "image/png"
@@ -704,8 +735,8 @@ curl -X POST \
   },
   "outputs":[
     {
-      "href":"<SIGNED_PUT_URL>",
-      "storage":"external",
+      "href":"files/Example_Out.psd",
+      "storage":"adobe",
       "type":"vnd.adobe.photoshop",
       "overwrite":true
     }
@@ -735,20 +766,20 @@ curl -X POST \
   -d '{
   "inputs":[
     {
-      "href":"<SIGNED_GET_URL>",
-      "storage":"external"
+      "href":"files/Example.psd",
+      "storage":"adobe"
     }
   ],
   "outputs":[
     {
-      "href":"<SIGNED_GET_URL1>",          
+      "href":"files/Example.jpeg",          
       "width": 512,
-      "storage":"external",
+      "storage":"adobe",
       "type":"image/jpeg"      
     },
     {
-      "href":"<SIGNED_GET_URL2>",
-      "storage":"external",
+      "href":"files/Example.png",
+      "storage":"adobe",
       "type":"image/png"
     }
   ]
@@ -759,11 +790,11 @@ A call to this API initiates an asynchronous job and returns a response containi
 
 ### Example 5: /documentManifest (Retrieving a PSD manifest)
 
-The `/documentManifest` api can take one or more input PSD's to generate JSON manifest files from. The JSON manifest is the tree representation of all of the layer objects contained in the PSD document.
+The `/documentManifest` api can take one or more input PSD's to generate JSON manifest files from. The JSON manifest is the tree representation of all of the layer objects contained in the PSD document. 
 
 #### Sample 5.1: Initiate a job to retrieve a PSD's JSON manifest
 
-Using Example.psd, with the use case of a document stored in your external storage, a typical curl call might look like this:
+Using Example.psd, with the use case of a document stored in Adobe's Creative Cloud, a typical curl call might look like this:
 
 ```shell
 curl -X POST \
@@ -774,15 +805,15 @@ curl -X POST \
   -d '{
   "inputs": [
     {
-      "href":"<SIGNED_GET_URL>",
-      "storage":"external"
+      "href":"files/Example.psd",
+      "storage":"adobe"
     }
   ]
 }'
 ```
 A call to this API initiates an asynchronous job and returns a response containing an href. Use the value in the href to poll for the status of the job and the same response will also contain the JSON manifest. This is illustrated in [Example 6](#example-6-fetch-the-status-of-the-job-after-successfully-submitting-a-request) below.
 
-###  Example 6: Fetch the status of the job after successfully submitting a request
+###  Example 6: Fetch the status of the job after successfully submitting a request 
 Each of our Photoshop APIs, when invoked, initiates an asynchronous job and returns a response body that contains the href to poll for status of the job.
 
 ```json
@@ -794,7 +825,7 @@ Each of our Photoshop APIs, when invoked, initiates an asynchronous job and retu
     }
 }
 ```
-Using the job id returned from the response (as above) of a successfully submitted API call, you can poll on the corresponding value in the `href` field, to get the status of the job.
+Using the job id returned from the response (ass above) of a successfully submitted API call, you can poll on the corresponding value in the `href` field, to get the status of the job.
 
 ```shell
 curl -X GET \
@@ -812,7 +843,7 @@ Once your job completes successfully (no errors/failures reported), the status r
   "jobId":"63c6e812-6cb8-43de-8a60-3681a9ec6feb",
   "outputs":[
     {
-      "input":"<SIGNED_GET_URL>",
+      "input":"files/Example.psd",
       "status":"succeeded",
       "created":"2018-08-24T23:07:36.8Z",
       "modified":"2018-08-24T23:07:37.688Z",
@@ -974,27 +1005,27 @@ Once your job completes successfully (no errors/failures reported), the status r
 ```
 #### Sample 6.2 Poll for job status and get the results of all other APIs
 
-Once your job completes successfully (no errors/failures reported), this will return a response body containing the job status for each requested output. For the `/renditionCreate` API call in Example 4 in Sample 4.1 as illustrated above, a sample response containing the job status is as shown below:
+Once your job completes successfully (no errors/failures reported), this will return a response body containing the job status for each requested output. For the `/renditionCreate` API call in Example 4 in Sample 4.1 as illustrated above, a sample response containing the job status is as shown below: 
 
 ```json
 {
   "jobId":"de2415fb-82c6-47fc-b102-04ad651c5ed4",
   "outputs":[
     {
-      "input":"<SIGNED_GET_URL>",
+      "input":"/files/Example.psd",
       "status":"succeeded",
       "created":"2018-01-04T12:57:15.12345:Z",
       "modified":"2018-01-04T12:58:36.12345:Z",
       "_links":{
         "renditions":[
           {
-            "href":"<SIGNED_PUT_URL>",          
+            "href":"files/Example.jpeg",          
             "width": 512,
             "storage":"adobe",
             "type":"image/jpeg"    
           },
           {
-            "href":"<SIGNED_PUT_URL>",
+            "href":"files/Example.png",
             "storage":"adobe",
             "type":"image/png"
           }
@@ -1008,6 +1039,69 @@ Once your job completes successfully (no errors/failures reported), this will re
     }
   }
 }
+```
+
+###  Example 7: Execute Photoshop Actions
+
+#### Sample 7.1 - Play ALL actions in .atn file.
+```
+export token=<YOUR_TOKEN>
+export api_key =<YOUR_API_KEY>
+curl -H "Authorization: Bearer $token" -H "x-api-key: $api_key" https://image.adobe.io/pie/psdService/photoshopActions -d '{
+  "inputs": [
+    {
+      "href": "https://as2.ftcdn.net/jpg/02/49/48/49/500_F_249484911_JifPIzjUqzkRhcdMkF9GnsUI9zaqdAsn.jpg",
+      "storage": "external"
+    }
+  ],
+  "options": {
+    "actions": [
+      {
+        "href": "https://raw.githubusercontent.com/johnleetran/ps-actions-samples/master/actions/Oil-paint.atn",
+        "storage": "external"
+      }
+    ]
+  },
+  "outputs": [
+    {
+      "storage": "external",
+      "type": "image/jpeg",
+      "href": "https://some-presigned-url.com/output.jpg"
+    }
+  ]
+}'
+```
+#### Sample 7.2 - Play a specific action in an .atn file using `actionName`
+
+By default, Photoshop API will attempt to play all actions in an action set.  If you would like to only playback a specific action, you can specify `actionName` and the name of the action you want to invoke (see example below).
+
+```
+export token=<YOUR_TOKEN>
+export api_key =<YOUR_API_KEY>
+curl -H "Authorization: Bearer $token" -H "x-api-key: $api_key" https://image.adobe.io/pie/psdService/photoshopActions -d '{
+  "inputs": [
+    {
+      "href": "https://as2.ftcdn.net/jpg/02/49/48/49/500_F_249484911_JifPIzjUqzkRhcdMkF9GnsUI9zaqdAsn.jpg",
+      "storage": "external"
+    }
+  ],
+  "options": {
+    "actions": [
+      {
+        "href": "https://raw.githubusercontent.com/johnleetran/ps-actions-samples/master/actions/Oil-paint.atn",
+        "storage": "external",
+        "actionName": "Action 51"
+      }
+    ]
+  },
+  "outputs": [
+    {
+      "storage": "external",
+      "type": "image/jpeg",
+      "href": "https://some-presigned-url.com/output.jpg"
+    }
+  ]
+}'
 ```
 
 ## Sample Code
@@ -1040,13 +1134,13 @@ The typical workflow involves making an API POST call to the endpoint https://im
 
 ## How to use the API's
 
-The API's are documented at [https://adobedocs.github.io/photoshop-api-docs/#api-Sensei](https://adobedocs.github.io/photoshop-api-docs/#api-Sensei)
+The API's are documented at [https://adobedocs.github.io/photoshop-api-docs/#api-Sensei](https://adobedocs.github.io/photoshop-api-docs-pre-release/#api-Sensei)
 
 First be sure to follow the instructions in the [Authentication](#authentication) section to get your token.
 
 ### Example 1: Initiate a job to create an image cutout
 
-The `/cutout` api takes a single input image to generate your mask or cutout from. Using [Example.jpg](https://github.com/AdobeDocs/photoshop-api-docs/blob/master/sample_files/Example.jpg), with the use case of a document stored in your external storage a typical curl call might look like this:
+The `/cutout` api takes a single input image to generate your mask or cutout from. Using Example.jpg, with the use case of a document stored in Adobe's Creative Cloud, a typical curl call might look like this:
 
 ```shell
 curl -X POST \
@@ -1056,12 +1150,12 @@ curl -X POST \
   -H 'x-api-key: <YOUR_API_KEY>' \
   -d '{
    "input":{
-      "storage":"external",
-      "href":"<SIGNED_GET_URL>"
+      "storage":"adobe",
+      "href":"/files/images/Example.jpg"
    },
    "output":{
-      "storage":"external",
-      "href":"<SIGNED_PUT_URL>",
+      "storage":"adobe",
+      "href":"/files/output/cutout.png",
       "mask":{
          "format":"binary"
       }
@@ -1099,15 +1193,15 @@ Once the job is complete your successful `/status` response will look similar to
     "status": "succeeded",
     "created": "2020-02-11T21:08:43.789Z",
     "modified": "2020-02-11T21:08:48.492Z",
-    "input": "<SIGNED_GET_URL>",
+    "input": "/files/images/Example.jpg",
     "_links": {
         "self": {
             "href": "https://image-stage.adobe.io/sensei/status/e3a13d81-a462-4b71-9964-28b2ef34aca7"
         }
     },
     "output": {
-        "storage": "external",
-        "href": "<SIGNED_PUT_URL>",
+        "storage": "adobe",
+        "href": "/files/output/cutout.png",
         "mask": {
             "format": "binary"
         }
@@ -1118,28 +1212,6 @@ Once the job is complete your successful `/status` response will look similar to
 ### Example 2: Initiate a job to create an image mask
 
 The workflow is exactly the same as [creating an image cutout](#example-1-initiate-a-job-to-create-an-image-cutout) except you use the `/mask` endpoint instead of `/cutout`.  
-
-## Customized Workflow
-This section will demonstrate how to make a 'customized workflow' by chaining different APIs.
-
-### Example 3: (Generate ImageCutOut result as Photoshop path)
-This workflow is ONLY for users who'd like to generate cutout result as Photoshop path instead of regular mask or cutout in above [example 1](https://github.com/AdobeDocs/photoshop-api-docs#example-1-initiate-a-job-to-create-an-image-cutout) and [example 2](https://github.com/AdobeDocs/photoshop-api-docs#example-2-initiate-a-job-to-create-an-image-mask). You will need to chain API calls to ImageCutOut service and Photoshop Service to achieve this goal.
-
-#### Sample Input/Output
-Sample input from [here](assets/ic_customized_workflow/input.jpg).
-Sample output from [here](assets/ic_customized_workflow/result_with_path.jpg) (Note: you will need to open result in Photoshop Desktop application so that you will see the path in path panel)
-
-#### Instructions
-
-1. Download the make-file.atn file from [here](assets/ic_customized_workflow/make-path.atn) (this file will be used in the Photoshop action API call)
-2. Make the first API call one to ImageCutOut service to generate intermediate result as RGBA cutout
-3. Make the second API call to Photoshop action service to use above intermediate result as well as the make-file.atn file to generate final JPEG format result with desired PS path embedded
-4. Open the final result with Photoshop Desktop app to check generated path in path panel
-
-
-#### Sample Code
-You can download the sample end-to-end bash script [here](sample_code/ic-customized-workflow-app) and then follow the comments to try it out this customized workflow.
-
 
 # Lightroom APIs
 
