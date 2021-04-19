@@ -211,30 +211,36 @@ define({ "api": [
     "name": "auto-straighten-post",
     "group": "Lightroom",
     "parameter": {
-      "examples": [
-        {
-          "title": "HTTP Usage Templated:",
-          "content": "POST https://image.adobe.io/lrService/autoStraighten HTTP/1.1\nHost: image.adobe.io/lrService\nContent-Type: application/json\nauthorization: Bearer $token\nx-api-key: $x-api-key\n{\n  \"inputs\":{\n    \"href\": \"<presigned_getURL> or <cc_storage_location>\",\n    \"storage\": \"<storage>\"\n  },\n  \"outputs\": [\n    {\n      \"href\": \"<presigned_getURL> or <cc_storage_location\",\n      \"storage\": \"<storage>\",\n      \"type\": \"<type>\",\n      \"quality\": \"<quality>\",\n      \"overwrite\": <overwrite>\n    }\n  ]\n}",
-          "type": "http"
-        },
-        {
-          "title": "HTTP Example(CC Asset):",
-          "content": "POST https://image.adobe.io/lrService/autoStraighten HTTP/1.1\nHost: image.adobe.io/lrService\nContent-Type: application/json\nauthorization: Bearer $token\nx-api-key: $x-api-key\n{\n  \"inputs\":{\n    \"href\": \"/files/input.jpg\",\n    \"storage\": \"adobe\"\n  },\n  \"outputs\": [\n    {\n      \"href\": \"/files/output.jpg\",\n      \"storage\": \"adobe\",\n      \"type\": \"image/jpeg\",\n      \"quality\": 10,\n      \"overwrite\": true\n    }\n  ]\n}",
-          "type": "http"
-        },
-        {
-          "title": "HTTP Example(External Asset):",
-          "content": "POST https://image.adobe.io/lrService/autoStraighten HTTP/1.1\nHost: image.adobe.io/lrService\nContent-Type: application/json\nauthorization: Bearer $token\nx-api-key: $x-api-key\n{\n  \"inputs\":{\n    \"href\": \"https://some-bucket-us-east-1.amazonaws.com/s3_presigned_getObject...\",\n    \"storage\": \"external\"\n  },\n  \"outputs\": [\n    {\n      \"href\": \"https://some-bucket-us-east-1.amazonaws.com/s3_presigned_putObject..\",\n      \"storage\": \"external\",\n      \"type\": \"image/jpeg\",\n      \"quality\": 10,\n      \"overwrite\": true\n    }\n  ]\n}",
-          "type": "http"
-        },
-        {
-          "title": "Curl Usage:",
-          "content": "curl -H \"authorization: Bearer $token\" -H \"Content-Type:application/json\" -H \"x-api-key:$x-api-key\" -X POST -d '{\"inputs\":{\"href\":\"<href>\",\"storage\":\"<storage>\"},\"outputs\":[{\"href\":\"<href>\",\"storage\":\"<storage>\",\"type\":\"<type>\",\"quality\": \"<quality>\",\"overwrite\": <overwrite>}]}' https://image.adobe.io/lrService/autoStraighten",
-          "type": "curl"
-        }
-      ],
       "fields": {
         "Request": [
+          {
+            "group": "Request",
+            "type": "hash",
+            "optional": true,
+            "field": "options",
+            "description": "<p>autoStraighten parameters.</p>"
+          },
+          {
+            "group": "Request",
+            "type": "string",
+            "allowedValues": [
+              "\"auto\"",
+              "\"full\"",
+              "\"level\"",
+              "\"vertical\""
+            ],
+            "optional": false,
+            "field": "options.uprightMode",
+            "description": "<p>The upright mode to use. If you have the options block, then this is a required field. If options block is not specified, then the appropriate upright mode will automatically be selected.</p>"
+          },
+          {
+            "group": "Request",
+            "type": "bool",
+            "optional": true,
+            "field": "options.constrainCrop",
+            "defaultValue": "true",
+            "description": "<p>If the straightened image should be constrain cropped, to remove all blank edges around an image.</p>"
+          },
           {
             "group": "Request",
             "type": "hash",
@@ -321,7 +327,29 @@ define({ "api": [
             "description": "<p>Quality of the JPEG outputs (will be ignored for other output types). Ranges from 0 to 12, with 12 as the highest quality.</p>"
           }
         ]
-      }
+      },
+      "examples": [
+        {
+          "title": "HTTP Usage Templated:",
+          "content": "POST https://image.adobe.io/lrService/autoStraighten HTTP/1.1\nHost: image.adobe.io/lrService\nContent-Type: application/json\nauthorization: Bearer $token\nx-api-key: $x-api-key\n{\n  \"inputs\":{\n    \"href\": \"<presigned_getURL> or <cc_storage_location>\",\n    \"storage\": \"<storage>\"\n  },\n  \"options\": {\n    \"uprightMode\": <upright_mode>,\n    \"constrainCrop\": <constrain_crop>\n  },\n  \"outputs\": [\n    {\n      \"href\": \"<presigned_getURL> or <cc_storage_location\",\n      \"storage\": \"<storage>\",\n      \"type\": \"<type>\",\n      \"quality\": \"<quality>\",\n      \"overwrite\": <overwrite>\n    }\n  ]\n}",
+          "type": "http"
+        },
+        {
+          "title": "HTTP Example(CC Asset):",
+          "content": "POST https://image.adobe.io/lrService/autoStraighten HTTP/1.1\nHost: image.adobe.io/lrService\nContent-Type: application/json\nauthorization: Bearer $token\nx-api-key: $x-api-key\n{\n  \"inputs\":{\n    \"href\": \"/files/input.jpg\",\n    \"storage\": \"adobe\"\n  },\n  \"options\": {\n    \"uprightMode\": \"full\",\n    \"constrainCrop\": false\n  },\n  \"outputs\": [\n    {\n      \"href\": \"/files/output.jpg\",\n      \"storage\": \"adobe\",\n      \"type\": \"image/jpeg\",\n      \"quality\": 10,\n      \"overwrite\": true\n    }\n  ]\n}",
+          "type": "http"
+        },
+        {
+          "title": "HTTP Example(External Asset):",
+          "content": "POST https://image.adobe.io/lrService/autoStraighten HTTP/1.1\nHost: image.adobe.io/lrService\nContent-Type: application/json\nauthorization: Bearer $token\nx-api-key: $x-api-key\n{\n  \"inputs\":{\n    \"href\": \"https://some-bucket-us-east-1.amazonaws.com/s3_presigned_getObject...\",\n    \"storage\": \"external\"\n  },\n  \"options\": {\n    \"uprightMode\": \"full\",\n    \"constrainCrop\": false\n  },\n  \"outputs\": [\n    {\n      \"href\": \"https://some-bucket-us-east-1.amazonaws.com/s3_presigned_putObject..\",\n      \"storage\": \"external\",\n      \"type\": \"image/jpeg\",\n      \"quality\": 10,\n      \"overwrite\": true\n    }\n  ]\n}",
+          "type": "http"
+        },
+        {
+          "title": "Curl Usage:",
+          "content": "curl -H \"authorization: Bearer $token\" -H \"Content-Type:application/json\" -H \"x-api-key:$x-api-key\" -X POST -d '{\"inputs\":{\"href\":\"<href>\",\"storage\":\"<storage>\"},\"outputs\":[{\"href\":\"<href>\",\"storage\":\"<storage>\",\"type\":\"<type>\",\"quality\": \"<quality>\",\"overwrite\": <overwrite>}]}' https://image.adobe.io/lrService/autoStraighten",
+          "type": "curl"
+        }
+      ]
     },
     "filename": "docs-src/prod/post-autostraighten-create.js",
     "groupTitle": "Lightroom",
