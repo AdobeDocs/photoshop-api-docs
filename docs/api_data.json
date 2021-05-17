@@ -7045,7 +7045,26 @@
             "type": "string",
             "optional": false,
             "field": "input.href",
-            "description": "<p>Either an href to a single Creative Cloud asset for storage='adobe' OR a presignedGETURL for other external services. Supported input file types include png, jpg and tif.</p>"
+            "description": "<p>Either an href to a single Creative Cloud asset for storage='adobe' OR a presignedGETURL for other external services. Supported input file types include png, jpg and tif.</p> <ul>    <li>CC Storage path must be prepended with `/files` or `/cloud-content` or `/assets`       <li>The `/files` path directly corresponds to the root of your local `Creative Cloud Files` folder</li>       <li>The `/cloud-content` path directly corresponds to the root of your `Cloud documents` folder in CC</li>       <li>The `/assets` path directly corresponds to the specific sync-group section of CC storage</li>    </li> </ul>"
+          },
+          {
+            "group": "Request",
+            "type": "object",
+            "optional": false,
+            "field": "options",
+            "description": ""
+          },
+          {
+            "group": "Request",
+            "type": "string",
+            "allowedValues": [
+              "\"batch\"",
+              "\"performance\""
+            ],
+            "optional": true,
+            "field": "options.optimize",
+            "defaultValue": "performance",
+            "description": "<p>&quot;performance&quot; optimizes for speed. &quot;batch&quot; ensures the job will not fail due to timeout.</p>"
           },
           {
             "group": "Request",
@@ -7059,7 +7078,7 @@
             "type": "string",
             "optional": false,
             "field": "output.href",
-            "description": "<p>The output path and file name for your mask. Either a Creative Cloud assets path for storage='adobe' OR a presignedGETURL for other external services.</p>"
+            "description": "<p>The output path and file name for your mask. Either a Creative Cloud assets path for storage='adobe' OR a presignedGETURL for other external services.</p> <li>CC Storage path must be prepended with `/files` or `/cloud-content` or `/assets`    <li>The `/files` path directly corresponds to the root of your local `Creative Cloud Files` folder</li>    <li>The `/cloud-content` path directly corresponds to the root of your `Cloud documents` folder in CC</li>    <li>The `/assets` path directly corresponds to the specific sync-group section of CC storage</li> </li>"
           },
           {
             "group": "Request",
@@ -7141,6 +7160,54 @@
           "type": "object"
         }
       ]
+    },
+    "error": {
+      "fields": {
+        "Errors": [
+          {
+            "group": "Errors",
+            "type": "string",
+            "optional": false,
+            "field": "type",
+            "description": "<p>a machine-readable error type</p>"
+          },
+          {
+            "group": "Errors",
+            "type": "string",
+            "optional": false,
+            "field": "code",
+            "description": "<p>a machine-readable error code</p>"
+          },
+          {
+            "group": "Errors",
+            "type": "string",
+            "optional": false,
+            "field": "title",
+            "description": "<p>short, human-readable summary of the problem</p>"
+          },
+          {
+            "group": "Errors",
+            "type": "array",
+            "optional": false,
+            "field": "errorDetails",
+            "description": "<p>further descriptions of the exact errors where <code>errorDetail</code> is substituted for a specific issue.</p>"
+          },
+          {
+            "group": "Errors",
+            "type": "details",
+            "optional": false,
+            "field": "errorCodes",
+            "description": "<p>This field does not appear in the response but is a partial list of error codes and types</p>  <ul>    <li>400: InputValidationError</li>    <li>400: PayloadValidationError</li>    <li>400: RequestBodyError</li>    <li>401: MissingAuthTokenError</li>    <li>401: InvalidAuthTokenError</li>    <li>403: AuthForbidden</li>    <li>404: FileExistsErrors</li>    <li>404: InputFileExistsErrors</li>    <li>404: ResourceNotFound</li>    <li>415: InvalidContentTypeError</li>    <li>500: UndefinedError</li>  </ul>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Response: Error Templated",
+          "content": "// This is a templated example for when the call itself fails\n\nHTTP/1.1 <Status_Code> <Reason>\nContent-Type: application/json\nContent-Length: <nonNegativeInteger>\n{\n  \"type\": \"<errorType>\",\n  \"code\": \"<errorCode>\",\n  \"title\": \"<errorDescription>\",\n  \"<errorDetails>\": [\n    {\n      \"name\":\"<paramName>\",\n      \"reason\":\"<error>\"\n    }\n  ]\n}",
+          "type": "object"
+        }
+      ]
     }
   },
   {
@@ -7208,6 +7275,24 @@
             "group": "Success 200",
             "type": "object",
             "optional": false,
+            "field": "options",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "allowedValues": [
+              "\"batch\"",
+              "\"performance\""
+            ],
+            "optional": false,
+            "field": "options.optimize",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "object",
+            "optional": false,
             "field": "output",
             "description": ""
           },
@@ -7260,7 +7345,7 @@
         },
         {
           "title": "Response: Succeeded",
-          "content": "HTTP/1.1 200\nContent-Type: application/json\nContent-Length: <nonNegativeInteger>\nLocation: \"https://image.adobe.io/sensei/status/<:jobID>\"\n{\n   \"jobID\":\"c900e70c-03b2-43dc-b6f0-b0db16333b4b\",\n   \"status\":\"succeeded\",\n   \"input\": \"/files/images/input.jpg\",\n   \"output\":{\n      \"storage\":\"adobe\",\n      \"href\":\"/files/cutout/output/mask.png\",\n      \"mask\":{\n         \"format\":\"binary\"\n      },\n      \"color\":{\n         \"space\":\"rgb\"\n      }\n   },\n   \"_links\":{\n      \"self\":{\n         \"href\":\"https://image.adobe.io/sensei/status/c900e70c-03b2-43dc-b6f0-b0db16333b4b\"\n      }\n   }\n}",
+          "content": "HTTP/1.1 200\nContent-Type: application/json\nContent-Length: <nonNegativeInteger>\nLocation: \"https://image.adobe.io/sensei/status/<:jobID>\"\n{\n   \"jobID\":\"c900e70c-03b2-43dc-b6f0-b0db16333b4b\",\n   \"status\":\"succeeded\",\n   \"input\": \"/files/images/input.jpg\",\n   \"output\":{\n      \"storage\":\"adobe\",\n      \"href\":\"/files/cutout/output/mask.png\",\n      \"mask\":{\n         \"format\":\"binary\"\n      },\n      \"color\":{\n         \"space\":\"rgb\"\n      }\n   },\n   \"options\":{\n      \"optimize\":\"performance\"\n   },\n   \"_links\":{\n      \"self\":{\n         \"href\":\"https://image.adobe.io/sensei/status/c900e70c-03b2-43dc-b6f0-b0db16333b4b\"\n      }\n   }\n}",
           "type": "object"
         },
         {
@@ -7385,6 +7470,24 @@
             "group": "Success 200",
             "type": "object",
             "optional": false,
+            "field": "options",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "string",
+            "allowedValues": [
+              "\"batch\"",
+              "\"performance\""
+            ],
+            "optional": false,
+            "field": "options.optimize",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "object",
+            "optional": false,
             "field": "output",
             "description": ""
           },
@@ -7437,7 +7540,7 @@
         },
         {
           "title": "Response: Succeeded",
-          "content": "HTTP/1.1 200\nContent-Type: application/json\nContent-Length: <nonNegativeInteger>\nLocation: \"https://image.adobe.io/sensei/status/<:jobID>\"\n{\n   \"jobID\":\"c900e70c-03b2-43dc-b6f0-b0db16333b4b\",\n   \"status\":\"succeeded\",\n   \"input\": \"/files/images/input.jpg\",\n   \"output\":{\n      \"storage\":\"adobe\",\n      \"href\":\"/files/cutout/output/mask.png\",\n      \"mask\":{\n         \"format\":\"binary\"\n      },\n      \"color\":{\n         \"space\":\"rgb\"\n      }\n   },\n   \"_links\":{\n      \"self\":{\n         \"href\":\"https://image.adobe.io/sensei/status/c900e70c-03b2-43dc-b6f0-b0db16333b4b\"\n      }\n   }\n}",
+          "content": "HTTP/1.1 200\nContent-Type: application/json\nContent-Length: <nonNegativeInteger>\nLocation: \"https://image.adobe.io/sensei/status/<:jobID>\"\n{\n   \"jobID\":\"c900e70c-03b2-43dc-b6f0-b0db16333b4b\",\n   \"status\":\"succeeded\",\n   \"input\": \"/files/images/input.jpg\",\n   \"options\":{\n      \"optimize\":\"performance\"\n   },\n   \"output\":{\n      \"storage\":\"adobe\",\n      \"href\":\"/files/cutout/output/mask.png\",\n      \"mask\":{\n         \"format\":\"binary\"\n      },\n      \"color\":{\n         \"space\":\"rgb\"\n      }\n   },\n   \"_links\":{\n      \"self\":{\n         \"href\":\"https://image.adobe.io/sensei/status/c900e70c-03b2-43dc-b6f0-b0db16333b4b\"\n      }\n   }\n}",
           "type": "object"
         },
         {
@@ -7568,7 +7671,26 @@
             "type": "string",
             "optional": false,
             "field": "input.href",
-            "description": "<p>Either an href to a single Creative Cloud asset for storage='adobe' OR a presignedGETURL for other external services. Supported input file types include png, jpg and tif.</p>"
+            "description": "<p>Either an href to a single Creative Cloud asset for storage='adobe' OR a presignedGETURL for other external services. Supported input file types include png, jpg and tif.</p> <li>CC Storage path must be prepended with `/files` or `/cloud-content` or `/assets`    <li>The `/files` path directly corresponds to the root of your local `Creative Cloud Files` folder</li>    <li>The `/cloud-content` path directly corresponds to the root of your `Cloud documents` folder in CC</li>    <li>The `/assets` path directly corresponds to the specific sync-group section of CC storage</li> </li>"
+          },
+          {
+            "group": "Request",
+            "type": "object",
+            "optional": false,
+            "field": "options",
+            "description": ""
+          },
+          {
+            "group": "Request",
+            "type": "string",
+            "allowedValues": [
+              "\"batch\"",
+              "\"performance\""
+            ],
+            "optional": true,
+            "field": "options.optimize",
+            "defaultValue": "performance",
+            "description": "<p>&quot;performance&quot; optimizes for speed. &quot;batch&quot; ensures the job will not fail due to timeout.</p>"
           },
           {
             "group": "Request",
@@ -7582,7 +7704,7 @@
             "type": "string",
             "optional": false,
             "field": "output.href",
-            "description": "<p>The output path and file name for your mask. Either a Creative Cloud assets path for storage='adobe' OR a presignedGETURL for other external services.</p>"
+            "description": "<p>The output path and file name for your mask. Either a Creative Cloud assets path for storage='adobe' OR a presignedGETURL for other external services.</p> <li>CC Storage path must be prepended with `/files` or `/cloud-content` or `/assets`    <li>The `/files` path directly corresponds to the root of your local `Creative Cloud Files` folder</li>    <li>The `/cloud-content` path directly corresponds to the root of your `Cloud documents` folder in CC</li>    <li>The `/assets` path directly corresponds to the specific sync-group section of CC storage</li> </li>"
           },
           {
             "group": "Request",
@@ -7661,6 +7783,54 @@
         {
           "title": "Response: Success Example",
           "content": "HTTP/1.1 202 ACCEPTED\nContent-Type: application/json\nContent-Length: 682\n{\n  \"_links\": {\n      \"self\" :{ \"href\" : \"https://image.adobe.io/sensei/status/f54e0fcb-260b-47c3-b520-de0d17dc2b67\" }\n  }\n}",
+          "type": "object"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Errors": [
+          {
+            "group": "Errors",
+            "type": "string",
+            "optional": false,
+            "field": "type",
+            "description": "<p>a machine-readable error type</p>"
+          },
+          {
+            "group": "Errors",
+            "type": "string",
+            "optional": false,
+            "field": "code",
+            "description": "<p>a machine-readable error code</p>"
+          },
+          {
+            "group": "Errors",
+            "type": "string",
+            "optional": false,
+            "field": "title",
+            "description": "<p>short, human-readable summary of the problem</p>"
+          },
+          {
+            "group": "Errors",
+            "type": "array",
+            "optional": false,
+            "field": "errorDetails",
+            "description": "<p>further descriptions of the exact errors where <code>errorDetail</code> is substituted for a specific issue.</p>"
+          },
+          {
+            "group": "Errors",
+            "type": "details",
+            "optional": false,
+            "field": "errorCodes",
+            "description": "<p>This field does not appear in the response but is a partial list of error codes and types</p>  <ul>    <li>400: InputValidationError</li>    <li>400: PayloadValidationError</li>    <li>400: RequestBodyError</li>    <li>401: MissingAuthTokenError</li>    <li>401: InvalidAuthTokenError</li>    <li>403: AuthForbidden</li>    <li>404: FileExistsErrors</li>    <li>404: InputFileExistsErrors</li>    <li>404: ResourceNotFound</li>    <li>415: InvalidContentTypeError</li>    <li>500: UndefinedError</li>  </ul>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Response: Error Templated",
+          "content": "// This is a templated example for when the call itself fails\n\nHTTP/1.1 <Status_Code> <Reason>\nContent-Type: application/json\nContent-Length: <nonNegativeInteger>\n{\n  \"type\": \"<errorType>\",\n  \"code\": \"<errorCode>\",\n  \"title\": \"<errorDescription>\",\n  \"<errorDetails>\": [\n    {\n      \"name\":\"<paramName>\",\n      \"reason\":\"<error>\"\n    }\n  ]\n}",
           "type": "object"
         }
       ]
