@@ -7109,7 +7109,8 @@
             ],
             "optional": false,
             "field": "output.mask.format",
-            "description": "<p>soft mask or binary mask</p>"
+            "defaultValue": "soft",
+            "description": "<p>A soft (feathered) mask or binary mask.</p>"
           },
           {
             "group": "Request",
@@ -7326,6 +7327,7 @@
             ],
             "optional": false,
             "field": "output.mask.format",
+            "defaultValue": "soft",
             "description": ""
           },
           {
@@ -7345,7 +7347,7 @@
         },
         {
           "title": "Response: Succeeded",
-          "content": "HTTP/1.1 200\nContent-Type: application/json\nContent-Length: <nonNegativeInteger>\nLocation: \"https://image.adobe.io/sensei/status/<:jobID>\"\n{\n   \"jobID\":\"c900e70c-03b2-43dc-b6f0-b0db16333b4b\",\n   \"status\":\"succeeded\",\n   \"input\": \"/files/images/input.jpg\",\n   \"output\":{\n      \"storage\":\"adobe\",\n      \"href\":\"/files/cutout/output/mask.png\",\n      \"mask\":{\n         \"format\":\"binary\"\n      },\n      \"color\":{\n         \"space\":\"rgb\"\n      }\n   },\n   \"options\":{\n      \"optimize\":\"performance\"\n   },\n   \"_links\":{\n      \"self\":{\n         \"href\":\"https://image.adobe.io/sensei/status/c900e70c-03b2-43dc-b6f0-b0db16333b4b\"\n      }\n   }\n}",
+          "content": "HTTP/1.1 200\nContent-Type: application/json\nContent-Length: <nonNegativeInteger>\nLocation: \"https://image.adobe.io/sensei/status/<:jobID>\"\n{\n   \"jobID\":\"c900e70c-03b2-43dc-b6f0-b0db16333b4b\",\n   \"status\":\"succeeded\",\n   \"input\": \"/files/images/input.jpg\",\n   \"output\":{\n      \"storage\":\"adobe\",\n      \"href\":\"/files/cutout/output/mask.png\",\n      \"mask\":{\n         \"format\":\"soft\"\n      },\n      \"color\":{\n         \"space\":\"rgb\"\n      }\n   },\n   \"options\":{\n      \"optimize\":\"performance\"\n   },\n   \"_links\":{\n      \"self\":{\n         \"href\":\"https://image.adobe.io/sensei/status/c900e70c-03b2-43dc-b6f0-b0db16333b4b\"\n      }\n   }\n}",
           "type": "object"
         },
         {
@@ -7521,6 +7523,7 @@
             ],
             "optional": false,
             "field": "output.mask.format",
+            "defaultValue": "soft",
             "description": ""
           },
           {
@@ -7540,7 +7543,7 @@
         },
         {
           "title": "Response: Succeeded",
-          "content": "HTTP/1.1 200\nContent-Type: application/json\nContent-Length: <nonNegativeInteger>\nLocation: \"https://image.adobe.io/sensei/status/<:jobID>\"\n{\n   \"jobID\":\"c900e70c-03b2-43dc-b6f0-b0db16333b4b\",\n   \"status\":\"succeeded\",\n   \"input\": \"/files/images/input.jpg\",\n   \"options\":{\n      \"optimize\":\"performance\"\n   },\n   \"output\":{\n      \"storage\":\"adobe\",\n      \"href\":\"/files/cutout/output/mask.png\",\n      \"mask\":{\n         \"format\":\"binary\"\n      },\n      \"color\":{\n         \"space\":\"rgb\"\n      }\n   },\n   \"_links\":{\n      \"self\":{\n         \"href\":\"https://image.adobe.io/sensei/status/c900e70c-03b2-43dc-b6f0-b0db16333b4b\"\n      }\n   }\n}",
+          "content": "HTTP/1.1 200\nContent-Type: application/json\nContent-Length: <nonNegativeInteger>\nLocation: \"https://image.adobe.io/sensei/status/<:jobID>\"\n{\n   \"jobID\":\"c900e70c-03b2-43dc-b6f0-b0db16333b4b\",\n   \"status\":\"succeeded\",\n   \"input\": \"/files/images/input.jpg\",\n   \"options\":{\n      \"optimize\":\"performance\"\n   },\n   \"output\":{\n      \"storage\":\"adobe\",\n      \"href\":\"/files/cutout/output/mask.png\",\n      \"mask\":{\n         \"format\":\"soft\"\n      },\n      \"color\":{\n         \"space\":\"rgb\"\n      }\n   },\n   \"_links\":{\n      \"self\":{\n         \"href\":\"https://image.adobe.io/sensei/status/c900e70c-03b2-43dc-b6f0-b0db16333b4b\"\n      }\n   }\n}",
           "type": "object"
         },
         {
@@ -7735,7 +7738,8 @@
             ],
             "optional": false,
             "field": "output.mask.format",
-            "description": "<p>soft mask or binary mask</p>"
+            "defaultValue": "soft",
+            "description": "<p>A soft (feathered) mask or binary mask.</p>"
           },
           {
             "group": "Request",
@@ -7750,7 +7754,7 @@
       "examples": [
         {
           "title": "Request",
-          "content": "POST https://image.adobe.io/sensei/mask HTTP/1.1\nHost: image.adobe.io\nAuthorization: Bearer $token\nX-Api-Key: $api_key\n{\n   \"input\":{\n      \"storage\":\"external\",\n      \"href\":\"https://some-bucket-us-east-1.amazonaws.com/s3_presigned_getObject...\"\n   },\n   \"output\":{\n      \"storage\":\"adobe\",\n      \"href\":\"/files/cutout/output/mask.png\",\n      \"mask\":{\n         \"format\":\"binary\"\n      },\n      \"overwrite\":true\n   }\n}",
+          "content": "POST https://image.adobe.io/sensei/mask HTTP/1.1\nHost: image.adobe.io\nAuthorization: Bearer $token\nX-Api-Key: $api_key\n{\n   \"input\":{\n      \"storage\":\"external\",\n      \"href\":\"https://some-bucket-us-east-1.amazonaws.com/s3_presigned_getObject...\"\n   },\n   \"output\":{\n      \"storage\":\"adobe\",\n      \"href\":\"/files/cutout/output/mask.png\",\n      \"mask\":{\n         \"format\":\"soft\"\n      },\n      \"overwrite\":true\n   }\n}",
           "type": "http"
         },
         {
